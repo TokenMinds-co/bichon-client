@@ -29,15 +29,14 @@ const AppConnectButton = () => {
   };
 
   useEffect(() => {
-    if (isConnected && address) {
+    if (isConnected) {
       console.log("Connected");
-      setUser({ ...userData, address });
       router.push("/dashboard");
     } else {
       console.log("Not connected");
       router.push("/");
     }
-  }, [address, isConnected, router, userData]);
+  }, [isConnected, router]);
 
   return (
     <div className="flex flex-col w-full h-full items-center justify-center space-y-3">
@@ -58,17 +57,6 @@ const AppConnectButton = () => {
               className="w-full p-2"
               value={userData.email}
               onChange={(e) => setUser({ ...userData, email: e.target.value })}
-              required
-            />
-            <input
-              type="text"
-              placeholder="Solana Address"
-              className="w-full p-2"
-              readOnly
-              value={userData.address}
-              onChange={(e) =>
-                setUser({ ...userData, address: e.target.value })
-              }
               required
             />
             <button type="submit" className="w-1/2 p-2 bg-blue-500 text-white">

@@ -1,12 +1,29 @@
 import React from "react";
-import { createSumsumSig } from "@/lib/utils";
+import { axiosInstance, createSumsumSig } from "@/lib/utils";
 import SBWebSDK from "@/components/sumsub/SBWebSDK";
 
 const DashboardPage = async ({ searchParams }: URLProps) => {
   const email = searchParams.email;
-  // const address = searchParams.address;
+  const address = searchParams.address;
+  // Query users
+  const ENDPOINT = `/users?limit=10&page=1&q=${email}`;
+  const { data: result } = await axiosInstance.get(ENDPOINT);
+  const users = result.data.users;
+  const isExist = users.length > 0;
+
+  // If not exist, create a candidate KYC user
+  if (!isExist) {
+    await axiosInstance.post("/users", {
+      email,
+      address,
+    });
+  }
+
   const url = "https://api.sumsub.com";
-  const path = `/resources/accessTokens?userId=${email}&levelName=basic-kyc-level&ttlInSecs=600`;
+  const path = `/resources/accessTokens?userId=${encodeURIComponent(
+    email!
+  )}&levelName=basic-kyc-level&ttlInSecs=600`;
+  console.log("Path", path);
   const config = createSumsumSig(path, "POST", null);
 
   const response = await fetch(`${url}${path}`, {
