@@ -18,7 +18,10 @@ const SBWebSDK = ({ accessToken }: SBWebSDKProps) => {
         phone: "+6281335488360",
         theme: "dark",
       }}
-      options={{ addViewportTag: false, adaptIframeHeight: true }}
+      options={{ addViewportTag: true, adaptIframeHeight: true }}
+      style={{
+        width: "100%",
+      }}
       onError={(error: unknown) => console.error("Sumsub error", error)}
       onMessage={(message: unknown) => console.log("Sumsub message}", message)}
     />

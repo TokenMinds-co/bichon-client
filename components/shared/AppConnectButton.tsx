@@ -1,33 +1,83 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { ConnectButton, useAccount } from "@particle-network/connectkit";
 import { useRouter } from "next/navigation";
+
+interface UserData {
+  email: string;
+  address: string;
+}
 
 const AppConnectButton = () => {
   const router = useRouter();
   const { isConnected, address, chainId } = useAccount();
 
+  const [userData, setUser] = useState<UserData>({
+    email: "",
+    address: address || "",
+  });
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // push to /verify and set the email and address in the query params
+    router.push(
+      `/verify?email=${encodeURIComponent(userData.email)}&address=${
+        userData.address
+      }`
+    );
+  };
+
   useEffect(() => {
-    if (isConnected) {
+    if (isConnected && address) {
       console.log("Connected");
+      setUser({ ...userData, address });
       router.push("/dashboard");
     } else {
       console.log("Not connected");
       router.push("/");
     }
-  }, [isConnected, router]);
+  }, [address, isConnected, router, userData]);
 
   return (
-    <>
+    <div className="flex flex-col w-full h-full items-center justify-center space-y-3">
       <ConnectButton label="Connect Wallet" />;
       {isConnected && (
         <div className="text-white text-left mt-10">
           <h2>Address: {address}</h2>
           <h2>Chain ID: {chainId}</h2>
+
+          <form
+            id="sumsub_form"
+            onSubmit={handleSubmit}
+            className="flex flex-col w-full h-full items-center justify-center space-y-3 text-black"
+          >
+            <input
+              type="email"
+              placeholder="Email"
+              className="w-full p-2"
+              value={userData.email}
+              onChange={(e) => setUser({ ...userData, email: e.target.value })}
+              required
+            />
+            <input
+              type="text"
+              placeholder="Solana Address"
+              className="w-full p-2"
+              readOnly
+              value={userData.address}
+              onChange={(e) =>
+                setUser({ ...userData, address: e.target.value })
+              }
+              required
+            />
+            <button type="submit" className="w-1/2 p-2 bg-blue-500 text-white">
+              Submit
+            </button>
+          </form>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
