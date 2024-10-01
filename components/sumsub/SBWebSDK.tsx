@@ -5,6 +5,7 @@ import React from "react";
 
 interface SBWebSDKProps {
   accessToken: string;
+  email: string;
 }
 
 const SBWebSDK = ({ accessToken }: SBWebSDKProps) => {
@@ -15,7 +16,6 @@ const SBWebSDK = ({ accessToken }: SBWebSDKProps) => {
       config={{
         lang: "en", //language of WebSDK texts and comments (ISO 639-1 format)
         email: "graita@purpleminds.co",
-        phone: "+6281335488360",
         theme: "dark",
       }}
       options={{ addViewportTag: true, adaptIframeHeight: true }}

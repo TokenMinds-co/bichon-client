@@ -19,12 +19,12 @@ const AppConnectButton = () => {
   });
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    const currentAddress = address;
     // push to /verify and set the email and address in the query params
     router.push(
-      `/verify?email=${encodeURIComponent(userData.email)}&address=${
-        userData.address
-      }`
+      `/verify?email=${encodeURIComponent(
+        userData.email
+      )}&address=${currentAddress}`
     );
   };
 

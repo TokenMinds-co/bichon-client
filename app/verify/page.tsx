@@ -1,8 +1,9 @@
 import React from "react";
-import { axiosInstance, createSumsumSig } from "@/lib/utils";
+import { axiosInstance } from "@/lib/utils";
 import SBWebSDK from "@/components/sumsub/SBWebSDK";
+import { createSumsumSig } from "@/lib/sumsub";
 
-const DashboardPage = async ({ searchParams }: URLProps) => {
+const VerifyPage = async ({ searchParams }: URLProps) => {
   const email = searchParams.email;
   const address = searchParams.address;
   // Query users
@@ -23,19 +24,19 @@ const DashboardPage = async ({ searchParams }: URLProps) => {
   const path = `/resources/accessTokens?userId=${encodeURIComponent(
     email!
   )}&levelName=basic-kyc-level&ttlInSecs=600`;
-  console.log("Path", path);
   const config = createSumsumSig(path, "POST", null);
-
+  console.log("Config", config);
   const response = await fetch(`${url}${path}`, {
     headers: config,
     method: "POST",
   });
   const data = await response.json();
+  console.log("Data", data);
   return (
     <main className="w-screen h-screen flex flex-col items-center justify-center bg-gray-800 p-5">
-      <SBWebSDK accessToken={data.token} />
+      <SBWebSDK accessToken={data.token} email={email!} />
     </main>
   );
 };
 
-export default DashboardPage;
+export default VerifyPage;
