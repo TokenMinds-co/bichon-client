@@ -30,10 +30,8 @@ const AppConnectButton = () => {
 
   useEffect(() => {
     if (isConnected) {
-      console.log("Connected");
       router.push("/dashboard");
     } else {
-      console.log("Not connected");
       router.push("/");
     }
   }, [isConnected, router]);

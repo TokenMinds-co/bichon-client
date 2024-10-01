@@ -25,13 +25,11 @@ const VerifyPage = async ({ searchParams }: URLProps) => {
     email!
   )}&levelName=basic-kyc-level&ttlInSecs=600`;
   const config = createSumsumSig(path, "POST", null);
-  console.log("Config", config);
   const response = await fetch(`${url}${path}`, {
     headers: config,
     method: "POST",
   });
   const data = await response.json();
-  console.log("Data", data);
   return (
     <main className="w-screen h-screen flex flex-col items-center justify-center bg-gray-800 p-5">
       <SBWebSDK accessToken={data.token} email={email!} />

@@ -32,10 +32,8 @@ export const serverSumsubConfig = (url: string, method: string, data: any) => {
 export const generateAccessToken = async (email: string): Promise<string> => {
   try {
     const encodedEmail = encodeURIComponent(email);
-    console.log("Encoded email", encodedEmail);
     const url = "https://api.sumsub.com";
-    const path =
-      "/resources/accessTokens?userId=graita%40purpleminds.co&levelName=basic-kyc-level&ttlInSecs=600";
+    const path = `/resources/accessTokens?userId=${encodedEmail}&levelName=basic-kyc-level&ttlInSecs=600`;
     const config = serverSumsubConfig(path, "POST", null);
 
     const response = await fetch(`${url}${path}`, {
@@ -43,8 +41,7 @@ export const generateAccessToken = async (email: string): Promise<string> => {
       method: "POST",
     });
     const data = await response.json();
-    console.log("Data", data);
-    return "a";
+    return data.token;
   } catch (error) {
     throw undefined;
   }
