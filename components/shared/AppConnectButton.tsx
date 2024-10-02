@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { ConnectButton, useAccount } from "@particle-network/connectkit";
+import { useAccount } from "@particle-network/connectkit";
 import { useRouter } from "next/navigation";
+import ConnectWallet from "./ConnectWallet";
 
 interface UserData {
   email: string;
@@ -38,7 +39,8 @@ const AppConnectButton = () => {
 
   return (
     <div className="flex flex-col w-full h-full items-center justify-center space-y-3">
-      <ConnectButton label="Connect Wallet" />;
+      <ConnectWallet label="Connect Wallet" />
+
       {isConnected && (
         <div className="text-white text-left mt-10">
           <h2>Address: {address}</h2>
