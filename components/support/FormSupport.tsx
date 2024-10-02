@@ -116,22 +116,22 @@ export default function FormSupport() {
     mutationKey: ["upload-files"],
   });
 
-  const createTicketMutation = useMutation({
-    mutationFn: async (data: FormData) => {
-      const axiosInstance = await generateAxiosInstance(undefined);
-      await axiosInstance.post(`/tickets`, data);
-      router.refresh();
-    },
-    mutationKey: ["update-ticket"],
-  });
+  // const createTicketMutation = useMutation({
+  //   mutationFn: async (data: FormData) => {
+  //     const axiosInstance = await generateAxiosInstance(undefined);
+  //     console.log("Data", data);
+  //     await axiosInstance.post(`/tickets`, data);
+  //     router.refresh();
+  //   },
+  //   mutationKey: ["create-ticket"],
+  // });
 
   const onSubmit = async (data: FormData) => {
     console.log(data);
     console.log(files);
     const attachment = await uploadFilesMutation.mutateAsync(files);
     console.log(attachment);
-    await createTicketMutation.mutateAsync({ ...data, attachment });
-    // Handle form submission here
+    // await createTicketMutation.mutateAsync({ ...data, attachment });
   };
 
   return (

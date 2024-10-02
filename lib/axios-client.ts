@@ -28,6 +28,7 @@ export const generateAxiosInstance = async (
     });
     const signature = res.data;
 
+    console.log("Signature", signature);
     //   SET HEADERS
     config.headers.Authorization = token ? `Bearer ${token}` : "";
     config.headers["x-api-key"] = apiKey;
