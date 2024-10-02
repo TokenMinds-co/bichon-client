@@ -2,10 +2,16 @@ import React from "react";
 import SBWebSDK from "@/components/sumsub/SBWebSDK";
 import { createSumsumSig } from "@/lib/sumsub";
 import { axiosInstance } from "@/lib/axios";
+import { redirect } from "next/navigation";
 
 const VerifyPage = async ({ searchParams }: URLProps) => {
   const email = searchParams.email;
   const address = searchParams.address;
+
+  if (!email || !address) {
+    redirect("/dashboard");
+  }
+
   // Query users
   const ENDPOINT = `/users?limit=10&page=1&email=${encodeURIComponent(
     email!

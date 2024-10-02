@@ -11,12 +11,14 @@ interface UserData {
 
 const FormKYC = () => {
   const router = useRouter();
-  const { address } = useAccount();
+  const { address, isConnected } = useAccount();
+  const [isSubmitting, setSubmitting] = useState(false);
   const [userData, setUser] = useState<UserData>({
     email: "",
     address: address || "",
   });
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    setSubmitting(true);
     e.preventDefault();
     const currentAddress = address;
     // push to /verify and set the email and address in the query params
@@ -28,23 +30,31 @@ const FormKYC = () => {
   };
   return (
     <div className="flex flex-col w-full items-center justify-center">
-      <form
-        id="sumsub_form"
-        onSubmit={handleSubmit}
-        className="flex flex-col w-full h-full max-w-md items-center justify-center space-y-3 text-black"
-      >
-        <input
-          type="email"
-          placeholder="Email"
-          className="w-full p-2"
-          value={userData.email}
-          onChange={(e) => setUser({ ...userData, email: e.target.value })}
-          required
-        />
-        <button type="submit" className="w-1/2 p-2 bg-blue-500 text-white">
-          Submit
-        </button>
-      </form>
+      {isConnected ? (
+        <form
+          id="sumsub_form"
+          onSubmit={handleSubmit}
+          className="flex flex-col w-full h-full max-w-md items-center justify-center space-y-3 text-black"
+        >
+          <input
+            type="email"
+            placeholder="Email"
+            className="w-full p-2"
+            value={userData.email}
+            onChange={(e) => setUser({ ...userData, email: e.target.value })}
+            required
+          />
+          <button
+            disabled={isSubmitting}
+            type="submit"
+            className="w-1/2 p-2 bg-blue-500 text-white"
+          >
+            {isSubmitting ? "Submitting..." : "Submit"}
+          </button>
+        </form>
+      ) : (
+        <h1 className="text-white">Connect your wallet to proceed with KYC</h1>
+      )}
     </div>
   );
 };
