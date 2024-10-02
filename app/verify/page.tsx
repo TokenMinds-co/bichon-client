@@ -7,7 +7,10 @@ const VerifyPage = async ({ searchParams }: URLProps) => {
   const email = searchParams.email;
   const address = searchParams.address;
   // Query users
-  const ENDPOINT = `/users?limit=10&page=1&q=${email}`;
+  const ENDPOINT = `/users?limit=10&page=1&email=${encodeURIComponent(
+    email!
+  )}&address=${address}`;
+
   const { data: result } = await axiosInstance.get(ENDPOINT);
   const users = result.data.users;
   const isExist = users.length > 0;
