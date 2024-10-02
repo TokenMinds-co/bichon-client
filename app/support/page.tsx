@@ -1,5 +1,34 @@
-import FormSupport from "@/components/support/FormSupport";
+import Support from "@/components/support/Support";
+import { Metadata } from "next";
 import React from "react";
+
+export const metadata: Metadata = {
+  title: "Bichon Defender | Support",
+  description: "Solana Presale Bichon Defender Support",
+  keywords: [
+    "Bichon Defender",
+    "Solana",
+    "Presale",
+    "Bichon",
+    "Solana Presale",
+    "Solana Bichon Defender",
+    "Solana Presale Bichon Defender",
+  ],
+  authors: {
+    name: "Bichon Defender",
+    url: "https://bichondefender.com",
+  },
+  creator: "Tokenminds",
+  publisher: "Tokenminds",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://bichondefender.com",
+    siteName: "Bichon Defender",
+    title: "Bichon Defender | Support",
+    description: "Solana Presale Bichon Defender Support",
+  },
+};
 
 const TicketSupportPage = () => {
   return (
@@ -9,7 +38,7 @@ const TicketSupportPage = () => {
         Only for registered users. Please verify as user candidate to submit a
         ticket.
       </p>
-      <FormSupport />
+      <Support />
     </main>
   );
 };

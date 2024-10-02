@@ -72,7 +72,11 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-export default function FormSupport() {
+interface FormSupportProps {
+  email: string;
+}
+
+export default function FormSupport({ email }: FormSupportProps) {
   const router = useRouter();
   const [files, setFiles] = useState<File[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -80,7 +84,7 @@ export default function FormSupport() {
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: {
-      email: "",
+      email,
       attachment: [],
       message: "",
       name: "",
@@ -193,7 +197,7 @@ export default function FormSupport() {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input {...field} required />
+                    <Input {...field} required readOnly />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
