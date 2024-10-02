@@ -1,12 +1,17 @@
-import FormKYC from "@/components/dashboard/FormKYC";
-import AppConnectButton from "@/components/shared/AppConnectButton";
+import Overview from "@/components/dashboard/Overview";
+import TransactionHistory from "@/components/dashboard/TransactionHistory";
+import ConnectWallet from "@/components/shared/ConnectWallet";
 import React from "react";
 
 const DashboardPage = async () => {
   return (
-    <main className="flex flex-col w-full h-screen items-center justify-center space-y-5 bg-gray-800 p-5">
-      <AppConnectButton />
-      <FormKYC />
+    <main className="container mx-auto p-5 flex flex-col gap-8">
+      <div className="flex flex-row justify-between items-center">
+        <h1 className="text-3xl font-bold text-white">User Dashboard</h1>
+        <ConnectWallet label="Connect Wallet" />
+      </div>
+      <Overview />
+      <TransactionHistory />
     </main>
   );
 };
