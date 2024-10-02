@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { AlertCircle, Upload } from "lucide-react";
+import ImageUploadedPreview from "../shared/ImageUploadedPreview";
 
 const MAX_FILE_SIZE = 25 * 1024 * 1024; // 25MB
 const ACCEPTED_IMAGE_TYPES = [
@@ -52,7 +53,8 @@ const schema = z.object({
           ),
       })
     )
-    .max(5, "You can only upload up to 5 images"),
+    .max(5, "You can only upload up to 5 images")
+    .optional(),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -80,6 +82,13 @@ export default function FormSupport() {
     maxSize: MAX_FILE_SIZE,
     maxFiles: 5,
   });
+
+  const handleRemove = useCallback(
+    (index: number) => {
+      setFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
+    },
+    [setFiles]
+  );
 
   const onSubmit = (data: FormData) => {
     console.log(data);
@@ -172,6 +181,10 @@ export default function FormSupport() {
 
           <div className="space-y-2">
             <Label htmlFor="message">Message</Label>
+            <p className="text-xs">
+              Message should be at least 50 characters long and at most 1000
+              characters long
+            </p>
             <Textarea
               id="message"
               {...register("message")}
@@ -202,15 +215,8 @@ export default function FormSupport() {
                 Max 5 images, 25MB each. Supported formats: JPG, PNG, GIF, WebP
               </p>
             </div>
-            {files.length > 0 && (
-              <ul className="mt-4 space-y-2">
-                {files.map((file, index) => (
-                  <li key={index} className="text-sm text-gray-600">
-                    {file.name} - {(file.size / 1024 / 1024).toFixed(2)} MB
-                  </li>
-                ))}
-              </ul>
-            )}
+
+            <ImageUploadedPreview files={files} handleRemove={handleRemove} />
             {errors.attachments && (
               <p className="text-red-500 text-sm flex items-center mt-2">
                 <AlertCircle className="w-4 h-4 mr-1" />
