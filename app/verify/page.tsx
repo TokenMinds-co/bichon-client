@@ -1,7 +1,7 @@
 import React from "react";
-import { axiosInstance } from "@/lib/utils";
 import SBWebSDK from "@/components/sumsub/SBWebSDK";
 import { createSumsumSig } from "@/lib/sumsub";
+import { axiosInstance } from "@/lib/axios";
 
 const VerifyPage = async ({ searchParams }: URLProps) => {
   const email = searchParams.email;
