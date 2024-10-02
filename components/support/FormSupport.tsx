@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useDropzone } from "react-dropzone";
@@ -15,12 +15,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Label } from "@/components/ui/label";
-import { AlertCircle, Upload } from "lucide-react";
+import { Upload } from "lucide-react";
 import ImageUploadedPreview from "../shared/ImageUploadedPreview";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { generateAxiosInstance } from "@/lib/axios-client";
+import { supportPriorities } from "@/constant/common";
 
 const MAX_FILE_SIZE = 25 * 1024 * 1024; // 25MB
 const ACCEPTED_IMAGE_TYPES = [
@@ -35,7 +45,7 @@ const schema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Invalid email address"),
   priority: z.enum(["LOW", "MEDIUM", "HIGH"]),
-  type: z.enum(["MARKETING", "TECHNICAL", "SUPPORT"]),
+  type: z.string().uuid(),
   subject: z.string().min(5, "Subject must be at least 5 characters"),
   message: z
     .string()
@@ -65,14 +75,18 @@ type FormData = z.infer<typeof schema>;
 export default function FormSupport() {
   const router = useRouter();
   const [files, setFiles] = useState<File[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const {
-    register,
-    handleSubmit,
-    control,
-    formState: { errors },
-  } = useForm<FormData>({
+  const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
+    defaultValues: {
+      email: "",
+      attachment: [],
+      message: "",
+      name: "",
+      priority: "LOW",
+      subject: "",
+    },
   });
 
   const onDrop = (acceptedFiles: File[]) => {
@@ -95,6 +109,18 @@ export default function FormSupport() {
     [setFiles]
   );
 
+  const { data: types } = useQuery({
+    queryKey: ["get-types"],
+    queryFn: async () => {
+      const axiosInstance = await generateAxiosInstance(undefined);
+      const { data } = await axiosInstance.get(
+        "/tickets/types?limit=50&page=1"
+      );
+      const types = data.data.types as TicketTypeResponse[];
+      return types;
+    },
+  });
+
   const uploadFilesMutation = useMutation({
     mutationFn: async (files: File[]) => {
       const axiosInstance = await generateAxiosInstance(undefined);
@@ -116,159 +142,188 @@ export default function FormSupport() {
     mutationKey: ["upload-files"],
   });
 
-  // const createTicketMutation = useMutation({
-  //   mutationFn: async (data: FormData) => {
-  //     const axiosInstance = await generateAxiosInstance(undefined);
-  //     console.log("Data", data);
-  //     await axiosInstance.post(`/tickets`, data);
-  //     router.refresh();
-  //   },
-  //   mutationKey: ["create-ticket"],
-  // });
+  const createTicketMutation = useMutation({
+    mutationFn: async (data: FormData) => {
+      const axiosInstance = await generateAxiosInstance(undefined);
+      await axiosInstance.post(`/tickets`, data);
+      form.reset();
+      router.refresh();
+    },
+    mutationKey: ["create-ticket"],
+  });
 
   const onSubmit = async (data: FormData) => {
-    console.log(data);
-    console.log(files);
-    const attachment = await uploadFilesMutation.mutateAsync(files);
-    console.log(attachment);
-    // await createTicketMutation.mutateAsync({ ...data, attachment });
+    try {
+      setIsSubmitting(true);
+      const attachment = await uploadFilesMutation.mutateAsync(files);
+      await createTicketMutation.mutateAsync({ ...data, attachment });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="max-w-6xl mx-auto p-6 bg-white rounded-lg shadow"
-    >
-      <h2 className="text-2xl font-bold mb-6">Submit a Support Ticket</h2>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="space-y-6">
-          <div className="space-y-2">
-            <Label htmlFor="name">Name</Label>
-            <Input id="name" {...register("name")} />
-            {errors.name && (
-              <p className="text-red-500 text-sm">{errors.name.message}</p>
-            )}
-          </div>
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="max-w-6xl mx-auto p-6 bg-white rounded-lg shadow"
+      >
+        <h2 className="text-2xl font-bold mb-6">Submit a Support Ticket</h2>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="space-y-6">
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Name</FormLabel>
+                  <FormControl>
+                    <Input {...field} required />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input {...field} required />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-          <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email" {...register("email")} />
-            {errors.email && (
-              <p className="text-red-500 text-sm">{errors.email.message}</p>
-            )}
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="priority">Priority</Label>
-            <Controller
+            <FormField
+              control={form.control}
               name="priority"
-              control={control}
               render={({ field }) => (
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select priority" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="LOW">Low</SelectItem>
-                    <SelectItem value="MEDIUM">Medium</SelectItem>
-                    <SelectItem value="HIGH">High</SelectItem>
-                  </SelectContent>
-                </Select>
+                <FormItem>
+                  <FormLabel>Priority</FormLabel>
+                  <FormControl>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      required
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select Priority" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {supportPriorities.slice(1).map((item, idx) => (
+                          <SelectItem key={idx} value={item}>
+                            {item}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
               )}
             />
-            {errors.priority && (
-              <p className="text-red-500 text-sm">{errors.priority.message}</p>
-            )}
-          </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="type">Type</Label>
-            <Controller
+            <FormField
+              control={form.control}
               name="type"
-              control={control}
               render={({ field }) => (
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select type" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="MARKETING">Marketing</SelectItem>
-                    <SelectItem value="TECHNICAL">Technical</SelectItem>
-                    <SelectItem value="SUPPORT">Support</SelectItem>
-                  </SelectContent>
-                </Select>
+                <FormItem>
+                  <FormLabel>Type</FormLabel>
+                  <FormControl>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      required
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select Type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {types &&
+                          types.map((item, idx) => (
+                            <SelectItem key={idx} value={item.id}>
+                              {item.name}
+                            </SelectItem>
+                          ))}
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
               )}
             />
-            {errors.type && (
-              <p className="text-red-500 text-sm">{errors.type.message}</p>
-            )}
-          </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="subject">Subject</Label>
-            <Input id="subject" {...register("subject")} />
-            {errors.subject && (
-              <p className="text-red-500 text-sm">{errors.subject.message}</p>
-            )}
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="message">Message</Label>
-            <p className="text-xs">
-              Message should be at least 50 characters long and at most 1000
-              characters long
-            </p>
-            <Textarea
-              id="message"
-              {...register("message")}
-              className="min-h-[100px]"
+            <FormField
+              control={form.control}
+              name="subject"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Subject</FormLabel>
+                  <FormControl>
+                    <Input {...field} required />
+                  </FormControl>
+                  <FormDescription>
+                    Subject should at most 100 characters long
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-            {errors.message && (
-              <p className="text-red-500 text-sm">{errors.message.message}</p>
-            )}
+            <FormField
+              control={form.control}
+              name="message"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Message</FormLabel>
+                  <FormControl>
+                    <Textarea rows={5} {...field} required />
+                  </FormControl>
+                  <FormDescription>
+                    Message should be at least 50 characters long and at most
+                    1000 characters long
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </div>
-        </div>
 
-        <div className="space-y-6">
-          <div className="space-y-2">
-            <Label>Attachments</Label>
-            <div
-              {...getRootProps()}
-              className={`border-2 border-dashed rounded-md p-4 text-center cursor-pointer ${
-                isDragActive ? "border-primary" : "border-gray-300"
-              }`}
-            >
-              <input {...getInputProps()} />
-              <Upload className="mx-auto h-12 w-12 text-gray-400" />
-              <p className="mt-2 text-sm text-gray-500">
-                Drag &apos;n&apos; drop some images here, or click to select
-                images
-              </p>
-              <p className="mt-1 text-xs text-gray-500">
-                Max 5 images, 25MB each. Supported formats: JPG, PNG, GIF, WebP
-              </p>
+          <div className="space-y-6">
+            <div className="space-y-2">
+              <Label>Attachments</Label>
+              <div
+                {...getRootProps()}
+                className={`border-2 border-dashed rounded-md p-4 text-center cursor-pointer ${
+                  isDragActive ? "border-primary" : "border-gray-300"
+                }`}
+              >
+                <input {...getInputProps()} />
+                <Upload className="mx-auto h-12 w-12 text-gray-400" />
+                <p className="mt-2 text-sm text-gray-500">
+                  Drag &apos;n&apos; drop some images here, or click to select
+                  images
+                </p>
+                <p className="mt-1 text-xs text-gray-500">
+                  Max 5 images, 25MB each. Supported formats: JPG, PNG, GIF,
+                  WebP
+                </p>
+              </div>
+
+              <ImageUploadedPreview files={files} handleRemove={handleRemove} />
             </div>
-
-            <ImageUploadedPreview files={files} handleRemove={handleRemove} />
-            {errors.attachment && (
-              <p className="text-red-500 text-sm flex items-center mt-2">
-                <AlertCircle className="w-4 h-4 mr-1" />
-                {errors.attachment.message}
-              </p>
-            )}
           </div>
         </div>
-      </div>
 
-      <Button type="submit" className="w-full mt-6">
-        Submit Ticket
-      </Button>
-    </form>
+        <Button type="submit" disabled={isSubmitting} className="w-full mt-6">
+          {isSubmitting ? "Submitting..." : "Submit Ticket"}
+        </Button>
+      </form>
+    </Form>
   );
 }

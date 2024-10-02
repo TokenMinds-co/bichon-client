@@ -22,7 +22,6 @@ const ImageUploadedPreview = ({
 
   const handleKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
-      console.log(event.key);
       if (event.key === "Escape") {
         toggleFullScreen(null);
       }
