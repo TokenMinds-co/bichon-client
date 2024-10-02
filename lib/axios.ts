@@ -10,7 +10,7 @@ interface GenerateSignatureprops {
   body?: object;
 }
 
-const generateSignature = ({
+export const generateSignature = ({
   method,
   url,
   timestamp,

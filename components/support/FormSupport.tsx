@@ -18,6 +18,9 @@ import {
 import { Label } from "@/components/ui/label";
 import { AlertCircle, Upload } from "lucide-react";
 import ImageUploadedPreview from "../shared/ImageUploadedPreview";
+import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import { generateAxiosInstance } from "@/lib/axios-client";
 
 const MAX_FILE_SIZE = 25 * 1024 * 1024; // 25MB
 const ACCEPTED_IMAGE_TYPES = [
@@ -38,7 +41,7 @@ const schema = z.object({
     .string()
     .min(50, "Message must be at least 50 characters")
     .max(1000, "Message must not exceed 1000 characters"),
-  attachments: z
+  attachment: z
     .array(
       z.object({
         file: z
@@ -60,7 +63,9 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 export default function FormSupport() {
+  const router = useRouter();
   const [files, setFiles] = useState<File[]>([]);
+
   const {
     register,
     handleSubmit,
@@ -90,8 +95,42 @@ export default function FormSupport() {
     [setFiles]
   );
 
-  const onSubmit = (data: FormData) => {
+  const uploadFilesMutation = useMutation({
+    mutationFn: async (files: File[]) => {
+      const axiosInstance = await generateAxiosInstance(undefined);
+      const formData = new FormData();
+      files.forEach((file) => {
+        formData.append("files", file);
+      });
+      const { data } = await axiosInstance.post(
+        "/tickets/attachments",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      return data.data.links;
+    },
+    mutationKey: ["upload-files"],
+  });
+
+  const createTicketMutation = useMutation({
+    mutationFn: async (data: FormData) => {
+      const axiosInstance = await generateAxiosInstance(undefined);
+      await axiosInstance.post(`/tickets`, data);
+      router.refresh();
+    },
+    mutationKey: ["update-ticket"],
+  });
+
+  const onSubmit = async (data: FormData) => {
     console.log(data);
+    console.log(files);
+    const attachment = await uploadFilesMutation.mutateAsync(files);
+    console.log(attachment);
+    await createTicketMutation.mutateAsync({ ...data, attachment });
     // Handle form submission here
   };
 
@@ -217,10 +256,10 @@ export default function FormSupport() {
             </div>
 
             <ImageUploadedPreview files={files} handleRemove={handleRemove} />
-            {errors.attachments && (
+            {errors.attachment && (
               <p className="text-red-500 text-sm flex items-center mt-2">
                 <AlertCircle className="w-4 h-4 mr-1" />
-                {errors.attachments.message}
+                {errors.attachment.message}
               </p>
             )}
           </div>

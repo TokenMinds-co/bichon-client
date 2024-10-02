@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { ParticleConnectkit } from "@/providers/connectkit";
 import Navbar from "@/components/shared/Navbar";
+import ReactQueryProvider from "@/providers/tanstack";
 // import Link from "next/link";
 
 const geistSans = localFont({
@@ -32,8 +33,10 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-800`}
       >
         <ParticleConnectkit>
-          <Navbar />
-          {children}
+          <ReactQueryProvider>
+            <Navbar />
+            {children}
+          </ReactQueryProvider>
         </ParticleConnectkit>
       </body>
     </html>
