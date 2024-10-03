@@ -91,6 +91,7 @@ export default function FormSupport({ email }: FormSupportProps) {
       name: "",
       priority: "LOW",
       subject: "",
+      type: "",
     },
   });
 
@@ -163,6 +164,7 @@ export default function FormSupport({ email }: FormSupportProps) {
       await createTicketMutation.mutateAsync({ ...data, attachment });
       toast.success("Ticket submitted successfully");
       form.reset();
+      setFiles([]);
     } catch (error) {
       console.error(error);
       toast.error("Failed to submit ticket");
