@@ -114,6 +114,8 @@ declare global {
     amount: number;
     finalBalance: number;
     currentBalance: number;
+    totalPrice: number;
+    createdAt: Date;
   }
   interface UserResponse {
     id: string;
@@ -125,6 +127,7 @@ declare global {
     kyc: UserKYCResponse | null;
     transactions: UserTransactionResponse[];
   }
+  
   interface DistributionResponse {
     id: string;
     name: string;
@@ -132,6 +135,7 @@ declare global {
     createdAt: string;
     updatedAt: string;
   }
+  
   interface TokenResponse {
     id: string;
     name: string;

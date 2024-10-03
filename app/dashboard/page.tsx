@@ -1,15 +1,42 @@
-import Overview from "@/components/dashboard/Overview";
-import TransactionHistory from "@/components/dashboard/TransactionHistory";
+import Dashboard from "@/components/dashboard/Dashboard";
+import { Metadata } from "next";
 import React from "react";
 
-const DashboardPage = async () => {
+export const metadata: Metadata = {
+  title: "Bichon Defender | Dashboard",
+  description: "Solana Presale Bichon Defender User Dashboard",
+  keywords: [
+    "Bichon Defender",
+    "Solana",
+    "Presale",
+    "Bichon",
+    "Solana Presale",
+    "Solana Bichon Defender",
+    "Solana Presale Bichon Defender",
+  ],
+  authors: {
+    name: "Bichon Defender",
+    url: "https://bichondefender.com",
+  },
+  creator: "Tokenminds",
+  publisher: "Tokenminds",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://bichondefender.com",
+    siteName: "Bichon Defender",
+    title: "Bichon Defender | Support",
+    description: "Solana Presale Bichon Defender Support",
+  },
+};
+
+const DashboardPage = () => {
   return (
-    <main className="container mx-auto p-5 flex flex-col gap-8">
+    <main className="container pt-28 mx-auto flex flex-col gap-8">
       <div className="flex flex-row justify-between items-center">
         <h1 className="text-3xl font-bold text-white">User Dashboard</h1>
       </div>
-      <Overview />
-      <TransactionHistory />
+      <Dashboard />
     </main>
   );
 };

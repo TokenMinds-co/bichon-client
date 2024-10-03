@@ -12,6 +12,21 @@ import {
 import { wallet, EntryPosition } from "@particle-network/connectkit/wallet";
 import React from "react";
 
+// const customSolana: Chain = {
+//   id: 101,
+//   name: "Solana",
+//   rpcUrls: {
+//     default: {
+//       http: ["https://solana-mainnet.gateway.tatum.io/"],
+//     },
+//   },
+//   nativeCurrency: {
+//     name: "Solana SOL",
+//     symbol: "SOL",
+//     decimals: 9,
+//   },
+// };
+
 //Retrived from https://dashboard.particle.network
 const projectId = process.env.NEXT_PUBLIC_PROJECT_ID as string;
 const clientKey = process.env.NEXT_PUBLIC_CLIENT_KEY as string;

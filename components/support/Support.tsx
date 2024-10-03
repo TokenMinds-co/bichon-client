@@ -26,6 +26,7 @@ const Support = () => {
     },
     enabled: !!address,
   });
+
   return (
     <div className="flex flex-col space-y-2 w-full h-full">
       {users && users.length > 0 ? (
