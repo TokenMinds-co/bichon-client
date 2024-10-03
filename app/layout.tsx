@@ -4,6 +4,7 @@ import "./globals.css";
 import { ParticleConnectkit } from "@/providers/connectkit";
 import Navbar from "@/components/shared/Navbar";
 import ReactQueryProvider from "@/providers/tanstack";
+import { Toaster } from "@/components/ui/sooner";
 // import Link from "next/link";
 
 const geistSans = localFont({
@@ -34,6 +35,7 @@ export default function RootLayout({
       >
         <ParticleConnectkit>
           <ReactQueryProvider>
+            <Toaster />
             <Navbar />
             {children}
           </ReactQueryProvider>

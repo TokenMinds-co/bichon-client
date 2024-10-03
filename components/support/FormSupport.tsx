@@ -31,6 +31,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { generateAxiosInstance } from "@/lib/axios-client";
 import { supportPriorities } from "@/constant/common";
+import { toast } from "sonner";
 
 const MAX_FILE_SIZE = 25 * 1024 * 1024; // 25MB
 const ACCEPTED_IMAGE_TYPES = [
@@ -150,7 +151,6 @@ export default function FormSupport({ email }: FormSupportProps) {
     mutationFn: async (data: FormData) => {
       const axiosInstance = await generateAxiosInstance(undefined);
       await axiosInstance.post(`/tickets`, data);
-      form.reset();
       router.refresh();
     },
     mutationKey: ["create-ticket"],
@@ -161,8 +161,11 @@ export default function FormSupport({ email }: FormSupportProps) {
       setIsSubmitting(true);
       const attachment = await uploadFilesMutation.mutateAsync(files);
       await createTicketMutation.mutateAsync({ ...data, attachment });
+      toast.success("Ticket submitted successfully");
+      form.reset();
     } catch (error) {
       console.error(error);
+      toast.error("Failed to submit ticket");
     } finally {
       setIsSubmitting(false);
     }
@@ -208,7 +211,7 @@ export default function FormSupport({ email }: FormSupportProps) {
               control={form.control}
               name="priority"
               render={({ field }) => (
-                <FormItem>
+                <FormItem hidden>
                   <FormLabel>Priority</FormLabel>
                   <FormControl>
                     <Select
