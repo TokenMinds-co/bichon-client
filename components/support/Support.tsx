@@ -27,17 +27,17 @@ const Support = () => {
     enabled: !!address,
   });
   return (
-    <div className="flex flex-col space-y-2 w-full h-full">
+    <div className="flex flex-col space-y-2 w-full h-full items-center justify-center">
       {users && users.length > 0 ? (
         <FormSupport email={users[0].email} />
       ) : (
-        <div className="flex flex-col space-y-3 w-full h-full">
+        <div className="flex flex-col space-y-3 w-full h-full items-center justify-center">
           <p className="text-white text-sm">
             Unfortunately, you are not a registered user. Please verify as a
             user
           </p>
           <Link href="/">
-            <Button className="text-white text-sm underline">
+            <Button className="text-white text-sm" variant="default">
               Go to Verify Page
             </Button>
           </Link>
