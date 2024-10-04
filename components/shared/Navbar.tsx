@@ -24,6 +24,13 @@ const Navbar = () => {
           >
             Support
           </Link>
+          <Link
+            href="/payment"
+            className="text-white hover:underline"
+            aria-label="Payment"
+          >
+            Payment
+          </Link>
           <AppConnectButton />
         </div>
       </div>
