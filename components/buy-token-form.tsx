@@ -7,11 +7,27 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { useAccount } from "@particle-network/connectkit";
 import ConnectWallet from "./shared/ConnectWallet";
+import { useQuery } from "@tanstack/react-query";
+import Link from "next/link";
 
 export default function BuyTokenForm() {
   const [quantity, setQuantity] = useState<number>(0);
   const { address, isConnected } = useAccount();
   const router = useRouter();
+
+  const { data: users } = useQuery({
+    queryKey: ["get-types", address],
+    queryFn: async () => {
+      if (!address) return [];
+      const axiosInstance = await generateAxiosInstance(undefined);
+      const { data } = await axiosInstance.get(
+        `/users?limit=10&page=1&&address=${address}`
+      );
+      const users = data.data.users as UserResponse[];
+      return users;
+    },
+    enabled: !!address,
+  });
 
   const buyTokenViaFiat = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -41,7 +57,7 @@ export default function BuyTokenForm() {
     }
   };
 
-  return (
+  return users && users.length > 0 ? (
     <form
       onSubmit={isConnected ? buyTokenViaFiat : () => {}}
       className="flex flex-col gap-4 w-[500px] bg-white rounded-lg shadow-lg p-10"
@@ -61,5 +77,17 @@ export default function BuyTokenForm() {
         <ConnectWallet label="Connect Wallet" />
       )}
     </form>
+  ) : (
+    <div className="text-white flex flex-col gap-4">
+      <div>
+        Wallet address is not verified! <br />
+        Verify your account first to start buying token.
+      </div>
+      <Link href="/">
+        <Button className="text-white text-sm underline">
+          Go to Verify Page
+        </Button>
+      </Link>
+    </div>
   );
 }
