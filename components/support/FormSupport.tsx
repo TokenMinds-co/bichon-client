@@ -160,7 +160,10 @@ export default function FormSupport({ email }: FormSupportProps) {
   const onSubmit = async (data: FormData) => {
     try {
       setIsSubmitting(true);
-      const attachment = await uploadFilesMutation.mutateAsync(files);
+      let attachment = [];
+      if (files.length > 0) {
+        attachment = await uploadFilesMutation.mutateAsync(files);
+      }
       await createTicketMutation.mutateAsync({ ...data, attachment });
       toast.success("Ticket submitted successfully");
       form.reset();
@@ -278,7 +281,8 @@ export default function FormSupport({ email }: FormSupportProps) {
                     <Input {...field} required />
                   </FormControl>
                   <FormDescription>
-                    Subject should at most 100 characters long
+                    Subject should be at least 5 characters long and at most 100
+                    characters long
                   </FormDescription>
                   <FormMessage />
                 </FormItem>

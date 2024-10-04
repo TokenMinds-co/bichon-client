@@ -16,12 +16,10 @@ const Support = () => {
     queryFn: async () => {
       if (!address) return [];
       const axiosInstance = await generateAxiosInstance(undefined);
-      console.log("address", address);
       const { data } = await axiosInstance.get(
         `/users?limit=10&page=1&&address=${address}`
       );
       const users = data.data.users as UserResponse[];
-      console.log("users", users);
       return users;
     },
     enabled: !!address,
