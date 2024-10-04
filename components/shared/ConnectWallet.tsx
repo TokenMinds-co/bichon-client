@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React from "react";
 import { useModal, useAccount } from "@particle-network/connectkit";
@@ -15,6 +15,7 @@ const ConnectWallet = ({ label }: { label: string }) => {
 
   return (
     <Button
+      type="button"
       className="flex flex-row gap-3 py-5 items-center justify-center duration-200 ease-in-out"
       onClick={() => setOpen(true)}
     >
