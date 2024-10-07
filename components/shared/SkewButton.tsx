@@ -25,7 +25,7 @@ export default function SkewButton({
     <Button
       {...props}
       className={cn(
-        "custom-button border-2 text-sm font-mono font-semibold rounded-none text-white px-5",
+        "custom-button border-2 text-sm font-spaceMono font-semibold rounded-none text-white px-5",
         buttonClasses[variant],
         className
       )}

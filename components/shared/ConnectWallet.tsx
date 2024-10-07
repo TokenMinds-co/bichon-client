@@ -3,8 +3,8 @@
 import React from "react";
 import { useModal, useAccount } from "@particle-network/connectkit";
 import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
-import { Button } from "../ui/button";
 import { EllipsisVerticalIcon } from "lucide-react";
+import SkewButton from "./SkewButton";
 
 const ConnectWallet = ({ label }: { label: string }) => {
   const { setOpen } = useModal();
@@ -14,9 +14,9 @@ const ConnectWallet = ({ label }: { label: string }) => {
     address && `${address.slice(0, 6)}...${address.slice(-4)}`;
 
   return (
-    <Button
+    <SkewButton
       type="button"
-      className="flex flex-row gap-3 py-5 items-center justify-center duration-200 ease-in-out"
+      className="flex flex-row gap-3 py-5 font-spaceMono  items-center justify-center duration-200 ease-in-out"
       onClick={() => setOpen(true)}
     >
       {status === "connected" ? (
@@ -29,13 +29,13 @@ const ConnectWallet = ({ label }: { label: string }) => {
             />
             <AvatarFallback>SOL</AvatarFallback>
           </Avatar>
-          <div>{truncatedAddress}</div>
-          <EllipsisVerticalIcon size={13} color="#8B8EA1" />
+          <div className="text-xs">{truncatedAddress}</div>
+          <EllipsisVerticalIcon size={13} color="#FEFEFE" />
         </>
       ) : (
         label
       )}
-    </Button>
+    </SkewButton>
   );
 };
 

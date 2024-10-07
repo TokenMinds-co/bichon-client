@@ -65,6 +65,18 @@
   }
 }
 
+.bg-hero {
+  background-image: url("../public/assets/hero.png");
+}
+
+.bg-sky {
+  background-image: url("../public/assets/sky.png");
+}
+
+.bg-earth {
+  background-image: url("../public/assets/earth.png");
+}
+
 .custom-button {
   clip-path: polygon(0 0, 90% 0, 100% 20%, 100% 100%, 10% 100%, 0 80%);
 }

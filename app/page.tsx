@@ -1,9 +1,14 @@
-import FormKYC from "@/components/dashboard/FormKYC";
+
+import CastleSection from "@/views/CastleSection";
+import EarthSection from "@/views/EarthSection";
+import HeroSection from "@/views/HeroSection";
 
 export default function Home() {
   return (
-    <main className="w-screen min-h-screen pt-28 flex flex-col items-center justify-center bg-gray-800 gap-10">
-      <FormKYC />
-    </main>
+    <>
+      <HeroSection />
+      <CastleSection />
+      <EarthSection />
+    </>
   );
 }
