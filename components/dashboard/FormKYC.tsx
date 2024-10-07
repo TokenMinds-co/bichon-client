@@ -3,6 +3,7 @@
 import { useAccount } from "@particle-network/connectkit";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import SkewButton from "../shared/SkewButton";
 
 interface UserData {
   email: string;
@@ -44,13 +45,9 @@ const FormKYC = () => {
             onChange={(e) => setUser({ ...userData, email: e.target.value })}
             required
           />
-          <button
-            disabled={isSubmitting}
-            type="submit"
-            className="w-1/2 p-2 bg-blue-500 text-white"
-          >
+          <SkewButton className="px-8" disabled={isSubmitting} type="submit" variant="primary">
             {isSubmitting ? "Submitting..." : "Submit"}
-          </button>
+          </SkewButton>
         </form>
       ) : (
         <h1 className="text-white">Connect your wallet to proceed with KYC</h1>
