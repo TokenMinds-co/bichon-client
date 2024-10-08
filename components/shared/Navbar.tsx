@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import ConnectWallet from "./ConnectWallet";
 import Image from "next/image";
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -71,6 +72,7 @@ const Navbar = () => {
           </div>
 
           <ConnectWallet label="Sign In" />
+          <WalletMultiButton />
         </div>
       </div>
     </nav>

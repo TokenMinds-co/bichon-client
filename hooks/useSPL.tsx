@@ -7,6 +7,7 @@ import {
   SystemProgram,
   Transaction,
   Connection,
+  LAMPORTS_PER_SOL,
 } from "@solana/web3.js";
 import { useWallet } from "@solana/wallet-adapter-react";
 
@@ -16,9 +17,24 @@ export default function useSPL() {
   const solanaConnection = new Connection(HTTP_ENDPOINT, {
     wsEndpoint: WSS_ENDPOINT,
   });
-  const { signTransaction } = useWallet();
+  const { signTransaction, publicKey } = useWallet();
 
-  const token = "BUTKogAXd5eqnoFZV9aVNKYq4tu1kT8chxn5Uvy5152v";
+  const getSOLBalance = async () => {
+    if (!signTransaction || !publicKey) {
+      console.error("Wallet not connected");
+      return 0;
+    }
+
+    try {
+      const balance = await solanaConnection.getBalance(publicKey);
+      console.log("SOL balance", balance);
+      return balance / LAMPORTS_PER_SOL;
+    } catch (error) {
+      console.error(error);
+      return 0;
+    }
+  };
+
   const getATAandBalance = async (userAddress: string, mintAddress: string) => {
     const user = new PublicKey(userAddress);
     const mint = new PublicKey(mintAddress);
@@ -80,5 +96,46 @@ export default function useSPL() {
     }
   };
 
-  return { token, getATAandBalance, buyViaSPL };
+  const buyViaSOL = async (lamports: number) => {
+    if (!signTransaction || !publicKey) {
+      console.error("Wallet not connected");
+      return;
+    }
+
+    const tx = new Transaction().add(
+      SystemProgram.transfer({
+        fromPubkey: publicKey,
+        toPubkey: BICHON_TREASURY_ADDRESS,
+        lamports,
+      })
+    );
+
+    try {
+      const { blockhash, lastValidBlockHeight } =
+        await solanaConnection.getLatestBlockhash({
+          commitment: "finalized",
+        });
+
+      tx.recentBlockhash = blockhash;
+      tx.lastValidBlockHeight = lastValidBlockHeight;
+      tx.feePayer = publicKey;
+
+      const transactionResponse = await signTransaction(tx);
+      // wait the tx to be finalized
+      // if (transactionResponse.signature) {
+      //   await solanaConnection.confirmTransaction(
+      //     transactionResponse.signature.toString(),
+      //     "finalized"
+      //   );
+      // } else {
+      //   console.error("Transaction signature is null");
+      // }
+
+      return transactionResponse;
+    } catch (error) {
+      console.error("Transaction failed:", error);
+    }
+  };
+
+  return { getSOLBalance, getATAandBalance, buyViaSPL, buyViaSOL };
 }

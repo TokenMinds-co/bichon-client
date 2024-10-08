@@ -3,6 +3,11 @@ import { PublicKey } from "@solana/web3.js";
 export const SUPPORT_PRIORITIES = ["ALL", "LOW", "MEDIUM", "HIGH"];
 export const SUPPORTED_SPL_TOKENS = [
   {
+    name: "Solana SOL",
+    symbol: "SOL",
+    address: "solana",
+  },
+  {
     name: "Tether USDT",
     symbol: "USDT",
     address: "BUTKogAXd5eqnoFZV9aVNKYq4tu1kT8chxn5Uvy5152v",

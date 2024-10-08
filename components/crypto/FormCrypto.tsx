@@ -40,7 +40,7 @@ interface FormCryptoProps {
 
 export default function FormCrypto({ currentPrice }: FormCryptoProps) {
   const { address } = useAccount();
-  const { getATAandBalance, buyViaSPL } = useSPL();
+  const { getATAandBalance, getSOLBalance, buyViaSOL } = useSPL();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [balance, setBalance] = useState(0);
 
@@ -71,7 +71,12 @@ export default function FormCrypto({ currentPrice }: FormCryptoProps) {
       if (!address) return;
       setIsSubmitting(true);
       console.log(data);
-      await buyViaSPL(address, data.token, Number(data.amount));
+
+      if (data.token === SUPPORTED_SPL_TOKENS[0].address) {
+        await buyViaSOL(1000000000);
+      } else {
+        // await buyViaSPL(address, data.token, Number(data.amount));
+      }
 
       // reset only the amount field
       form.reset({ token: data.token, amount: "" });
@@ -86,6 +91,11 @@ export default function FormCrypto({ currentPrice }: FormCryptoProps) {
   const handleChangeToken = async (value: string) => {
     if (!address) return;
     form.setValue("token", value);
+    if (value === SUPPORTED_SPL_TOKENS[0].address) {
+      const balance = await getSOLBalance();
+      setBalance(balance);
+      return;
+    }
     const { displayBalance } = await getATAandBalance(address, value);
     setBalance(displayBalance ?? 0);
   };
