@@ -10,6 +10,12 @@ export function shortenTx(txhash: string) {
   return txhash.slice(0, 28) + "...";
 }
 
+export const formatter = new Intl.NumberFormat("default", {
+  style: "decimal",
+  minimumFractionDigits: 6,
+  maximumFractionDigits: 9,
+});
+
 interface GenerateSignatureprops {
   method: string;
   url: string;

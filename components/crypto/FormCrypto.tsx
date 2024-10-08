@@ -27,6 +27,7 @@ import { useAccount } from "@particle-network/connectkit";
 import useSPL from "@/hooks/useSPL";
 import { Input } from "../ui/input";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
+import { formatter } from "@/lib/utils";
 
 const schema = z.object({
   token: z.string(),
@@ -108,7 +109,7 @@ export default function FormCrypto({ currentPrice }: FormCryptoProps) {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="max-w-6xl mx-auto p-6 bg-white rounded-lg shadow"
+        className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow w-full h-full"
       >
         <h2 className="text-2xl font-bold mb-6">Crypto Payment</h2>
         <div className="flex flex-col space-y-6 w-full h-full">
@@ -138,7 +139,7 @@ export default function FormCrypto({ currentPrice }: FormCryptoProps) {
                 </FormControl>
                 {field.value && (
                   <FormDescription>
-                    {balance} {getTokenSymbol(field.value)}
+                    {formatter.format(balance)} ${getTokenSymbol(field.value)}
                   </FormDescription>
                 )}
                 <FormMessage />

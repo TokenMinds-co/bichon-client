@@ -34,6 +34,7 @@ const Crypto = ({ currentPrice }: CryptoProps) => {
         `/users?limit=10&page=1&&address=${address}`
       );
       const users = data.data.users as UserResponse[];
+      console.log("users", users);
       return users;
     },
     enabled: !!address,
