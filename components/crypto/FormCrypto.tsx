@@ -21,7 +21,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { SUPPORTED_SPL_TOKENS } from "@/constant/common";
+import { BICHON_TOKEN_SYMBOL, SUPPORTED_SPL_TOKENS } from "@/constant/common";
 import { toast } from "sonner";
 import { useAccount } from "@particle-network/connectkit";
 import useSPL from "@/hooks/useSPL";
@@ -34,9 +34,13 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-export default function FormCrypto() {
+interface FormCryptoProps {
+  currentPrice: number;
+}
+
+export default function FormCrypto({ currentPrice }: FormCryptoProps) {
   const { address } = useAccount();
-  const { getATAandBalance } = useSPL();
+  const { getATAandBalance, buyViaSPL } = useSPL();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [balance, setBalance] = useState(0);
 
@@ -64,15 +68,16 @@ export default function FormCrypto() {
 
   const onSubmit = async (data: FormData) => {
     try {
+      if (!address) return;
       setIsSubmitting(true);
       console.log(data);
-      toast.success("Ticket submitted successfully");
+      await buyViaSPL(address, data.token, Number(data.amount));
 
       // reset only the amount field
       form.reset({ token: data.token, amount: "" });
     } catch (error) {
       console.error(error);
-      toast.error("Failed to submit ticket");
+      toast.error("Failed to buy token");
     } finally {
       setIsSubmitting(false);
     }
@@ -82,7 +87,6 @@ export default function FormCrypto() {
     if (!address) return;
     form.setValue("token", value);
     const { displayBalance } = await getATAandBalance(address, value);
-    console.log("displayBalance", displayBalance);
     setBalance(displayBalance ?? 0);
   };
 
@@ -152,16 +156,30 @@ export default function FormCrypto() {
         </div>
 
         <div className="flex flex-col space-y-3 py-5 items-start justify-start">
-          <p className="text-sm">1 BCH = $0.5</p>
-          {form.watch("amount") && (
-            <p className="text-sm">
-              Preview: {form.watch("amount")}{" "}
-              {getTokenSymbol(form.watch("token"))}
-            </p>
+          <p className="text-sm">1 BCH = ${currentPrice}</p>
+          {form.watch("amount") && Number(form.watch("amount")) > 0 && (
+            <div className="flex flex-col space-y-2">
+              <p className="text-sm">
+                You&apos;ll pay: {Number(form.watch("amount"))} $
+                {getTokenSymbol(form.watch("token"))}
+              </p>
+              <p className="text-sm">
+                You&apos;ll get: {Number(form.watch("amount")) / currentPrice} $
+                {BICHON_TOKEN_SYMBOL}
+              </p>
+            </div>
           )}
         </div>
 
-        <Button type="submit" disabled={isSubmitting} className="w-full mt-6">
+        <Button
+          type="submit"
+          disabled={
+            isSubmitting ||
+            Number(form.watch("amount")) < 0 ||
+            form.watch("amount") === ""
+          }
+          className="w-full mt-6"
+        >
           {isSubmitting ? "Buying..." : "Buy Now"}
         </Button>
       </form>

@@ -18,7 +18,11 @@ The flow:
 6. Initiate the transaction.
 */
 
-const Crypto = () => {
+interface CryptoProps {
+  currentPrice: number;
+}
+
+const Crypto = ({ currentPrice }: CryptoProps) => {
   const { address } = useAccount();
 
   const { data: users } = useQuery({
@@ -38,7 +42,7 @@ const Crypto = () => {
   return (
     <div className="flex flex-col space-y-2 w-full h-full items-center justify-center">
       {users && users.length > 0 ? (
-        <FormCrypto />
+        <FormCrypto currentPrice={currentPrice} />
       ) : (
         <div className="flex flex-col space-y-3 w-full h-full items-center justify-center">
           <p className="text-white text-sm">
