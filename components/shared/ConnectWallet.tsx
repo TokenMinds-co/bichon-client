@@ -16,7 +16,7 @@ const ConnectWallet = ({ label }: { label: string }) => {
   return (
     <SkewButton
       type="button"
-      className="flex flex-row gap-3 py-5 font-spaceMono  items-center justify-center duration-200 ease-in-out"
+      className="flex flex-row gap-3 py-5 items-center justify-center duration-200 ease-in-out"
       onClick={() => setOpen(true)}
     >
       {status === "connected" ? (
