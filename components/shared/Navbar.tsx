@@ -40,6 +40,10 @@ const Navbar = () => {
       href: "/support",
     },
     {
+      name: "KYC",
+      href: "/kyc",
+    },
+    {
       name: "DASHBOARD",
       href: "/dashboard",
     },

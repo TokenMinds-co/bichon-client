@@ -35,7 +35,7 @@ const Support = () => {
             Unfortunately, you are not a registered user. Please verify as a
             user
           </p>
-          <Link href="/">
+          <Link href="/kyc">
             <Button className="text-white text-sm" variant="default">
               Go to Verify Page
             </Button>
