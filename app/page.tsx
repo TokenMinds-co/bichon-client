@@ -5,13 +5,13 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="bg-[#000A19] font-spaceMono">
+    <div className="bg-[#000A19] font-spaceMono overflow-x-hidden">
       <Image // FIXED TIME FRAME
-        className="container w-fit h-[65vh] fixed hidden xl:block left-32 top-1/2 transform -translate-x-1/2 -translate-y-[45%] z-30 object-cover"
+        className="w-fit h-[70vh] fixed hidden xl:block left-32 top-1/2 transform -translate-x-1/2 -translate-y-[45%] z-30 object-cover"
         alt="time-frame"
         width={10}
         height={10}
-        src={"/assets/time.svg"}
+        src="/assets/time.svg"
       />
 
       <HeroSection />

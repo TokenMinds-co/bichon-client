@@ -74,7 +74,7 @@ const Navbar = () => {
             ))}
           </div>
 
-          <ConnectWallet label="Sign In" />
+          <ConnectWallet label="Connect" />
         </div>
       </div>
     </nav>
