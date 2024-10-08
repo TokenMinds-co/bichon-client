@@ -73,6 +73,10 @@
   background-image: url("../public/assets/bg/sky.png");
 }
 
+.bg-sky2 {
+  background-image: url("../public/assets/bg/sky2.png");
+}
+
 .bg-earth {
   background-image: url("../public/assets/bg/earth.png");
 }

@@ -1,6 +1,8 @@
 import CastleSection from "@/views/CastleSection";
 import EarthSection from "@/views/EarthSection";
 import HeroSection from "@/views/HeroSection";
+import RoadmapSection from "@/views/RoadmapSection";
+import SaturnSection from "@/views/SaturnSection";
 import Image from "next/image";
 
 export default function Home() {
@@ -16,6 +18,8 @@ export default function Home() {
 
       <HeroSection />
       <CastleSection />
+      <SaturnSection />
+      <RoadmapSection/>
       <EarthSection />
     </div>
   );
