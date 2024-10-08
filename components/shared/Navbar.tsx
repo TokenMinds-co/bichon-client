@@ -28,8 +28,8 @@ const Navbar = () => {
       href: "#",
     },
     {
-      name: "ABOUT US",
-      href: "#",
+      name: "CRYPTO",
+      href: "/crypto",
     },
     {
       name: "PAYMENTS",
