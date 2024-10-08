@@ -16,7 +16,7 @@ import { SolanaChain, useWallets } from "@particle-network/connectkit";
 import { useMemo } from "react";
 import { solanaDevnet } from "@particle-network/connectkit/chains";
 
-export default function useSPL() {
+export const useSPL = () => {
   const solanaConnection = new Connection(
     solanaDevnet.rpcUrls.default.http[0],
     {
@@ -168,4 +168,4 @@ export default function useSPL() {
     buyViaSOL,
     solanaWallet,
   };
-}
+};

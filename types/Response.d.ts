@@ -166,4 +166,17 @@ declare global {
     stripePriceId: string;
     transactions: IcoTransaction[];
   }
+
+  interface AssetQuotation {
+    Symbol: string;
+    Name: string;
+    Address: string;
+    Blockchain: string;
+    Price: number;
+    PriceYesterday: number;
+    VolumeYesterdayUSD: number;
+    Time: string;
+    Source: string;
+    Signature: string;
+  }
 }

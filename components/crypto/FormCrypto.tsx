@@ -24,7 +24,7 @@ import {
 import { BICHON_TOKEN_SYMBOL, SUPPORTED_SPL_TOKENS } from "@/constant/common";
 import { toast } from "sonner";
 import { useAccount } from "@particle-network/connectkit";
-import useSPL from "@/hooks/useSPL";
+import { useSPL } from "@/hooks/useSPL";
 import { Input } from "../ui/input";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import { formatter } from "@/lib/utils";
@@ -37,10 +37,13 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 interface FormCryptoProps {
-  currentPrice: number;
+  currentprice: number;
+  solprice: number;
+  usdtprice: number;
+  usdcprice: number;
 }
 
-export default function FormCrypto({ currentPrice }: FormCryptoProps) {
+export default function FormCrypto({ currentprice }: FormCryptoProps) {
   const { address } = useAccount();
   const { getATAandBalance, getSOLBalance, buyViaSOL, buyViaSPL } = useSPL();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -171,7 +174,7 @@ export default function FormCrypto({ currentPrice }: FormCryptoProps) {
         </div>
 
         <div className="flex flex-col space-y-3 py-5 items-start justify-start">
-          <p className="text-sm">1 BCH = ${currentPrice}</p>
+          <p className="text-sm">1 BCH = ${currentprice}</p>
           {form.watch("amount") && Number(form.watch("amount")) > 0 && (
             <div className="flex flex-col space-y-2">
               <p className="text-sm">
@@ -179,7 +182,7 @@ export default function FormCrypto({ currentPrice }: FormCryptoProps) {
                 {getTokenSymbol(form.watch("token"))}
               </p>
               <p className="text-sm">
-                You&apos;ll get: {Number(form.watch("amount")) / currentPrice} $
+                You&apos;ll get: {Number(form.watch("amount")) / currentprice} $
                 {BICHON_TOKEN_SYMBOL}
               </p>
             </div>

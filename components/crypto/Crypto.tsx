@@ -7,6 +7,7 @@ import React from "react";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import FormCrypto from "./FormCrypto";
+import { useFeed } from "@/hooks/useFeed";
 
 /*
 The flow:
@@ -24,6 +25,7 @@ interface CryptoProps {
 
 const Crypto = ({ currentPrice }: CryptoProps) => {
   const { address } = useAccount();
+  const { solprice, usdcprice, usdtprice } = useFeed();
 
   const { data: users } = useQuery({
     queryKey: ["get-types", address],
@@ -34,7 +36,6 @@ const Crypto = ({ currentPrice }: CryptoProps) => {
         `/users?limit=10&page=1&&address=${address}`
       );
       const users = data.data.users as UserResponse[];
-      console.log("users", users);
       return users;
     },
     enabled: !!address,
@@ -43,7 +44,12 @@ const Crypto = ({ currentPrice }: CryptoProps) => {
   return (
     <div className="flex flex-col space-y-2 w-full h-full items-center justify-center">
       {users && users.length > 0 ? (
-        <FormCrypto currentPrice={currentPrice} />
+        <FormCrypto
+          currentprice={currentPrice}
+          solprice={solprice?.Price ?? 0}
+          usdcprice={usdcprice?.Price ?? 0}
+          usdtprice={usdtprice?.Price ?? 0}
+        />
       ) : (
         <div className="flex flex-col space-y-3 w-full h-full items-center justify-center">
           <p className="text-white text-sm">
