@@ -1,7 +1,10 @@
 "use client";
 
 import { BICHON_TREASURY_ADDRESS } from "@/constant/common";
-import { getAssociatedTokenAddressSync } from "@solana/spl-token";
+import {
+  createTransferCheckedInstruction,
+  getAssociatedTokenAddressSync,
+} from "@solana/spl-token";
 import {
   PublicKey,
   SystemProgram,
@@ -27,7 +30,6 @@ export default function useSPL() {
 
     try {
       const balance = await solanaConnection.getBalance(publicKey);
-      console.log("SOL balance", balance);
       return balance / LAMPORTS_PER_SOL;
     } catch (error) {
       console.error(error);
@@ -41,27 +43,22 @@ export default function useSPL() {
     try {
       const ata = getAssociatedTokenAddressSync(mint, user);
       const balance = await solanaConnection.getTokenAccountBalance(ata);
-      const displayBalance = balance.value.uiAmount;
+      const { decimals, uiAmount } = balance.value;
 
-      return { ata, displayBalance };
+      return { decimals, uiAmount };
     } catch (error) {
       console.error(error);
-      return { ata: null, displayBalance: 0 };
+      return { decimals: 0, uiAmount: 0 };
     }
   };
 
-  const buyViaSPL = async (
-    userAddress: string,
-    mintAddress: string,
-    transferAmount: number
-  ) => {
-    if (!signTransaction) {
+  const buyViaSPL = async (mintAddress: string, amount: number) => {
+    if (!signTransaction || !publicKey) {
       console.error("Wallet not connected");
       return;
     }
-    const user = new PublicKey(userAddress);
     const mint = new PublicKey(mintAddress);
-    const sourceATA = getAssociatedTokenAddressSync(mint, user);
+    const sourceATA = getAssociatedTokenAddressSync(mint, publicKey);
     const destinationATA = getAssociatedTokenAddressSync(
       mint,
       BICHON_TREASURY_ADDRESS
@@ -71,13 +68,16 @@ export default function useSPL() {
     console.log("destinationATA", destinationATA.toBase58());
     console.log("mint", mint.toBase58());
 
-    const tx = new Transaction().add(
-      SystemProgram.transfer({
-        fromPubkey: sourceATA,
-        toPubkey: destinationATA,
-        lamports: transferAmount,
-      })
+    const instruction = createTransferCheckedInstruction(
+      sourceATA,
+      mint,
+      destinationATA,
+      publicKey,
+      amount,
+      6
     );
+    const tx = new Transaction();
+    tx.add(instruction);
 
     try {
       const { blockhash, lastValidBlockHeight } =
@@ -87,10 +87,14 @@ export default function useSPL() {
 
       tx.recentBlockhash = blockhash;
       tx.lastValidBlockHeight = lastValidBlockHeight;
-      tx.feePayer = user;
+      tx.feePayer = publicKey;
 
       const transactionResponse = await signTransaction(tx);
       console.log("Transaction sent:", transactionResponse);
+      const hash = await solanaConnection.sendRawTransaction(
+        transactionResponse.serialize()
+      );
+      console.log("Transaction hash:", hash);
     } catch (error) {
       console.error("Transaction failed:", error);
     }
@@ -121,6 +125,11 @@ export default function useSPL() {
       tx.feePayer = publicKey;
 
       const transactionResponse = await signTransaction(tx);
+      console.log("Transaction sent:", transactionResponse);
+      const hash = await solanaConnection.sendRawTransaction(
+        transactionResponse.serialize()
+      );
+      console.log("Transaction hash:", hash);
       // wait the tx to be finalized
       // if (transactionResponse.signature) {
       //   await solanaConnection.confirmTransaction(

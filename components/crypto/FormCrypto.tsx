@@ -26,6 +26,7 @@ import { toast } from "sonner";
 import { useAccount } from "@particle-network/connectkit";
 import useSPL from "@/hooks/useSPL";
 import { Input } from "../ui/input";
+import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 
 const schema = z.object({
   token: z.string(),
@@ -40,9 +41,10 @@ interface FormCryptoProps {
 
 export default function FormCrypto({ currentPrice }: FormCryptoProps) {
   const { address } = useAccount();
-  const { getATAandBalance, getSOLBalance, buyViaSOL } = useSPL();
+  const { getATAandBalance, getSOLBalance, buyViaSOL, buyViaSPL } = useSPL();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [balance, setBalance] = useState(0);
+  const [decimals, setDecimals] = useState(9);
 
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
@@ -73,9 +75,9 @@ export default function FormCrypto({ currentPrice }: FormCryptoProps) {
       console.log(data);
 
       if (data.token === SUPPORTED_SPL_TOKENS[0].address) {
-        await buyViaSOL(1000000000);
+        await buyViaSOL(Number(data.amount) * LAMPORTS_PER_SOL);
       } else {
-        // await buyViaSPL(address, data.token, Number(data.amount));
+        await buyViaSPL(data.token, Number(data.amount) * 10 ** decimals);
       }
 
       // reset only the amount field
@@ -94,10 +96,12 @@ export default function FormCrypto({ currentPrice }: FormCryptoProps) {
     if (value === SUPPORTED_SPL_TOKENS[0].address) {
       const balance = await getSOLBalance();
       setBalance(balance);
+      setDecimals(9);
       return;
     }
-    const { displayBalance } = await getATAandBalance(address, value);
-    setBalance(displayBalance ?? 0);
+    const { uiAmount, decimals } = await getATAandBalance(address, value);
+    setBalance(uiAmount ?? 0);
+    setDecimals(decimals ?? 6);
   };
 
   return (
