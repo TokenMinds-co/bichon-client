@@ -42,7 +42,7 @@ const Crypto = ({ currentPrice }: CryptoProps) => {
   });
 
   return (
-    <div className="flex flex-col space-y-2 w-full h-full items-center justify-center">
+    <div className="flex flex-col items-center justify-center w-full h-full space-y-2">
       {users && users.length > 0 ? (
         <FormCrypto
           currentprice={currentPrice}
@@ -51,13 +51,13 @@ const Crypto = ({ currentPrice }: CryptoProps) => {
           usdtprice={usdtprice?.Price ?? 0}
         />
       ) : (
-        <div className="flex flex-col space-y-3 w-full h-full items-center justify-center">
-          <p className="text-white text-sm">
+        <div className="flex flex-col items-center justify-center w-full h-full space-y-3">
+          <p className="text-sm text-white">
             Unfortunately, you are not a registered user. Please verify as user
             candidate to join the presale now.
           </p>
           <Link href="/">
-            <Button className="text-white text-sm" variant="default">
+            <Button className="text-sm text-white" variant="default">
               Go to Verify Page
             </Button>
           </Link>

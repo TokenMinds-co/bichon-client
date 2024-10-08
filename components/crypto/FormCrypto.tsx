@@ -43,12 +43,18 @@ interface FormCryptoProps {
   usdcprice: number;
 }
 
-export default function FormCrypto({ currentprice }: FormCryptoProps) {
+export default function FormCrypto({
+  currentprice,
+  usdtprice,
+  solprice,
+  usdcprice,
+}: FormCryptoProps) {
   const { address } = useAccount();
   const { getATAandBalance, getSOLBalance, buyViaSOL, buyViaSPL } = useSPL();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [balance, setBalance] = useState(0);
   const [decimals, setDecimals] = useState(9);
+  const [price, setPrice] = useState(usdtprice);
 
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
@@ -67,9 +73,9 @@ export default function FormCrypto({ currentprice }: FormCryptoProps) {
   //   mutationKey: ["create-ticket"],
   // });
 
-  const getTokenSymbol = (address: string) => {
+  const getSelectedToken = (address: string) => {
     const token = SUPPORTED_SPL_TOKENS.find((item) => item.address === address);
-    return token?.symbol;
+    return token;
   };
 
   const onSubmit = async (data: FormData) => {
@@ -99,9 +105,16 @@ export default function FormCrypto({ currentprice }: FormCryptoProps) {
     form.setValue("token", value);
     if (value === SUPPORTED_SPL_TOKENS[0].address) {
       const balance = await getSOLBalance();
+      setPrice(solprice);
       setBalance(balance);
       setDecimals(9);
       return;
+    }
+
+    if (value === SUPPORTED_SPL_TOKENS[1].address) {
+      setPrice(usdtprice);
+    } else if (value === SUPPORTED_SPL_TOKENS[2].address) {
+      setPrice(usdcprice);
     }
     const { uiAmount, decimals } = await getATAandBalance(address, value);
     setBalance(uiAmount ?? 0);
@@ -112,10 +125,10 @@ export default function FormCrypto({ currentprice }: FormCryptoProps) {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow w-full h-full"
+        className="w-full h-full max-w-4xl p-6 mx-auto bg-white rounded-lg shadow"
       >
-        <h2 className="text-2xl font-bold mb-6">Crypto Payment</h2>
-        <div className="flex flex-col space-y-6 w-full h-full">
+        <h2 className="mb-6 text-2xl font-bold">Crypto Payment</h2>
+        <div className="flex flex-col w-full h-full space-y-6">
           <FormField
             control={form.control}
             name="token"
@@ -142,7 +155,8 @@ export default function FormCrypto({ currentprice }: FormCryptoProps) {
                 </FormControl>
                 {field.value && (
                   <FormDescription>
-                    {formatter.format(balance)} ${getTokenSymbol(field.value)}
+                    {balance === 0 ? 0 : formatter.format(balance)} $
+                    {getSelectedToken(field.value)?.symbol}
                   </FormDescription>
                 )}
                 <FormMessage />
@@ -173,13 +187,20 @@ export default function FormCrypto({ currentprice }: FormCryptoProps) {
           />
         </div>
 
-        <div className="flex flex-col space-y-3 py-5 items-start justify-start">
-          <p className="text-sm">1 BCH = ${currentprice}</p>
+        <div className="flex flex-col items-start justify-start py-5 space-y-3">
+          <p className="text-sm">
+            1 BCH ={" "}
+            {form.watch("token") === ""
+              ? `$${currentprice}`
+              : `${formatter.format(currentprice / price)} $${
+                  getSelectedToken(form.watch("token"))?.symbol
+                }`}
+          </p>
           {form.watch("amount") && Number(form.watch("amount")) > 0 && (
             <div className="flex flex-col space-y-2">
               <p className="text-sm">
                 You&apos;ll pay: {Number(form.watch("amount"))} $
-                {getTokenSymbol(form.watch("token"))}
+                {getSelectedToken(form.watch("token"))?.symbol}
               </p>
               <p className="text-sm">
                 You&apos;ll get: {Number(form.watch("amount")) / currentprice} $

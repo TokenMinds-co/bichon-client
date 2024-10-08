@@ -30,4 +30,13 @@ declare global {
     totalToken: string;
     transactions: UserTransactionResponse[];
   }
+
+  interface Token {
+    name: string;
+    symbol: string;
+    address: string;
+    feed: string;
+    balance: number;
+    decimals: number;
+  }
 }
