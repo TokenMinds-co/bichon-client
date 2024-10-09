@@ -30,6 +30,7 @@ import DisplayBalance from "./DisplayBalance";
 import ConversionRate from "./ConversionRate";
 import { useMutation } from "@tanstack/react-query";
 import { generateAxiosInstance } from "@/lib/axios-client";
+import { TransactionMethod } from "@/types/Response";
 
 const schema = z.object({
   token: z.string(),
@@ -43,6 +44,7 @@ interface SubmitTx {
   amount: number;
   usdAmount: number;
   hash: string;
+  method: TransactionMethod;
 }
 
 interface FormCryptoProps {
@@ -78,8 +80,10 @@ export default function FormCrypto({
 
   const submitTx = useMutation({
     mutationFn: async (data: SubmitTx) => {
+      console.log("Data", data);
       const axiosInstance = await generateAxiosInstance(undefined);
-      await axiosInstance.post(`/transactions/crypto`, data);
+      const res = await axiosInstance.post(`/transactions/crypto`, data);
+      console.log("Response", res);
     },
     mutationKey: ["submit-tx"],
   });
@@ -106,6 +110,7 @@ export default function FormCrypto({
         )) as string;
       }
 
+      const token = getSelectedToken(data.token) as Token;
       // reset only the amount field
       form.reset({ token: data.token, amount: "" });
       await submitTx.mutateAsync({
@@ -113,6 +118,7 @@ export default function FormCrypto({
         amount: boughtAmount,
         usdAmount,
         hash,
+        method: token.method,
       });
       setTimeout(() => {
         handleChangeToken(data.token);
