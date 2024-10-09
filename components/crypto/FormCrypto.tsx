@@ -79,8 +79,7 @@ export default function FormCrypto({
   const submitTx = useMutation({
     mutationFn: async (data: SubmitTx) => {
       const axiosInstance = await generateAxiosInstance(undefined);
-      const res = await axiosInstance.post(`/transactions/crypto`, data);
-      console.log(res.data);
+      await axiosInstance.post(`/transactions/crypto`, data);
     },
     mutationKey: ["submit-tx"],
   });

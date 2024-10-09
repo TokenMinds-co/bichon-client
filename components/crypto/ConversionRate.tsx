@@ -1,6 +1,8 @@
+"use client";
+
 import { BICHON_TOKEN_DECIMALS, BICHON_TOKEN_SYMBOL } from "@/constant/common";
 import { displayFormatter } from "@/lib/utils";
-import React from "react";
+import { useEffect } from "react";
 
 interface ConversionRateProps {
   currentprice: number;
@@ -41,8 +43,12 @@ const ConversionRate = ({
     ? Number(amount) * currentprice
     : Number(amount) * Number(formatted);
 
-  setBoughtAmount(Number(amountToGet));
-  setUsdAmount(usdAmount);
+  useEffect(() => {
+    if (amount !== "") {
+      setBoughtAmount(Number(amountToGet));
+      setUsdAmount(usdAmount);
+    }
+  }, [amount, amountToGet, setBoughtAmount, setUsdAmount, usdAmount]);
 
   return (
     <div className="flex flex-col items-start justify-start py-5 space-y-3 text-black">

@@ -18,14 +18,14 @@ export default function SkewButton({
 }: SkewButtonProps) {
   const buttonClasses = {
     primary: "bg-gradient-to-r border-none from-blue-500 to-blue-700",
-    secondary: "border-white bg-gray-700",
+    secondary: "border-white bg-white/10",
   };
 
   return (
     <Button
       {...props}
       className={cn(
-        "custom-button border-2 text-sm font-spaceMono font-semibold rounded-none text-white px-5",
+        "custom-button border-[1px] text-sm font-spaceMono font-semibold rounded-none text-white px-5",
         buttonClasses[variant],
         className
       )}

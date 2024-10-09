@@ -39,4 +39,9 @@ declare global {
     balance: number;
     decimals: number;
   }
+
+  interface PartnerCardProps {
+    name: string;
+    icon: React.ReactElement;
+  }
 }

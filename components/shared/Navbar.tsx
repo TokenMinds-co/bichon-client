@@ -24,35 +24,40 @@ const Navbar = () => {
   const navMenu = [
     {
       name: "HOME",
-      href: "#",
+      href: "/",
     },
     {
       name: "CRYPTO",
       href: "/crypto",
     },
     {
-      name: "PAYMENTS",
+      name: "BUY TOKENS",
       href: "/payment",
-    },
-    {
-      name: "SUPPORT",
-      href: "/support",
     },
     {
       name: "DASHBOARD",
       href: "/dashboard",
     },
+    {
+      name: "SUPPORT",
+      href: "/support",
+    },
   ];
 
   return (
     <nav
-      className={`flex fixed top-0 w-full items-center justify-center p-4 z-20 ease-in-out duration-300 ${
-        isScrolled ? "bg-gray-900/50 shadow-lg" : "bg-transparent"
+      className={`flex fixed top-0 w-full items-center justify-center py-4 px-20 z-30 ease-in-out duration-300 ${
+        isScrolled ? "bg-[#000A19]/50 shadow-lg" : "bg-transparent"
       }`}
     >
-      <div className="container flex flex-row justify-between">
+      <div className="w-full flex flex-row justify-between">
         <Link href="/" className="text-white text-2xl">
-          <Image src="/assets/bichon.png" alt="bichon" height={60} width={60} />
+          <Image
+            src="/assets/bichon.png"
+            alt="bichon"
+            height={55}
+            width={55}  
+          />
         </Link>
 
         <div className="flex gap-16 items-center">
@@ -69,7 +74,7 @@ const Navbar = () => {
             ))}
           </div>
 
-          <ConnectWallet label="Sign In" />
+          <ConnectWallet label="Connect" />
         </div>
       </div>
     </nav>

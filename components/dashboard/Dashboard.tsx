@@ -68,7 +68,7 @@ export default function Dashboard() {
         Wallet address is not verified! <br />
         Verify your account first to access the user dashboard.
       </div>
-      <Link href="/">
+      <Link href="/kyc">
         <Button className="text-white text-sm underline">
           Go to Verify Page
         </Button>

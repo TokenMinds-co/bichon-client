@@ -66,15 +66,23 @@
 }
 
 .bg-hero {
-  background-image: url("../public/assets/hero.png");
+  background-image: url("../public/assets/bg/hero.png");
 }
 
 .bg-sky {
-  background-image: url("../public/assets/sky.png");
+  background-image: url("../public/assets/bg/sky.png");
+}
+
+.bg-sky2 {
+  background-image: url("../public/assets/bg/sky2.png");
 }
 
 .bg-earth {
-  background-image: url("../public/assets/earth.png");
+  background-image: url("../public/assets/bg/earth.png");
+}
+
+.bg-partner {
+  background-image: url("../public/assets/bg/partner.png");
 }
 
 .custom-button {
