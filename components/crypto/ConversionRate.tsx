@@ -35,10 +35,7 @@ const ConversionRate = ({
 
   const amountToGet = !isDirty
     ? displayFormatter(Number(amount) / currentprice, 0)
-    : displayFormatter(
-        (Number(amount) * price) / Number(formatted),
-        BICHON_TOKEN.decimals
-      );
+    : displayFormatter(Number(amount) * price, BICHON_TOKEN.decimals);
   const usdAmount = !isDirty
     ? Number(amount) * currentprice
     : Number(amount) * Number(formatted);

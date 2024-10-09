@@ -1,5 +1,7 @@
 // Global.d.ts for global type declaration
 
+import { TransactionMethod } from "./Response";
+
 export {};
 
 declare global {
@@ -38,6 +40,7 @@ declare global {
     feed: string;
     balance: number;
     decimals: number;
+    method: TransactionMethod;
   }
 
   interface PartnerCardProps {

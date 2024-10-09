@@ -11,7 +11,11 @@ export type KYCStatus =
   | "RESUBMISSION_REQUESTED"
   | "REJECTED"
   | "REQUIRES_ACTION";
-export type TransactionMethod = "FIAT" | "CRYPTO";
+export type TransactionMethod =
+  | "FIAT"
+  | "CRYPTO_SOLANA"
+  | "CRYPTO_USDT"
+  | "CRYPTO_USDC";
 export type TransactionType =
   | "DEPOSIT"
   | "CREDIT"
