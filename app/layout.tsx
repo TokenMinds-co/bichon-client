@@ -39,7 +39,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${spaceMono.variable} antialiased bg-gray-800`}
+        className={`${geistSans.variable} ${geistMono.variable} ${spaceMono.variable} antialiased bg-[#000A19]`}
       >
         <ParticleConnectkit>
           <ReactQueryProvider>

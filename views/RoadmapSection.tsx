@@ -2,8 +2,36 @@ import React from "react";
 import Image from "next/image";
 import SkewButton from "@/components/shared/SkewButton";
 import { ArrowLeft } from "lucide-react";
+import RoadmapCard from "@/components/shared/RoadmapCard";
 
 export default function RoadmapSection() {
+  const roadmapStep = [
+    {
+      step: 1,
+      time: "Q4 2024",
+      title: "Founding of Bichon",
+      desc: "Lorem ipsum dolor sit amet conceteur. codimentum arcu ut posuere in ut ec volutpat proin estiam.",
+    },
+    {
+      step: 2,
+      time: "Q2 2024",
+      title: "Presale Start",
+      desc: "Lorem ipsum dolor sit amet conceteur. codimentum arcu ut posuere in ut ec volutpat proin estiam.",
+    },
+    {
+      step: 3,
+      time: "Q3 2024",
+      title: "Partnership Start",
+      desc: "Lorem ipsum dolor sit amet conceteur. codimentum arcu ut posuere in ut ec volutpat proin estiam.",
+    },
+    {
+      step: 4,
+      time: "Q4 2024",
+      title: "Airdorp Start",
+      desc: "Lorem ipsum dolor sit amet conceteur. codimentum arcu ut posuere in ut ec volutpat proin estiam.",
+    },
+  ];
+
   return (
     <section className="relative w-full bg-right-top min-h-screen flex flex-col">
       <Image // OVERLAY GRID
@@ -14,9 +42,9 @@ export default function RoadmapSection() {
         height={1400}
       />
 
-      <div className="flex flex-col xl:pl-56 md:px-20 px-10 pt-20">
+      <div className="flex flex-col xl:pl-60 md:px-20 px-10 pt-20">
         {/* TITLE & PAGINATE */}
-        <div className="flex flex-row items-center justify-between">
+        <div className="flex flex-row items-center justify-between mb-12">
           <h1 className="text-6xl text-white">ROADMAP BICHON</h1>
           <div className="flex flex-row gap-4">
             <SkewButton className="px-8 py-6" variant="secondary">
@@ -29,7 +57,13 @@ export default function RoadmapSection() {
         </div>
 
         {/* ROADMAP CONTENT */}
-        <div></div>
+        <div className="">
+          <RoadmapCard
+            time={roadmapStep[0].time}
+            desc={roadmapStep[0].desc}
+            title={roadmapStep[0].title}
+          />
+        </div>
       </div>
 
       <Image // FLOATING ROCK
