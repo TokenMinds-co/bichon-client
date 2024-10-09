@@ -85,6 +85,10 @@
   background-image: url("../public/assets/bg/partner.png");
 }
 
+.bg-grid {
+  background-image: url("../public/assets/bg/grid.png");
+}
+
 .custom-button {
   clip-path: polygon(0 0, 90% 0, 100% 20%, 100% 100%, 10% 100%, 0 80%);
 }

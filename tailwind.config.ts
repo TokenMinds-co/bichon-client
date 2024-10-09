@@ -64,10 +64,19 @@ const config: Config = {
         float: {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-15px)' },
+          
+        },
+        fly: {
+          '0%': { transform: 'translate(0, 0)' },
+          '25%': { transform: 'translate(10px, -10px)' },
+          '50%': { transform: 'translate(0, -20px)' },
+          '75%': { transform: 'translate(-10px, -10px)' },
+          '100%': { transform: 'translate(0, 0)' },
         },
       },
       animation: {
         float: 'float 2.5s ease-in-out infinite',
+        fly: 'fly 5s ease-in-out infinite',
       },
     },
   },
