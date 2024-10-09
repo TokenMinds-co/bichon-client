@@ -106,11 +106,7 @@ export const useSPL = () => {
       const hash = await solanaConnection.sendRawTransaction(
         transactionResponse.serialize()
       );
-      await solanaConnection.confirmTransaction({
-        signature: hash,
-        blockhash,
-        lastValidBlockHeight,
-      });
+      await solanaConnection.confirmTransaction(hash, "finalized");
       console.log("Transaction hash:", hash);
       return hash;
     } catch (error) {
@@ -148,11 +144,7 @@ export const useSPL = () => {
       const hash = await solanaConnection.sendRawTransaction(
         transactionResponse.serialize()
       );
-      await solanaConnection.confirmTransaction({
-        signature: hash,
-        blockhash,
-        lastValidBlockHeight,
-      });
+      await solanaConnection.confirmTransaction(hash, "finalized");
       console.log("Transaction hash:", hash);
       return hash;
     } catch (error) {

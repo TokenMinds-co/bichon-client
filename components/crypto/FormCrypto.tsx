@@ -83,7 +83,6 @@ export default function FormCrypto({
     try {
       if (!address) return;
       setIsSubmitting(true);
-      console.log(data);
 
       if (data.token === SUPPORTED_SPL_TOKENS[0].address) {
         await buyViaSOL(Number(data.amount) * LAMPORTS_PER_SOL);
@@ -93,6 +92,9 @@ export default function FormCrypto({
 
       // reset only the amount field
       form.reset({ token: data.token, amount: "" });
+      setTimeout(() => {
+        handleChangeToken(data.token);
+      }, 3000);
     } catch (error) {
       console.error(error);
       toast.error("Failed to buy token");
