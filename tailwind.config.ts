@@ -73,10 +73,18 @@ const config: Config = {
           '75%': { transform: 'translate(-10px, -10px)' },
           '100%': { transform: 'translate(0, 0)' },
         },
+        flyReverse: {
+          '0%': { transform: 'translate(0, 0)' },
+          '25%': { transform: 'translate(-10px, -0px)' },
+          '50%': { transform: 'translate(0, 20px)' },
+          '75%': { transform: 'translate(10px, -0px)' },
+          '100%': { transform: 'translate(0, 0)' },
+        },
       },
       animation: {
         float: 'float 2.5s ease-in-out infinite',
         fly: 'fly 5s ease-in-out infinite',
+        flyReverse: 'flyReverse 8s ease-in-out infinite',
       },
     },
   },
