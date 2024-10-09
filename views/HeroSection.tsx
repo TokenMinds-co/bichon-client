@@ -4,11 +4,11 @@ import React from "react";
 
 export default function HeroSection() {
   return (
-    <section className="bg-hero bg-cover bg-top w-full h-screen pt-40 text-white  ">
-      <div className="z-30 xl:w-[70%] w-[80%] h-full 50 flex flex-col justify-between xl:pl-56 md:px-20 px-10">
+    <section className="bg-hero bg-cover bg-top w-full h-screen pt-32 lg:pt-40 text-white  ">
+      <div className="z-30 xl:w-[70%] w-full h-full flex flex-col justify-between xl:pl-56 md:px-20 px-10">
         <div className="flex flex-col gap-y-12">
           <div className="text-lg">LOREM IPSUM COLOR SIT DOLOR.</div>
-          <h1 className="text-6xl xl:text-7xl">EXPLORE THE BICHON UNIVERSE</h1>
+          <h1 className="text-5xl md:text-6xl xl:text-7xl">EXPLORE THE BICHON UNIVERSE</h1>
           <div className="flex flex-row gap-5">
             <SkewButton>Button CTA</SkewButton>
             <SkewButton variant="secondary">Read more</SkewButton>

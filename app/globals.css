@@ -81,6 +81,10 @@
   background-image: url("../public/assets/bg/earth.png");
 }
 
+.bg-partner {
+  background-image: url("../public/assets/bg/partner.png");
+}
+
 .custom-button {
   clip-path: polygon(0 0, 90% 0, 100% 20%, 100% 100%, 10% 100%, 0 80%);
 }
