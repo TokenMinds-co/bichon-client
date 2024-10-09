@@ -209,7 +209,6 @@ export default function FormCrypto({
                   <Input
                     {...field}
                     type="number"
-                    min={0.1}
                     step={"any"}
                     max={balance}
                     required

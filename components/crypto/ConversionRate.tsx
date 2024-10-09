@@ -51,7 +51,9 @@ const ConversionRate = ({
     <div className="flex flex-col items-start justify-start py-5 space-y-3 text-black">
       <p className="text-sm">
         1 ${BICHON_TOKEN.symbol} ={" "}
-        {isFetchingBalance ? "Calculating..." : `$${formatted} ${symbol}`}
+        {isFetchingBalance
+          ? "Calculating..."
+          : `${formatted.toString()} $${symbol}`}
       </p>
 
       {Number(amount) > 0 && (
