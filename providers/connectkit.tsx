@@ -1,33 +1,13 @@
 "use client";
+
 import { ConnectKitProvider, createConfig } from "@particle-network/connectkit";
-import {
-  solana,
-  solanaDevnet,
-  solanaTestnet,
-} from "@particle-network/connectkit/chains";
+import { solanaDevnet } from "@particle-network/connectkit/chains";
 import {
   injected as solaInjected,
   solanaWalletConnectors,
 } from "@particle-network/connectkit/solana";
 import { wallet, EntryPosition } from "@particle-network/connectkit/wallet";
-import React from "react";
 
-// const customSolana: Chain = {
-//   id: 101,
-//   name: "Solana",
-//   rpcUrls: {
-//     default: {
-//       http: ["https://solana-mainnet.gateway.tatum.io/"],
-//     },
-//   },
-//   nativeCurrency: {
-//     name: "Solana SOL",
-//     symbol: "SOL",
-//     decimals: 9,
-//   },
-// };
-
-//Retrived from https://dashboard.particle.network
 const projectId = process.env.NEXT_PUBLIC_PROJECT_ID as string;
 const clientKey = process.env.NEXT_PUBLIC_CLIENT_KEY as string;
 const appId = process.env.NEXT_PUBLIC_APP_ID as string;
@@ -66,7 +46,7 @@ const config = createConfig({
       visible: false, // Dictates whether or not the wallet modal is included/visible or not
     }),
   ],
-  chains: [solana, solanaTestnet, solanaDevnet],
+  chains: [solanaDevnet],
 });
 
 // Export ConnectKitProvider to be used within your index or layout file (or use createConfig directly within those files).
