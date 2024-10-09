@@ -1,6 +1,6 @@
 "use client";
 
-import { BICHON_TOKEN_DECIMALS, BICHON_TOKEN_SYMBOL } from "@/constant/common";
+import { BICHON_TOKEN } from "@/constant/common";
 import { displayFormatter } from "@/lib/utils";
 import { useEffect } from "react";
 
@@ -37,7 +37,7 @@ const ConversionRate = ({
     ? displayFormatter(Number(amount) / currentprice, 0)
     : displayFormatter(
         (Number(amount) * price) / Number(formatted),
-        BICHON_TOKEN_DECIMALS
+        BICHON_TOKEN.decimals
       );
   const usdAmount = !isDirty
     ? Number(amount) * currentprice
@@ -53,7 +53,7 @@ const ConversionRate = ({
   return (
     <div className="flex flex-col items-start justify-start py-5 space-y-3 text-black">
       <p className="text-sm">
-        1 ${BICHON_TOKEN_SYMBOL} ={" "}
+        1 ${BICHON_TOKEN.symbol} ={" "}
         {isFetchingBalance ? "Calculating..." : `$${formatted} ${symbol}`}
       </p>
 
@@ -63,7 +63,7 @@ const ConversionRate = ({
             You&apos;ll pay: {amount} ${symbol}
           </p>
           <p className="text-sm">
-            You&apos;ll get: {amountToGet} ${BICHON_TOKEN_SYMBOL}
+            You&apos;ll get: {amountToGet} ${BICHON_TOKEN.symbol}
           </p>
         </div>
       )}

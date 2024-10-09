@@ -27,13 +27,10 @@ export const SUPPORTED_SPL_TOKENS: Token[] = [
     decimals: 6,
   },
 ];
-export const BICHON_TOKEN_SYMBOL = "BICHON";
-export const BICHON_TOKEN_DECIMALS = 6;
-export const BICHON_TREASURY_ADDRESS = new PublicKey(
-  "DAnZrjXjRd5GoQgPSzNxV7igAkELyGznppY8Lyki4ugr"
-);
-export const CHAINLINK_FEED_ADDRESS =
-  "99B2bTijsU6f1GCT73HmdR7HCFFjGMBcPZY6jZ96ynrR";
-export const CHAINLINK_PROGRAM_ID = new PublicKey(
-  "cjg3oHmg9uuPsP8D6g29NWvhySJkdYdAo9D25PRbKXJ"
-);
+
+export const BICHON_TOKEN = {
+  name: "Bichon Defender",
+  symbol: "BICHON",
+  decimals: 6,
+  treasury: new PublicKey("DAnZrjXjRd5GoQgPSzNxV7igAkELyGznppY8Lyki4ugr"),
+};

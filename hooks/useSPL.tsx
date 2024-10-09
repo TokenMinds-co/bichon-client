@@ -1,6 +1,6 @@
 "use client";
 
-import { BICHON_TREASURY_ADDRESS } from "@/constant/common";
+import { BICHON_TOKEN } from "@/constant/common";
 import {
   createTransferCheckedInstruction,
   getAssociatedTokenAddressSync,
@@ -77,7 +77,7 @@ export const useSPL = () => {
     );
     const destinationATA = getAssociatedTokenAddressSync(
       mint,
-      BICHON_TREASURY_ADDRESS
+      BICHON_TOKEN.treasury
     );
 
     const instruction = createTransferCheckedInstruction(
@@ -124,7 +124,7 @@ export const useSPL = () => {
     const tx = new Transaction().add(
       SystemProgram.transfer({
         fromPubkey: solanaWallet.publicKey,
-        toPubkey: BICHON_TREASURY_ADDRESS,
+        toPubkey: BICHON_TOKEN.treasury,
         lamports,
       })
     );
