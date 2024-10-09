@@ -10,6 +10,8 @@ interface ConversionRateProps {
   decimals: number;
   symbol: string;
   isFetchingBalance: boolean;
+  setBoughtAmount: (amount: number) => void;
+  setUsdAmount: (amount: number) => void;
 }
 
 const ConversionRate = ({
@@ -20,6 +22,8 @@ const ConversionRate = ({
   amount,
   symbol,
   isFetchingBalance,
+  setBoughtAmount,
+  setUsdAmount,
 }: ConversionRateProps) => {
   const formatted = !isDirty
     ? currentprice
@@ -33,6 +37,12 @@ const ConversionRate = ({
         (Number(amount) * price) / Number(formatted),
         BICHON_TOKEN_DECIMALS
       );
+  const usdAmount = !isDirty
+    ? Number(amount) * currentprice
+    : Number(amount) * Number(formatted);
+
+  setBoughtAmount(Number(amountToGet));
+  setUsdAmount(usdAmount);
 
   return (
     <div className="flex flex-col items-start justify-start py-5 space-y-3 text-black">

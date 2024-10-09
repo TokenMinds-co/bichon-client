@@ -28,6 +28,8 @@ import { Input } from "../ui/input";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import DisplayBalance from "./DisplayBalance";
 import ConversionRate from "./ConversionRate";
+import { useMutation } from "@tanstack/react-query";
+import { generateAxiosInstance } from "@/lib/axios-client";
 
 const schema = z.object({
   token: z.string(),
@@ -35,6 +37,13 @@ const schema = z.object({
 });
 
 type FormData = z.infer<typeof schema>;
+
+interface SubmitTx {
+  address: string;
+  amount: number;
+  usdAmount: number;
+  hash: string;
+}
 
 interface FormCryptoProps {
   currentprice: number;
@@ -56,6 +65,8 @@ export default function FormCrypto({
   const [balance, setBalance] = useState(0);
   const [decimals, setDecimals] = useState(9);
   const [price, setPrice] = useState(usdtprice);
+  const [boughtAmount, setBoughtAmount] = useState(0);
+  const [usdAmount, setUsdAmount] = useState(0);
 
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
@@ -65,14 +76,14 @@ export default function FormCrypto({
     },
   });
 
-  // const createTicketMutation = useMutation({
-  //   mutationFn: async (data: FormData) => {
-  //     const axiosInstance = await generateAxiosInstance(undefined);
-  //     await axiosInstance.post(`/tickets`, data);
-  //     router.refresh();
-  //   },
-  //   mutationKey: ["create-ticket"],
-  // });
+  const submitTx = useMutation({
+    mutationFn: async (data: SubmitTx) => {
+      const axiosInstance = await generateAxiosInstance(undefined);
+      const res = await axiosInstance.post(`/transactions/crypto`, data);
+      console.log(res.data);
+    },
+    mutationKey: ["submit-tx"],
+  });
 
   const getSelectedToken = (address: string) => {
     const token = SUPPORTED_SPL_TOKENS.find((item) => item.address === address);
@@ -84,14 +95,26 @@ export default function FormCrypto({
       if (!address) return;
       setIsSubmitting(true);
 
+      let hash = "";
       if (data.token === SUPPORTED_SPL_TOKENS[0].address) {
-        await buyViaSOL(Number(data.amount) * LAMPORTS_PER_SOL);
+        hash = (await buyViaSOL(
+          Number(data.amount) * LAMPORTS_PER_SOL
+        )) as string;
       } else {
-        await buyViaSPL(data.token, Number(data.amount) * 10 ** decimals);
+        hash = (await buyViaSPL(
+          data.token,
+          Number(data.amount) * 10 ** decimals
+        )) as string;
       }
 
       // reset only the amount field
       form.reset({ token: data.token, amount: "" });
+      await submitTx.mutateAsync({
+        address,
+        amount: boughtAmount,
+        usdAmount,
+        hash,
+      });
       setTimeout(() => {
         handleChangeToken(data.token);
       }, 3000);
@@ -201,6 +224,8 @@ export default function FormCrypto({
           decimals={decimals}
           symbol={getSelectedToken(form.watch("token"))?.symbol ?? "USD"}
           isFetchingBalance={isFetchingBalance}
+          setBoughtAmount={setBoughtAmount}
+          setUsdAmount={setUsdAmount}
         />
 
         <Button
