@@ -28,6 +28,7 @@ export const SUPPORTED_SPL_TOKENS: Token[] = [
   },
 ];
 export const BICHON_TOKEN_SYMBOL = "BICHON";
+export const BICHON_TOKEN_DECIMALS = 6;
 export const BICHON_TREASURY_ADDRESS = new PublicKey(
   "DAnZrjXjRd5GoQgPSzNxV7igAkELyGznppY8Lyki4ugr"
 );

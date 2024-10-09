@@ -15,19 +15,19 @@ import {
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { BICHON_TOKEN_SYMBOL, SUPPORTED_SPL_TOKENS } from "@/constant/common";
+import { SUPPORTED_SPL_TOKENS } from "@/constant/common";
 import { toast } from "sonner";
 import { useAccount } from "@particle-network/connectkit";
 import { useSPL } from "@/hooks/useSPL";
 import { Input } from "../ui/input";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
-import { formatter } from "@/lib/utils";
+import DisplayBalance from "./DisplayBalance";
+import ConversionRate from "./ConversionRate";
 
 const schema = z.object({
   token: z.string(),
@@ -52,6 +52,7 @@ export default function FormCrypto({
   const { address } = useAccount();
   const { getATAandBalance, getSOLBalance, buyViaSOL, buyViaSPL } = useSPL();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isFetchingBalance, setIsFetchingBalance] = useState(false);
   const [balance, setBalance] = useState(0);
   const [decimals, setDecimals] = useState(9);
   const [price, setPrice] = useState(usdtprice);
@@ -102,23 +103,24 @@ export default function FormCrypto({
 
   const handleChangeToken = async (value: string) => {
     if (!address) return;
+    setIsFetchingBalance(true);
     form.setValue("token", value);
     if (value === SUPPORTED_SPL_TOKENS[0].address) {
       const balance = await getSOLBalance();
       setPrice(solprice);
       setBalance(balance);
       setDecimals(9);
-      return;
+    } else {
+      if (value === SUPPORTED_SPL_TOKENS[1].address) {
+        setPrice(usdtprice);
+      } else if (value === SUPPORTED_SPL_TOKENS[2].address) {
+        setPrice(usdcprice);
+      }
+      const { uiAmount, decimals } = await getATAandBalance(address, value);
+      setBalance(uiAmount ?? 0);
+      setDecimals(decimals ?? 6);
     }
-
-    if (value === SUPPORTED_SPL_TOKENS[1].address) {
-      setPrice(usdtprice);
-    } else if (value === SUPPORTED_SPL_TOKENS[2].address) {
-      setPrice(usdcprice);
-    }
-    const { uiAmount, decimals } = await getATAandBalance(address, value);
-    setBalance(uiAmount ?? 0);
-    setDecimals(decimals ?? 6);
+    setIsFetchingBalance(false);
   };
 
   return (
@@ -154,10 +156,12 @@ export default function FormCrypto({
                   </Select>
                 </FormControl>
                 {field.value && (
-                  <FormDescription>
-                    {balance === 0 ? 0 : formatter.format(balance)} $
-                    {getSelectedToken(field.value)?.symbol}
-                  </FormDescription>
+                  <DisplayBalance
+                    isFetchingBalance={isFetchingBalance}
+                    balance={balance}
+                    decimals={decimals}
+                    symbol={getSelectedToken(field.value)?.symbol ?? "USD"}
+                  />
                 )}
                 <FormMessage />
               </FormItem>
@@ -187,28 +191,15 @@ export default function FormCrypto({
           />
         </div>
 
-        <div className="flex flex-col items-start justify-start py-5 space-y-3">
-          <p className="text-sm">
-            1 BCH ={" "}
-            {form.watch("token") === ""
-              ? `$${currentprice}`
-              : `${formatter.format(currentprice / price)} $${
-                  getSelectedToken(form.watch("token"))?.symbol
-                }`}
-          </p>
-          {form.watch("amount") && Number(form.watch("amount")) > 0 && (
-            <div className="flex flex-col space-y-2">
-              <p className="text-sm">
-                You&apos;ll pay: {Number(form.watch("amount"))} $
-                {getSelectedToken(form.watch("token"))?.symbol}
-              </p>
-              <p className="text-sm">
-                You&apos;ll get: {Number(form.watch("amount")) / currentprice} $
-                {BICHON_TOKEN_SYMBOL}
-              </p>
-            </div>
-          )}
-        </div>
+        <ConversionRate
+          currentprice={currentprice}
+          price={price}
+          isDirty={form.watch("token") !== ""}
+          amount={form.watch("amount")}
+          decimals={decimals}
+          symbol={getSelectedToken(form.watch("token"))?.symbol ?? "USD"}
+          isFetchingBalance={isFetchingBalance}
+        />
 
         <Button
           type="submit"

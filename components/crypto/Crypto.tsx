@@ -44,12 +44,25 @@ const Crypto = ({ currentPrice }: CryptoProps) => {
   return (
     <div className="flex flex-col items-center justify-center w-full h-full space-y-2">
       {users && users.length > 0 ? (
-        <FormCrypto
-          currentprice={currentPrice}
-          solprice={solprice?.Price ?? 0}
-          usdcprice={usdcprice?.Price ?? 0}
-          usdtprice={usdtprice?.Price ?? 0}
-        />
+        users[0].kyc?.status === "APPROVED" ? (
+          <FormCrypto
+            currentprice={currentPrice}
+            solprice={solprice?.Price ?? 0}
+            usdcprice={usdcprice?.Price ?? 0}
+            usdtprice={usdtprice?.Price ?? 0}
+          />
+        ) : (
+          <div className="flex flex-col items-center justify-center w-full h-full space-y-3">
+            <p className="text-sm text-white">
+              Unfortunately, your KYC status is still{" "}
+              <span className="font-bold">{users[0].kyc?.status}</span>.
+            </p>
+            <p className="text-sm text-white">
+              Please continue or wait your KYC verification to join the presale
+              now.
+            </p>
+          </div>
+        )
       ) : (
         <div className="flex flex-col items-center justify-center w-full h-full space-y-3">
           <p className="text-sm text-white">
