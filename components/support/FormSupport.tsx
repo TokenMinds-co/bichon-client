@@ -30,7 +30,7 @@ import ImageUploadedPreview from "../shared/ImageUploadedPreview";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { generateAxiosInstance } from "@/lib/axios-client";
-import { supportPriorities } from "@/constant/common";
+import { SUPPORT_PRIORITIES } from "@/constant/common";
 import { toast } from "sonner";
 
 const MAX_FILE_SIZE = 25 * 1024 * 1024; // 25MB
@@ -228,7 +228,7 @@ export default function FormSupport({ email }: FormSupportProps) {
                         <SelectValue placeholder="Select Priority" />
                       </SelectTrigger>
                       <SelectContent>
-                        {supportPriorities.slice(1).map((item, idx) => (
+                        {SUPPORT_PRIORITIES.slice(1).map((item, idx) => (
                           <SelectItem key={idx} value={item}>
                             {item}
                           </SelectItem>

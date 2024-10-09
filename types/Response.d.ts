@@ -127,7 +127,7 @@ declare global {
     kyc: UserKYCResponse | null;
     transactions: UserTransactionResponse[];
   }
-  
+
   interface DistributionResponse {
     id: string;
     name: string;
@@ -135,7 +135,7 @@ declare global {
     createdAt: string;
     updatedAt: string;
   }
-  
+
   interface TokenResponse {
     id: string;
     name: string;
@@ -146,5 +146,37 @@ declare global {
     validUntil: string;
     createdAt: string;
     updatedAt: string;
+  }
+
+  interface IcoTransaction {
+    totalPrice: number;
+    amount: number;
+  }
+
+  interface IcoResponse {
+    id: string;
+    batch: number;
+    currentPrice: number;
+    validUntil: string;
+    createdAt: string;
+    updatedAt: string;
+    deletedAt: string | null;
+    targetAmount: number;
+    maxAmount: number;
+    stripePriceId: string;
+    transactions: IcoTransaction[];
+  }
+
+  interface AssetQuotation {
+    Symbol: string;
+    Name: string;
+    Address: string;
+    Blockchain: string;
+    Price: number;
+    PriceYesterday: number;
+    VolumeYesterdayUSD: number;
+    Time: string;
+    Source: string;
+    Signature: string;
   }
 }

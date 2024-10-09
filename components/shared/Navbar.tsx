@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import ConnectWallet from "./ConnectWallet";
 import Image from "next/image";
-
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const handleScroll = () => {
@@ -28,8 +27,8 @@ const Navbar = () => {
       href: "/",
     },
     {
-      name: "ABOUT US",
-      href: "#",
+      name: "CRYPTO",
+      href: "/crypto",
     },
     {
       name: "BUY TOKENS",

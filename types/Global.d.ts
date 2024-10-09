@@ -31,6 +31,15 @@ declare global {
     transactions: UserTransactionResponse[];
   }
 
+  interface Token {
+    name: string;
+    symbol: string;
+    address: string;
+    feed: string;
+    balance: number;
+    decimals: number;
+  }
+
   interface PartnerCardProps {
     name: string;
     icon: React.ReactElement;
