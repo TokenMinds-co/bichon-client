@@ -44,9 +44,9 @@ export default function RoadmapSection() {
 
       <div className="flex flex-col xl:pl-60 md:px-20 px-10 pt-20">
         {/* TITLE & PAGINATE */}
-        <div className="flex flex-row items-center justify-between mb-12">
+        <div className="flex flex-col sm:flex-row items-center sm:justify-between mb-12 sm:mb-20">
           <h1 className="text-6xl text-white">ROADMAP BICHON</h1>
-          <div className="flex flex-row gap-4">
+          <div className="flex flex-row gap-4 mt-12 sm:mt-0">
             <SkewButton className="px-8 py-6" variant="secondary">
               <ArrowLeft className="rotate-[-45deg]" />
             </SkewButton>

@@ -8,7 +8,7 @@ interface RoadmapCardProps {
 
 export default function RoadmapCard({ title, desc, time }: RoadmapCardProps) {
   return (
-    <div className="bg-gradient-to-r w-[500px] from-white/75 from-[10%] via-blue-600 via-[20%] to-transparent to-[70%] p-[1px]">
+    <div className="bg-gradient-to-r w-[450px] from-white/75 from-[10%] via-blue-500 via-[20%] to-white/10 to-[70%] p-[1px]">
       <div className="flex flex-col h-full text-white">
         <div className="p-4 bg-[#000A19] ">
           <p className="text-3xl">{time}</p>
