@@ -25,27 +25,23 @@ const Navbar = () => {
   const navMenu = [
     {
       name: "HOME",
-      href: "#",
+      href: "/",
     },
     {
       name: "ABOUT US",
       href: "#",
     },
     {
-      name: "PAYMENTS",
+      name: "BUY TOKENS",
       href: "/payment",
-    },
-    {
-      name: "SUPPORT",
-      href: "/support",
-    },
-    {
-      name: "KYC",
-      href: "/kyc",
     },
     {
       name: "DASHBOARD",
       href: "/dashboard",
+    },
+    {
+      name: "SUPPORT",
+      href: "/support",
     },
   ];
 
@@ -57,7 +53,12 @@ const Navbar = () => {
     >
       <div className="w-full flex flex-row justify-between">
         <Link href="/" className="text-white text-2xl">
-          <Image src="/assets/bichon.png" alt="bichon" height={60} width={60} />
+          <Image
+            src="/assets/bichon.png"
+            alt="bichon"
+            height={55}
+            width={55}  
+          />
         </Link>
 
         <div className="flex gap-16 items-center">

@@ -14,7 +14,7 @@ export default function SaturnSection() {
       />
 
       <div className="z-30 flex flex-col items-center gap-10 pt-24 sm:pt-0">
-        <div className="text-white text-4xl lg:text-5xl xl:text-6xl w-3/4 2xl:w-1/2 text-center mx-auto">
+        <div className="text-white text-4xl lg:text-5xl xl:text-6xl w-3/4 2xl:w-1/2 text-center mx-auto xl:leading-[4.5rem]">
           EXPLORE MORE UNIVERSES WITH EXTRAORDINARY NUANCES
         </div>
         <div className="flex flex-row gap-5">
