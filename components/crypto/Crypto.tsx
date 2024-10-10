@@ -8,7 +8,7 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 import FormCrypto from "./FormCrypto";
 import { useFeed } from "@/hooks/useFeed";
-import ICO from "./ICO";
+import IcoWidgets from "./IcoWidgets";
 
 /*
 The flow:
@@ -53,7 +53,7 @@ const Crypto = ({ currentPrice }: CryptoProps) => {
               usdcprice={usdcprice?.Price ?? 0}
               usdtprice={usdtprice?.Price ?? 0}
             />
-            <ICO />
+            <IcoWidgets />
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center w-full h-full space-y-3">
