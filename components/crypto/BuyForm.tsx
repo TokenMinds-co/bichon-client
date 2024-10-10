@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import { displayFormatter } from "@/lib/utils";
 import { BICHON_TOKEN } from "@/constant/common";
@@ -76,7 +76,7 @@ const BuyForm = ({
       getAmount: "",
       usdAmount: "",
     });
-  }, [logo]);
+  }, [logo, buyDetails, setBuyDetails]);
 
   return (
     <div className="flex gap-4">

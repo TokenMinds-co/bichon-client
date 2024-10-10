@@ -154,7 +154,7 @@ export default function IcoWidgets({
       return;
     }
 
-    let hash: any;
+    let hash: unknown;
     setIsBuying(true);
     try {
       if (activeMethod === "CRYPTO_SOLANA") {
@@ -199,7 +199,7 @@ export default function IcoWidgets({
             address,
             amount: Number(buyDetails.amount),
             usdAmount: Number(buyDetails.usdAmount),
-            hash,
+            hash: hash as string,
             method: activeMethod,
           }),
           handleMethod(activeMethod),
@@ -247,7 +247,7 @@ export default function IcoWidgets({
         ),
       });
     }
-  }, [solprice, usdcprice, usdtprice]);
+  }, [solprice, usdcprice, usdtprice, activeMethod, tokenState]);
 
   return (
     <div className="w-full h-full max-w-lg flex items-center justify-center text-white p-10 bg-black skew-widgets">
