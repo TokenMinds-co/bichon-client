@@ -17,6 +17,7 @@ import Loader from "../shared/Loader";
 import { useMutation } from "@tanstack/react-query";
 import { generateAxiosInstance } from "@/lib/axios-client";
 import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 interface IcoWidgetsProps {
   currentPrice: number;
@@ -39,6 +40,7 @@ export default function IcoWidgets({
   usdcprice,
   usdtprice,
 }: IcoWidgetsProps) {
+  const router = useRouter();
   const { isConnected, address } = useAccount();
   const { getATAandBalance, getSOLBalance, buyViaSOL, buyViaSPL } = useSPL();
   const [activeMethod, setActiveMethod] = useState<TransactionMethod>("FIAT");
@@ -138,9 +140,22 @@ export default function IcoWidgets({
   };
 
   const buyAction = async () => {
+    if (!address) return;
+    // Validation buy amout
+    if (
+      activeMethod !== "FIAT" &&
+      Number(buyDetails.amount) > tokenState.balance
+    ) {
+      toast.error("Insufficient balance");
+      return;
+    }
+    if (Number(buyDetails.amount) <= 0) {
+      toast.error("Invalid quantity!");
+      return;
+    }
+
     let hash: any;
     setIsBuying(true);
-    if (!address) return;
     try {
       if (activeMethod === "CRYPTO_SOLANA") {
         hash = await buyViaSOL(Number(buyDetails.amount) * LAMPORTS_PER_SOL);
@@ -156,20 +171,42 @@ export default function IcoWidgets({
         );
       } else {
         console.log("Buying via card", buyDetails.amount);
+        const axiosInstance = await generateAxiosInstance(undefined);
+        const res = await axiosInstance
+          .post(`/transactions/stripe/payment`, {
+            quantity: Number(buyDetails.amount),
+            address: address,
+          })
+          .catch((error) => {
+            if (error.response.data.message instanceof Array) {
+              toast.error(error.response.data.message[0]);
+            } else {
+              toast.error(error.response.data.message);
+            }
+          });
+
+        if (res && res.data.statusCode === 200) {
+          const url = res.data.data.paymentUrl;
+          router.push(url);
+        }
       }
 
       // Reset and refetch balance
-      await Promise.all([
-        submitTx.mutateAsync({
-          address,
-          amount: Number(buyDetails.amount),
-          usdAmount: Number(buyDetails.usdAmount),
-          hash,
-          method: activeMethod,
-        }),
-        handleMethod(activeMethod),
-      ]);
-      toast.success("Transaction successful");
+      if (activeMethod !== "FIAT") {
+        await Promise.all([
+          submitTx.mutateAsync({
+            address,
+            amount: Number(buyDetails.amount),
+            usdAmount: Number(buyDetails.usdAmount),
+            hash,
+            method: activeMethod,
+          }),
+          handleMethod(activeMethod),
+        ]);
+        toast.success("Transaction successful");
+      } else {
+        toast.info("Order placed successfully");
+      }
       setBuyDetails({
         ...buyDetails,
         amount: "",

@@ -54,12 +54,15 @@ const BuyForm = ({
     const amountGet =
       logo === "" ? Number(amount) / Number(usdPrice) : Number(amount) / price;
     const usdAmount = Number(amount) * rawPrice;
-
     setBuyDetails({
       ...buyDetails,
       amount,
       isDirty: true,
-      getAmount: displayFormatter(amountGet, BICHON_TOKEN.decimals),
+      getAmount:
+        amountGet % 1 === 0
+          ? displayFormatter(amountGet, 0)
+          : displayFormatter(amountGet, BICHON_TOKEN.decimals),
+      // getAmount: amountGet.toLocaleString("en-US"),
       usdAmount: displayFormatter(usdAmount, 2),
     });
   };
@@ -110,7 +113,7 @@ const BuyForm = ({
       <div className="flex-1 space-y-1">
         <div className="bg-[#1e2128] rounded-md p-2 flex justify-between items-center">
           <input
-            type="number"
+            type="text"
             placeholder="0"
             value={buyDetails.getAmount}
             className="bg-transparent w-full outline-none"
