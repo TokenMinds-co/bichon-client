@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useDropzone } from "react-dropzone";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import {
@@ -32,6 +31,7 @@ import { useRouter } from "next/navigation";
 import { generateAxiosInstance } from "@/lib/axios-client";
 import { SUPPORT_PRIORITIES } from "@/constant/common";
 import { toast } from "sonner";
+import SkewButton from "../shared/SkewButton";
 
 const MAX_FILE_SIZE = 25 * 1024 * 1024; // 25MB
 const ACCEPTED_IMAGE_TYPES = [
@@ -180,11 +180,11 @@ export default function FormSupport({ email }: FormSupportProps) {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="max-w-6xl mx-auto p-6 bg-white rounded-lg shadow"
+        className="max-w-6xl mx-auto p-6 text-wrap rounded-lg shadow"
       >
-        <h2 className="text-2xl font-bold mb-6">Submit a Support Ticket</h2>
+        <h2 className="text-2xl font-bold mb-10 text-center">Submit a Support Ticket</h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="space-y-6">
+          <div className="space-y-4">
             <FormField
               control={form.control}
               name="name"
@@ -333,9 +333,9 @@ export default function FormSupport({ email }: FormSupportProps) {
           </div>
         </div>
 
-        <Button type="submit" disabled={isSubmitting} className="w-full mt-6">
+        <SkewButton disabled={isSubmitting} className="w-full mt-6">
           {isSubmitting ? "Submitting..." : "Submit Ticket"}
-        </Button>
+        </SkewButton>
       </form>
     </Form>
   );

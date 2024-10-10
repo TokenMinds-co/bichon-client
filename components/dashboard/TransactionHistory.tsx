@@ -55,11 +55,21 @@ export default function TransactionHistory({
             </TableRow>
           </TableHeader>
 
-          <TableBody>
-            {transactions?.map((tx) => (
-              <TranscationRow key={tx.id} tx={tx} />
-            ))}
-          </TableBody>
+          {transactions.length <= 0 ? (
+            <TableBody>
+              <TableRow>
+                <td colSpan={5} className="text-center py-4 text-white">
+                  No transactions found
+                </td>
+              </TableRow>
+            </TableBody>
+          ) : (
+            <TableBody>
+              {transactions?.map((tx) => (
+                <TranscationRow key={tx.id} tx={tx} />
+              ))}
+            </TableBody>
+          )}
         </Table>
       </CardContent>
     </Card>

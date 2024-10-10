@@ -32,12 +32,7 @@ export const metadata: Metadata = {
 
 const TicketSupportPage = () => {
   return (
-    <main className="flex flex-col space-y-5 w-full h-full items-center justify-start bg-gray-800 p-5 pt-28">
-      <h1 className="text-white text-2xl">Ticket Support Page</h1>
-      <p className="text-white text-sm">
-        Only for registered users. Please verify as user candidate to submit a
-        ticket.
-      </p>
+    <main className="bg-sky font-spaceMono text-white flex flex-col space-y-5 w-full min-h-screen h-full items-center justify-start p-5 pt-24">
       <Support />
     </main>
   );

@@ -8,13 +8,27 @@ import {
   useWallets,
 } from "@particle-network/connectkit";
 import { useQuery } from "@tanstack/react-query";
+import { generateAxiosInstance } from "@/lib/axios-client";
 
-
-
-export default function Overview({ tokenPrice, totalToken }: OverviewProps) {
+export default function Overview() {
   const publicClient = usePublicClient<SolanaChain>();
   const [primaryWallet] = useWallets();
   const { address, chain } = useAccount();
+
+  const { data: overview } = useQuery<OverviewProps | null>({
+    queryKey: ["get-overview", address],
+    queryFn: async () => {
+      if (!address) return null;
+      const axiosInstance = await generateAxiosInstance(undefined);
+      const { data } = await axiosInstance.get(
+        `/users/overview?address=${address}`
+      );
+
+      const overview = data.data;
+      return overview;
+    },
+    enabled: !!address,
+  });
 
   const { data: balance } = useQuery({
     queryKey: ["get-balance", chain],
@@ -61,7 +75,7 @@ export default function Overview({ tokenPrice, totalToken }: OverviewProps) {
           <div className="flex items-center justify-between">
             <div>
               <div className="text-3xl font-extrabold text-white">
-                {totalToken || 0} BCH
+                {overview?.totalToken || 0} BCH
               </div>
               <p className="text-sm text-green-200 mt-1">
                 Amount of token bought on presale
@@ -84,7 +98,7 @@ export default function Overview({ tokenPrice, totalToken }: OverviewProps) {
           <div className="flex items-center justify-between">
             <div>
               <div className="text-3xl font-extrabold text-white">
-                ${tokenPrice || 0}
+                ${overview?.tokenPrice || 0}
               </div>
               <p className="text-sm text-pink-200 mt-1">
                 +$0.5 from last batch
