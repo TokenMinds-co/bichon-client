@@ -32,8 +32,8 @@ const Navbar = () => {
       href: "/",
     },
     {
-      name: "CRYPTO",
-      href: "/crypto",
+      name: "ICO",
+      href: "/ico",
     },
     {
       name: "BUY TOKENS",

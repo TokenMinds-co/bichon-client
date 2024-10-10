@@ -8,6 +8,7 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 import FormCrypto from "./FormCrypto";
 import { useFeed } from "@/hooks/useFeed";
+import ICO from "./ICO";
 
 /*
 The flow:
@@ -45,12 +46,15 @@ const Crypto = ({ currentPrice }: CryptoProps) => {
     <div className="flex flex-col items-center justify-center w-full h-full space-y-2">
       {users && users.length > 0 ? (
         users[0].kyc?.status === "APPROVED" ? (
-          <FormCrypto
-            currentprice={currentPrice}
-            solprice={solprice?.Price ?? 0}
-            usdcprice={usdcprice?.Price ?? 0}
-            usdtprice={usdtprice?.Price ?? 0}
-          />
+          <div className="flex flex-col space-y-5 w-full h-full">
+            <FormCrypto
+              currentprice={currentPrice}
+              solprice={solprice?.Price ?? 0}
+              usdcprice={usdcprice?.Price ?? 0}
+              usdtprice={usdtprice?.Price ?? 0}
+            />
+            <ICO />
+          </div>
         ) : (
           <div className="flex flex-col items-center justify-center w-full h-full space-y-3">
             <p className="text-sm text-white">
