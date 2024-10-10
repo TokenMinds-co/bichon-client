@@ -47,12 +47,6 @@ const Crypto = ({ currentPrice }: CryptoProps) => {
       {users && users.length > 0 ? (
         users[0].kyc?.status === "APPROVED" ? (
           <div className="flex flex-col space-y-5 w-full h-full items-center justify-center">
-            <FormCrypto
-              currentprice={currentPrice}
-              solprice={solprice?.Price ?? 0}
-              usdcprice={usdcprice?.Price ?? 0}
-              usdtprice={usdtprice?.Price ?? 0}
-            />
             <IcoWidgets
               currentPrice={currentPrice}
               solprice={solprice?.Price ?? 0}

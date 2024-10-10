@@ -14,6 +14,8 @@ import { displayFormatter } from "@/lib/utils";
 import { useSPL } from "@/hooks/useSPL";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import Loader from "../shared/Loader";
+import { useMutation } from "@tanstack/react-query";
+import { generateAxiosInstance } from "@/lib/axios-client";
 
 interface IcoWidgetsProps {
   currentPrice: number;
@@ -22,13 +24,21 @@ interface IcoWidgetsProps {
   usdcprice: number;
 }
 
+interface SubmitTx {
+  address: string;
+  amount: number;
+  usdAmount: number;
+  hash: string;
+  method: TransactionMethod;
+}
+
 export default function IcoWidgets({
   currentPrice,
   solprice,
   usdcprice,
   usdtprice,
 }: IcoWidgetsProps) {
-  const { isConnected } = useAccount();
+  const { isConnected, address } = useAccount();
   const { getATAandBalance, getSOLBalance, buyViaSOL, buyViaSPL } = useSPL();
   const [activeMethod, setActiveMethod] = useState<TransactionMethod>("FIAT");
   const [isFetchingBalance, setIsFetchingBalance] = useState(false);
@@ -49,6 +59,18 @@ export default function IcoWidgets({
     amount: "",
     getAmount: "",
     usdAmount: "",
+  });
+
+  const submitTx = useMutation({
+    mutationFn: async (data: SubmitTx) => {
+      const axiosInstance = await generateAxiosInstance(undefined);
+      const { data: res } = await axiosInstance.post(
+        `/transactions/crypto`,
+        data
+      );
+      console.log("Response", res);
+    },
+    mutationKey: ["submit-tx"],
   });
 
   const handleMethod = async (method: TransactionMethod) => {
@@ -117,6 +139,7 @@ export default function IcoWidgets({
   const buyAction = async () => {
     let hash: any;
     setIsBuying(true);
+    if (!address) return;
     try {
       if (activeMethod === "CRYPTO_SOLANA") {
         hash = await buyViaSOL(Number(buyDetails.amount) * LAMPORTS_PER_SOL);
@@ -135,7 +158,16 @@ export default function IcoWidgets({
       }
 
       // Reset and refetch balance
-      await handleMethod(activeMethod);
+      await Promise.all([
+        submitTx.mutateAsync({
+          address,
+          amount: Number(buyDetails.amount),
+          usdAmount: Number(buyDetails.usdAmount),
+          hash,
+          method: activeMethod,
+        }),
+        handleMethod(activeMethod),
+      ]);
       setBuyDetails({
         ...buyDetails,
         amount: "",
@@ -177,7 +209,7 @@ export default function IcoWidgets({
   }, [solprice, usdcprice, usdtprice]);
 
   return (
-    <div className="w-full h-full max-w-lg flex items-center justify-center text-white p-4 bg-black skew-widgets">
+    <div className="w-full h-full max-w-lg flex items-center justify-center text-white p-10 bg-black skew-widgets">
       <div className="w-full max-w-md space-y-6">
         <h1 className="text-3xl font-spaceMono font-bold text-center mb-8">
           LOREM IPSUM COLOR!
@@ -194,7 +226,7 @@ export default function IcoWidgets({
           isFetchingBalance={isFetchingBalance}
         />
 
-        <div className="flex justify-between gap-2 font-spaceMono font-bold">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 font-spaceMono font-bold">
           <IcoMethod
             src="/assets/icons/solana.svg"
             label="SOL"
@@ -262,15 +294,6 @@ export default function IcoWidgets({
             customClasses="skew-buy-widgets"
           />
         )}
-
-        <div className="text-center">
-          <a
-            href="#"
-            className="text-base underline underline-offset-4 font-jakarta"
-          >
-            Don&apos;t have a wallet?
-          </a>
-        </div>
       </div>
     </div>
   );

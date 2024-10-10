@@ -65,7 +65,7 @@ const IcoCounter = ({ until }: IcoCounterProps) => {
     return () => clearInterval(timer);
   }, []);
   return (
-    <div className="bg-gradient-to-r border-blue-800 from-blue-500 to-blue-700 opacity-95 hover:opacity-100 rounded-md p-4 flex justify-between">
+    <div className="bg-gradient-to-r border-blue-800 from-blue-500 to-blue-700 opacity-95 hover:opacity-100 rounded-md p-4 grid grid-cols-2 md:grid-cols-4 gap-4">
       {Object.entries(timeLeft).map(([key, value]) => (
         <div key={key} className="text-center">
           <div className="text-3xl font-spaceMono font-semibold">

@@ -96,7 +96,7 @@ const BuyForm = ({
             <Image src={logo} width={20} height={20} alt={symbol} />
           )}
         </div>
-        <label className="flex flex-row space-x-2 mx-2 text-sm text-blue-400">
+        <label className="flex flex-row w-full space-x-2 mx-2 text-sm text-blue-400">
           {logo !== "" && (
             <>
               Available:{" "}
