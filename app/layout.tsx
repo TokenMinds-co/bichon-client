@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
 import { ParticleConnectkit } from "@/providers/connectkit";
 import Navbar from "@/components/shared/Navbar";
 import ReactQueryProvider from "@/providers/tanstack";
 import { Toaster } from "@/components/ui/sooner";
-import { Space_Mono } from "next/font/google";
-// import Link from "next/link";
+import { Space_Mono, Plus_Jakarta_Sans } from "next/font/google";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const spaceMono = Space_Mono({
   weight: ["400", "700"],
@@ -15,15 +15,11 @@ const spaceMono = Space_Mono({
   variable: "--font-space-mono",
 });
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+const plusJakartaSans = Plus_Jakarta_Sans({
+  weight: ["200", "300", "400", "500", "600", "700", "800"],
+  display: "swap",
+  subsets: ["latin"],
+  variable: "--font-plus-jakarta-sans",
 });
 
 export const metadata: Metadata = {
@@ -39,10 +35,22 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${spaceMono.variable} antialiased bg-[#000A19]`}
+        className={`${plusJakartaSans.variable} ${spaceMono.variable} antialiased bg-[#000A19]`}
       >
         <ParticleConnectkit>
           <ReactQueryProvider>
+            <ToastContainer
+              position="bottom-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="dark"
+            />
             <Toaster />
             <Navbar />
             {children}

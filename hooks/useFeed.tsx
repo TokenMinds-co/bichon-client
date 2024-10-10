@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { SUPPORTED_SPL_TOKENS } from "@/constant/common";
 
 export const useFeed = () => {
-  const REFRESH_INTERVAL = 1000 * 60 * 1; // 5 minutes
+  const REFRESH_INTERVAL = 1000 * 60 * 0.5; // 1 minutes
 
   const { data: solprice } = useQuery<AssetQuotation>({
     queryKey: ["solprice"],

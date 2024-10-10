@@ -59,6 +59,7 @@ const config: Config = {
       },
       fontFamily: {
         spaceMono: ["var(--font-space-mono)"],
+        jakarta: ["var(--font-plus-jakarta-sans)"],
       },
       keyframes: {
         float: {

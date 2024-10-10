@@ -50,8 +50,12 @@ export const useSPL = () => {
     }
   };
 
-  const getATAandBalance = async (userAddress: string, mintAddress: string) => {
-    const user = new PublicKey(userAddress);
+  const getATAandBalance = async (mintAddress: string) => {
+    if (!solanaWallet) {
+      console.error("Wallet not connected");
+      return;
+    }
+    const user = solanaWallet.publicKey;
     const mint = new PublicKey(mintAddress);
     try {
       const ata = getAssociatedTokenAddressSync(mint, user);

@@ -92,3 +92,23 @@
 .custom-button {
   clip-path: polygon(0 0, 90% 0, 100% 20%, 100% 100%, 10% 100%, 0 80%);
 }
+
+.skew-widgets {
+  clip-path: polygon(0 0, 92.5% 0, 100% 7.5%, 100% 100%, 7.5% 100%, 0 92.5%);
+}
+
+.skew-buy-widgets {
+  clip-path: polygon(0 0, 97.5% 0, 100% 20%, 100% 100%, 2.5% 100%, 0 80%);
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
