@@ -38,9 +38,16 @@ export default function IcoWidgets({
     decimals: 0,
     symbol: "USD",
     price: currentPrice,
+    rawPrice: currentPrice,
     boughtAmount: 0,
     usdAmount: 0,
     logo: "",
+  });
+  const [buyDetails, setBuyDetails] = useState({
+    isDirty: false,
+    amount: "",
+    getAmount: "",
+    usdAmount: "",
   });
 
   const handleMethod = async (method: TransactionMethod) => {
@@ -59,6 +66,7 @@ export default function IcoWidgets({
         symbol: SUPPORTED_SPL_TOKENS[0].symbol,
         decimals: SUPPORTED_SPL_TOKENS[0].decimals,
         balance,
+        rawPrice: solprice,
         address: SUPPORTED_SPL_TOKENS[0].address,
         logo: "/assets/icons/solana.svg",
       });
@@ -74,6 +82,7 @@ export default function IcoWidgets({
         symbol: SUPPORTED_SPL_TOKENS[1].symbol,
         decimals: SUPPORTED_SPL_TOKENS[1].decimals,
         balance: res?.uiAmount || 0,
+        rawPrice: usdtprice,
         address: SUPPORTED_SPL_TOKENS[1].address,
         logo: "/assets/icons/usdt.svg",
       });
@@ -88,6 +97,7 @@ export default function IcoWidgets({
         symbol: SUPPORTED_SPL_TOKENS[2].symbol,
         decimals: SUPPORTED_SPL_TOKENS[2].decimals,
         balance: res?.uiAmount || 0,
+        rawPrice: usdcprice,
         address: SUPPORTED_SPL_TOKENS[2].address,
         logo: "/assets/icons/usdc.svg",
       });
@@ -97,6 +107,7 @@ export default function IcoWidgets({
         price: currentPrice,
         symbol: "USD",
         logo: "",
+        rawPrice: currentPrice,
       });
     }
     setIsFetchingBalance(false);
@@ -182,11 +193,16 @@ export default function IcoWidgets({
         </div>
 
         <BuyForm
-          isFetchingBalance={isFetchingBalance}
+          buyDetails={buyDetails}
+          setBuyDetails={setBuyDetails}
           balance={tokenState.balance}
           decimals={tokenState.decimals}
           symbol={tokenState.symbol}
           logo={tokenState.logo}
+          price={tokenState.price}
+          rawPrice={tokenState.rawPrice}
+          usdPrice={currentPrice}
+          isFetchingBalance={isFetchingBalance}
         />
 
         {isConnected ? (
