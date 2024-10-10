@@ -24,7 +24,7 @@ export default function SaturnSection() {
       </div>
 
       <Image // SATURN
-        className="absolute w-[750px] 2xl:w-[1000px] right-[-200px] bottom-[-150px] 2xl:right-[-300px] 2xl:bottom-[-250px] animate-flyReverse"
+        className="absolute w-[750px] 2xl:w-[1000px] right-[-200px] bottom-[-100px] sm:bottom-[-150px] 2xl:right-[-300px] 2xl:bottom-[-250px] animate-flyReverse"
         alt="floating-saturn"
         width={50}
         height={50}

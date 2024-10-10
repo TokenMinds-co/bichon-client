@@ -80,11 +80,22 @@ const config: Config = {
           "75%": { transform: "translate(10px, -0px)" },
           "100%": { transform: "translate(0, 0)" },
         },
+        fadeLeft: {
+          "0%": {
+            opacity: "0",
+            transform: "translateX(100px)", // Start 50px to the left
+          },
+          "100%": {
+            opacity: "1",
+            transform: "translateX(0)", // End at the original position
+          },
+        },
       },
       animation: {
         float: "float 2.5s ease-in-out infinite",
         fly: "fly 5s ease-in-out infinite",
         flyReverse: "flyReverse 8s ease-in-out infinite",
+        fadeLeft: "fadeLeft 1s ease-in-out",
       },
     },
   },
