@@ -47,4 +47,10 @@ declare global {
     name: string;
     icon: React.ReactElement;
   }
+
+  interface RoadmapCardProps {
+    title: string;
+    desc: string;
+    time: string;
+  }
 }

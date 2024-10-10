@@ -60,7 +60,7 @@ export default function RoadmapSection() {
       <div className="flex flex-col xl:pl-60 md:px-20 px-10 pt-20">
         {/* TITLE & PAGINATE */}
         <div className="flex flex-col sm:flex-row items-center sm:justify-between mb-12 sm:mb-20">
-          <h1 className="text-6xl text-white">ROADMAP BICHON {currentIndex}</h1>
+          <h1 className="text-6xl text-white">ROADMAP BICHON</h1>
           <div className="flex flex-row gap-4 mt-12 sm:mt-0">
             <SkewButton
               onClick={goToPrevious}
@@ -76,29 +76,35 @@ export default function RoadmapSection() {
         </div>
 
         {/* ROADMAP CONTENT */}
-        <div className="">
-          <RoadmapCard
-            time={roadmapStep[currentIndex].time}
-            desc={roadmapStep[currentIndex].desc}
-            title={roadmapStep[currentIndex].title}
-          />
+        <div>
+          {roadmapStep.map(
+            (step, index) =>
+              currentIndex === index && (
+                <RoadmapCard
+                  key={index}
+                  time={step.time}
+                  desc={step.desc}
+                  title={step.title}
+                />
+              )
+          )}
 
           <div className="relative">
-            {/* {roadmapStep.map((_, index) => (
+            {roadmapStep.map((_, index) => (
               <div
                 key={index}
-                className={`absolute top-1/2 transform -translate-y-[-6px] z-10 w-4 h-4 rounded-full border-2 border-white ${
+                className={`absolute left-0 top-[-6px] z-10 w-4 h-4 rounded-full border-2 border-white ${
                   index <= currentIndex ? "bg-blue-500" : "bg-gray-700"
                 }`}
                 style={{
-                  left: `calc(${(index / (roadmapStep.length - 1)) * 82.5}%)`,
+                  left: `calc(${(index / (roadmapStep.length - 1)) * 100}%)`,
                 }}
               />
-            ))} */}
+            ))}
 
-            <div className="mt-10 relative h-1 bg-gray-700 rounded-full overflow-hidden">
+            <div className="mt-16 sm:mt-28 relative h-[6px] bg-gray-700 rounded-full overflow-hidden">
               <div
-                className="absolute top-0 left-0 h-full bg-blue-500 transition-all duration-300 ease-in-out"
+                className="absolute top-0 left-0 h-full bg-gradient-to-r from-blue-400 via-blue-600 to-blue-600 transition-all duration-300 ease-in-out"
                 style={{ width: `${progress}%` }}
               ></div>
             </div>
