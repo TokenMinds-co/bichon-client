@@ -16,6 +16,7 @@ import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import Loader from "../shared/Loader";
 import { useMutation } from "@tanstack/react-query";
 import { generateAxiosInstance } from "@/lib/axios-client";
+import { toast } from "react-toastify";
 
 interface IcoWidgetsProps {
   currentPrice: number;
@@ -168,6 +169,7 @@ export default function IcoWidgets({
         }),
         handleMethod(activeMethod),
       ]);
+      toast.success("Transaction successful");
       setBuyDetails({
         ...buyDetails,
         amount: "",
@@ -176,6 +178,9 @@ export default function IcoWidgets({
       });
     } catch (error) {
       console.error(error);
+      toast.error(
+        "Transaction failed. Please check your wallet balance and try again."
+      );
     } finally {
       setIsBuying(false);
       console.log("hash", hash);

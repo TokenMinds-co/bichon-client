@@ -5,7 +5,8 @@ import Navbar from "@/components/shared/Navbar";
 import ReactQueryProvider from "@/providers/tanstack";
 import { Toaster } from "@/components/ui/sooner";
 import { Space_Mono, Plus_Jakarta_Sans } from "next/font/google";
-// import Link from "next/link";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const spaceMono = Space_Mono({
   weight: ["400", "700"],
@@ -38,6 +39,18 @@ export default function RootLayout({
       >
         <ParticleConnectkit>
           <ReactQueryProvider>
+            <ToastContainer
+              position="bottom-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="dark"
+            />
             <Toaster />
             <Navbar />
             {children}

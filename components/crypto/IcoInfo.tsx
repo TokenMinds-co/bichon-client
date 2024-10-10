@@ -57,13 +57,13 @@ const IcoInfo = ({
 
       <div className="flex flex-row items-center justify-center w-full">
         <Separator className="flex-1" />
-        <p className="flex flex-row text-center whitespace-nowrap space-x-2 mx-2">
+        <div className="flex flex-row text-center whitespace-nowrap space-x-2 mx-2">
           1 <span className="font-semibold px-2">${BICHON_TOKEN.symbol}</span> ={" "}
           {isFetchingBalance ? <Loader size="20" /> : `${price} `}
           {!isFetchingBalance && (
             <span className="font-semibold">${symbol}</span>
           )}
-        </p>
+        </div>
         <Separator className="flex-1" />
       </div>
     </div>

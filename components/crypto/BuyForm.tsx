@@ -96,18 +96,16 @@ const BuyForm = ({
             <Image src={logo} width={20} height={20} alt={symbol} />
           )}
         </div>
-        <label className="flex flex-row w-full space-x-2 mx-2 text-sm text-blue-400">
-          {logo !== "" && (
-            <>
-              Available:{" "}
-              {isFetchingBalance ? (
-                <Loader size="20" />
-              ) : (
-                `${formattedBalance} $${symbol}`
-              )}
-            </>
-          )}
-        </label>
+        {logo !== "" && (
+          <div className="flex flex-row w-full space-x-2 mx-2 text-sm text-blue-400">
+            Available:{" "}
+            {isFetchingBalance ? (
+              <Loader size="20" />
+            ) : (
+              `${formattedBalance} $${symbol}`
+            )}
+          </div>
+        )}
       </div>
       <div className="flex-1 space-y-1">
         <div className="bg-[#1e2128] rounded-md p-2 flex justify-between items-center">
