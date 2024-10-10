@@ -16,7 +16,7 @@ const ConnectWallet = ({ label }: { label: string }) => {
   return (
     <SkewButton
       type="button"
-      className="flex flex-row gap-3 py-5 items-center justify-center duration-200 ease-in-out"
+      className="flex w-full flex-row gap-3 py-5 items-center justify-center duration-200 ease-in-out"
       onClick={() => setOpen(true)}
     >
       {status === "connected" ? (
@@ -33,7 +33,7 @@ const ConnectWallet = ({ label }: { label: string }) => {
           <EllipsisVerticalIcon size={13} color="#FEFEFE" />
         </>
       ) : (
-        label
+        <p className="font-spaceMono text-lg w-full">{label}</p>
       )}
     </SkewButton>
   );

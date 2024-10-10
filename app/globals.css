@@ -92,3 +92,7 @@
 .custom-button {
   clip-path: polygon(0 0, 90% 0, 100% 20%, 100% 100%, 10% 100%, 0 80%);
 }
+
+.skew-widgets {
+  clip-path: polygon(0 0, 92.5% 0, 100% 7.5%, 100% 100%, 7.5% 100%, 0 92.5%);
+}

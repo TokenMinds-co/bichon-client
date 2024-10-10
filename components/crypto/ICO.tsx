@@ -1,8 +1,11 @@
+"use client";
+
 import { useState, useEffect } from "react";
-import { Bitcoin, CreditCard } from "lucide-react";
+import { CreditCard } from "lucide-react";
 import Image from "next/image";
 import { BICHON_TOKEN } from "@/constant/common";
 import { Separator } from "../ui/separator";
+import ConnectWallet from "../shared/ConnectWallet";
 
 export default function ICO() {
   const [timeLeft, setTimeLeft] = useState({
@@ -45,7 +48,7 @@ export default function ICO() {
   }, []);
 
   return (
-    <div className="w-full h-full max-w-lg flex items-center justify-center text-white p-4 bg-black">
+    <div className="w-full h-full max-w-lg flex items-center justify-center text-white p-4 bg-black skew-widgets">
       <div className="w-full max-w-md space-y-6">
         <h1 className="text-3xl font-spaceMono font-bold text-center mb-8">
           LOREM IPSUM COLOR!
@@ -95,23 +98,37 @@ export default function ICO() {
           <Separator className="flex-1" />
         </div>
 
-        <div className="flex justify-between gap-2">
+        <div className="flex justify-between gap-2 font-spaceMono font-bold">
           <button className="flex-1 bg-gray-700 py-2 rounded-md flex items-center justify-center gap-2">
-            <Bitcoin className="w-5 h-5" />
-            ETH
+            <Image
+              src="/assets/icons/solana.svg"
+              width={20}
+              height={20}
+              alt="solana"
+            />
+            <p className="tracking-wider">SOL</p>
           </button>
           <button className="flex-1 bg-[#1e2128] py-2 rounded-md flex items-center justify-center gap-2">
             <Image
-              src="/placeholder.svg?height=20&width=20"
+              src="/assets/icons/usdt.svg"
               width={20}
               height={20}
-              alt="USDT"
+              alt="usdt"
             />
-            USDT
+            <p className="tracking-wider">USDT</p>
+          </button>
+          <button className="flex-1 bg-[#1e2128] py-2 rounded-md flex items-center justify-center gap-2">
+            <Image
+              src="/assets/icons/usdc.svg"
+              width={20}
+              height={20}
+              alt="usdc"
+            />
+            <p className="tracking-wider">USDC</p>
           </button>
           <button className="flex-1 bg-[#1e2128] py-2 rounded-md flex items-center justify-center gap-2">
             <CreditCard className="w-5 h-5" />
-            CARD
+            <p className="tracking-wider">CARD</p>
           </button>
         </div>
 
@@ -124,7 +141,12 @@ export default function ICO() {
                 placeholder="0"
                 className="bg-transparent w-full outline-none"
               />
-              <Bitcoin className="w-5 h-5" />
+              <Image
+                src="/assets/icons/usdc.svg"
+                width={20}
+                height={20}
+                alt="usdc"
+              />
             </div>
           </div>
           <div className="flex-1 space-y-1">
@@ -138,7 +160,7 @@ export default function ICO() {
                 className="bg-transparent w-full outline-none"
               />
               <Image
-                src="/placeholder.svg?height=20&width=20"
+                src="/assets/icons/usdt.svg"
                 width={20}
                 height={20}
                 alt="LOREM"
@@ -147,18 +169,15 @@ export default function ICO() {
           </div>
         </div>
 
-        <button className="w-full bg-blue-600 py-3 rounded-md font-bold">
-          CONNECT WALLET
-        </button>
+        <ConnectWallet label="Connect Wallet" />
 
         <div className="text-center">
-          <a href="#" className="text-sm underline">
+          <a
+            href="#"
+            className="text-base underline underline-offset-4 font-jakarta"
+          >
             Don&apos;t have a wallet?
           </a>
-        </div>
-
-        <div className="text-center text-sm text-gray-500">
-          powered by Web3Payments
         </div>
       </div>
     </div>
