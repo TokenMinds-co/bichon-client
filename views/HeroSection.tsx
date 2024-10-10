@@ -8,22 +8,24 @@ export default function HeroSection() {
       <div className="z-30 xl:w-[70%] w-full h-full flex flex-col justify-between xl:pl-56 md:px-20 px-10">
         <div className="flex flex-col gap-y-12">
           <div className="text-lg">LOREM IPSUM COLOR SIT DOLOR.</div>
-          <h1 className="text-5xl md:text-6xl xl:text-7xl xl:leading-[5rem]">EXPLORE THE BICHON UNIVERSE</h1>
+          <h1 className="text-5xl md:text-6xl xl:text-7xl xl:leading-[5rem]">
+            EXPLORE THE BICHON UNIVERSE
+          </h1>
           <div className="flex flex-row gap-5">
             <SkewButton>Button CTA</SkewButton>
             <SkewButton variant="secondary">Read more</SkewButton>
           </div>
         </div>
 
-        <div className="w-fit pb-28">
-          <hr />
-          <div className="flex flex-row gap-5 pt-5 whitespace-nowrap">
+        <div className="w-full sm:w-fit pb-28">
+          <hr className="hidden sm:block" />
+          <div className="flex  flex-col sm:flex-row gap-5 pt-5 whitespace-nowrap">
             <div className="flex flex-col gap-1 text-center px-3 sm:px-5 md:px-10">
               <div className="text-xs md:text-sm">Project</div>
               <div className="text-xl md:text-2xl">250+</div>
             </div>
 
-            <div className="flex flex-col gap-1 text-center px-3 sm:px-5 md:px-10 border-l-[1px] border-r-[1px] border-white">
+            <div className="flex flex-col gap-1 text-center px-3 sm:px-5 md:px-10 py-5 sm:py-0 border-t-[1px] border-b-[1px] sm:border-t-[0px] sm:border-b-[0px] sm:border-l-[1px] sm:border-r-[1px] border-white">
               <div className="text-xs md:text-sm ">Client Success</div>
               <div className="text-xl md:text-2xl">2000+</div>
             </div>
