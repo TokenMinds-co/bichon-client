@@ -183,6 +183,7 @@ export default function IcoWidgets({
             } else {
               toast.error(error.response.data.message);
             }
+            return;
           });
 
         if (res && res.data.statusCode === 200) {
@@ -204,8 +205,6 @@ export default function IcoWidgets({
           handleMethod(activeMethod),
         ]);
         toast.success("Transaction successful");
-      } else {
-        toast.info("Order placed successfully");
       }
       setBuyDetails({
         ...buyDetails,
