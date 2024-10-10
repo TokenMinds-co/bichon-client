@@ -5,6 +5,7 @@ import Image from "next/image";
 import SkewButton from "@/components/shared/SkewButton";
 import { ArrowLeft } from "lucide-react";
 import RoadmapCard from "@/components/shared/RoadmapCard";
+import BgOverlayTop from "@/components/shared/BgOverlayTop";
 
 export default function RoadmapSection() {
   const roadmapStep = [
@@ -49,15 +50,17 @@ export default function RoadmapSection() {
 
   return (
     <section className="relative w-full bg-right-top min-h-screen flex flex-col">
+      <BgOverlayTop/>
+      
       <Image // OVERLAY GRID
-        className="absolute right-0 top-0"
+        className="absolute right-0 top-0 z-[5]"
         src="/assets/bg/grid.png"
         alt="grid"
         width={1400}
         height={1400}
       />
 
-      <div className="flex flex-col xl:pl-60 md:px-20 px-10 pt-20">
+      <div className="flex flex-col xl:pl-60 md:px-20 px-10 pt-20 z-20">
         {/* TITLE & PAGINATE */}
         <div className="flex flex-col sm:flex-row items-center sm:justify-between mb-12 sm:mb-20">
           <h1 className="text-6xl text-white">ROADMAP BICHON</h1>
