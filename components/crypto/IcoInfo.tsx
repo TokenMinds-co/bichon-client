@@ -10,6 +10,7 @@ interface IcoInfoProps {
   stakeable: number;
   price: number;
   symbol: string;
+  isFetchingBalance: boolean;
 }
 
 const IcoInfo = ({
@@ -19,6 +20,7 @@ const IcoInfo = ({
   stakeable,
   price,
   symbol,
+  isFetchingBalance,
 }: IcoInfoProps) => {
   const percentage = (raised / total) * 100;
   return (
@@ -56,7 +58,10 @@ const IcoInfo = ({
         <Separator className="flex-1" />
         <p className="text-center whitespace-nowrap mx-2">
           1 <span className="font-semibold">${BICHON_TOKEN.symbol}</span> ={" "}
-          {price} <span className="font-semibold">${symbol}</span>
+          {isFetchingBalance ? "Calculating..." : `${price} `}
+          {!isFetchingBalance && (
+            <span className="font-semibold">${symbol}</span>
+          )}
         </p>
         <Separator className="flex-1" />
       </div>

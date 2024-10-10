@@ -8,12 +8,14 @@ interface SkewButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   className?: string;
   variant?: "primary" | "secondary";
+  customClasses?: string;
 }
 
 export default function SkewButton({
   children,
   variant = "primary",
   className,
+  customClasses,
   ...props
 }: SkewButtonProps) {
   const buttonClasses = {
@@ -26,7 +28,8 @@ export default function SkewButton({
     <Button
       {...props}
       className={cn(
-        "custom-button border-[1px] text-sm font-spaceMono font-semibold rounded-none text-white px-5",
+        customClasses || "custom-button",
+        "border-[1px] text-sm font-spaceMono font-semibold rounded-none text-white px-5",
         buttonClasses[variant],
         className
       )}

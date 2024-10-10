@@ -53,7 +53,12 @@ const Crypto = ({ currentPrice }: CryptoProps) => {
               usdcprice={usdcprice?.Price ?? 0}
               usdtprice={usdtprice?.Price ?? 0}
             />
-            <IcoWidgets />
+            <IcoWidgets
+              currentPrice={currentPrice}
+              solprice={solprice?.Price ?? 0}
+              usdcprice={usdcprice?.Price ?? 0}
+              usdtprice={usdtprice?.Price ?? 0}
+            />
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center w-full h-full space-y-3">

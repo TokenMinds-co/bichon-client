@@ -5,16 +5,129 @@ import ConnectWallet from "../shared/ConnectWallet";
 import IcoCounter from "./IcoCounter";
 import IcoInfo from "./IcoInfo";
 import IcoMethod from "./IcoMethod";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TransactionMethod } from "@/types/Response";
+import { useAccount } from "@particle-network/connectkit";
+import SkewButton from "../shared/SkewButton";
+import { useFeed } from "@/hooks/useFeed";
+import BuyForm from "./BuyForm";
+import { SUPPORTED_SPL_TOKENS } from "@/constant/common";
+import { displayFormatter } from "@/lib/utils";
+import { useSPL } from "@/hooks/useSPL";
 
-export default function IcoWidgets() {
-  const [activeMethod, setActiveMethod] =
-    useState<TransactionMethod>("CRYPTO_SOLANA");
+interface IcoWidgetsProps {
+  currentPrice: number;
+  solprice: number;
+  usdtprice: number;
+  usdcprice: number;
+}
 
-  const handleMethod = (method: TransactionMethod) => {
+export default function IcoWidgets({
+  currentPrice,
+  solprice,
+  usdcprice,
+  usdtprice,
+}: IcoWidgetsProps) {
+  const { isConnected } = useAccount();
+  const { getATAandBalance, getSOLBalance, buyViaSOL, buyViaSPL } = useSPL();
+  const [activeMethod, setActiveMethod] = useState<TransactionMethod>("FIAT");
+  const [isFetchingBalance, setIsFetchingBalance] = useState(false);
+  const [tokenState, setTokenState] = useState({
+    address: "",
+    balance: 0,
+    decimals: 0,
+    symbol: "USD",
+    price: currentPrice,
+    boughtAmount: 0,
+    usdAmount: 0,
+    logo: "",
+  });
+
+  const handleMethod = async (method: TransactionMethod) => {
     setActiveMethod(method);
+    let pricePer1BCH = currentPrice;
+    let balance = 0;
+    setIsFetchingBalance(true);
+    if (method === "CRYPTO_SOLANA") {
+      balance = await getSOLBalance();
+      pricePer1BCH = Number(
+        displayFormatter(1 / solprice, SUPPORTED_SPL_TOKENS[0].decimals)
+      );
+      setTokenState({
+        ...tokenState,
+        price: pricePer1BCH,
+        symbol: SUPPORTED_SPL_TOKENS[0].symbol,
+        decimals: SUPPORTED_SPL_TOKENS[0].decimals,
+        balance,
+        address: SUPPORTED_SPL_TOKENS[0].address,
+        logo: "/assets/icons/solana.svg",
+      });
+    } else if (method === "CRYPTO_USDT") {
+      const res = await getATAandBalance(SUPPORTED_SPL_TOKENS[1].address);
+      pricePer1BCH = Number(
+        displayFormatter(1 / usdtprice, SUPPORTED_SPL_TOKENS[1].decimals)
+      );
+
+      setTokenState({
+        ...tokenState,
+        price: pricePer1BCH,
+        symbol: SUPPORTED_SPL_TOKENS[1].symbol,
+        decimals: SUPPORTED_SPL_TOKENS[1].decimals,
+        balance: res?.uiAmount || 0,
+        address: SUPPORTED_SPL_TOKENS[1].address,
+        logo: "/assets/icons/usdt.svg",
+      });
+    } else if (method === "CRYPTO_USDC") {
+      const res = await getATAandBalance(SUPPORTED_SPL_TOKENS[2].address);
+      pricePer1BCH = Number(
+        displayFormatter(1 / usdcprice, SUPPORTED_SPL_TOKENS[2].decimals)
+      );
+      setTokenState({
+        ...tokenState,
+        price: pricePer1BCH,
+        symbol: SUPPORTED_SPL_TOKENS[2].symbol,
+        decimals: SUPPORTED_SPL_TOKENS[2].decimals,
+        balance: res?.uiAmount || 0,
+        address: SUPPORTED_SPL_TOKENS[2].address,
+        logo: "/assets/icons/usdc.svg",
+      });
+    } else {
+      setTokenState({
+        ...tokenState,
+        price: currentPrice,
+        symbol: "USD",
+        logo: "",
+      });
+    }
+    setIsFetchingBalance(false);
   };
+
+  // Monitor priceFeed changes
+  useEffect(() => {
+    if (activeMethod === "CRYPTO_SOLANA") {
+      setTokenState({
+        ...tokenState,
+        price: Number(
+          displayFormatter(1 / solprice, SUPPORTED_SPL_TOKENS[0].decimals)
+        ),
+      });
+    } else if (activeMethod === "CRYPTO_USDT") {
+      setTokenState({
+        ...tokenState,
+        price: Number(
+          displayFormatter(1 / usdtprice, SUPPORTED_SPL_TOKENS[1].decimals)
+        ),
+      });
+    } else if (activeMethod === "CRYPTO_USDC") {
+      setTokenState({
+        ...tokenState,
+        price: Number(
+          displayFormatter(1 / usdcprice, SUPPORTED_SPL_TOKENS[2].decimals)
+        ),
+      });
+    }
+  }, [solprice, usdcprice, usdtprice]);
+
   return (
     <div className="w-full h-full max-w-lg flex items-center justify-center text-white p-4 bg-black skew-widgets">
       <div className="w-full max-w-md space-y-6">
@@ -28,8 +141,9 @@ export default function IcoWidgets() {
           total={3163452}
           purchased={241}
           stakeable={50}
-          price={1.000476}
-          symbol={"USDT"}
+          price={tokenState.price}
+          symbol={tokenState.symbol}
+          isFetchingBalance={isFetchingBalance}
         />
 
         <div className="flex justify-between gap-2 font-spaceMono font-bold">
@@ -67,44 +181,28 @@ export default function IcoWidgets() {
           />
         </div>
 
-        <div className="flex gap-4">
-          <div className="flex-1 space-y-1">
-            <label className="text-sm text-blue-400">ETH you pay</label>
-            <div className="bg-[#1e2128] rounded-md p-2 flex justify-between items-center">
-              <input
-                type="number"
-                placeholder="0"
-                className="bg-transparent w-full outline-none"
-              />
-              <Image
-                src="/assets/icons/usdc.svg"
-                width={20}
-                height={20}
-                alt="usdc"
-              />
-            </div>
-          </div>
-          <div className="flex-1 space-y-1">
-            <label className="text-sm text-blue-400">
-              MAX $LOREM you receive
-            </label>
-            <div className="bg-[#1e2128] rounded-md p-2 flex justify-between items-center">
-              <input
-                type="number"
-                placeholder="0"
-                className="bg-transparent w-full outline-none"
-              />
-              <Image
-                src="/assets/icons/usdt.svg"
-                width={20}
-                height={20}
-                alt="LOREM"
-              />
-            </div>
-          </div>
-        </div>
+        <BuyForm
+          isFetchingBalance={isFetchingBalance}
+          balance={tokenState.balance}
+          decimals={tokenState.decimals}
+          symbol={tokenState.symbol}
+          logo={tokenState.logo}
+        />
 
-        <ConnectWallet label="Connect Wallet" />
+        {isConnected ? (
+          <SkewButton
+            type="button"
+            className="flex w-full flex-row gap-3 py-5 items-center justify-center duration-200 ease-in-out"
+            customClasses={"skew-buy-widgets"}
+          >
+            <p className="font-spaceMono text-lg w-full">Buy Now</p>
+          </SkewButton>
+        ) : (
+          <ConnectWallet
+            label="Connect Wallet"
+            customClasses="skew-buy-widgets"
+          />
+        )}
 
         <div className="text-center">
           <a

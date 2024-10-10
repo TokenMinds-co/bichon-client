@@ -146,9 +146,9 @@ export default function FormCrypto({
       } else if (value === SUPPORTED_SPL_TOKENS[2].address) {
         setPrice(usdcprice);
       }
-      const { uiAmount, decimals } = await getATAandBalance(address, value);
-      setBalance(uiAmount ?? 0);
-      setDecimals(decimals ?? 6);
+      const res = await getATAandBalance(value);
+      setBalance(res?.uiAmount ?? 0);
+      setDecimals(res?.decimals ?? 6);
     }
     setIsFetchingBalance(false);
   };

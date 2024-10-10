@@ -6,7 +6,12 @@ import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
 import { EllipsisVerticalIcon } from "lucide-react";
 import SkewButton from "./SkewButton";
 
-const ConnectWallet = ({ label }: { label: string }) => {
+interface ConnectWalletProps {
+  label: string;
+  customClasses?: string;
+}
+
+const ConnectWallet = ({ label, customClasses }: ConnectWalletProps) => {
   const { setOpen } = useModal();
   const { status, address } = useAccount();
 
@@ -18,6 +23,7 @@ const ConnectWallet = ({ label }: { label: string }) => {
       type="button"
       className="flex w-full flex-row gap-3 py-5 items-center justify-center duration-200 ease-in-out"
       onClick={() => setOpen(true)}
+      customClasses={customClasses}
     >
       {status === "connected" ? (
         <>
