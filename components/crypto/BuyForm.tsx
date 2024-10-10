@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { displayFormatter } from "@/lib/utils";
 import { BICHON_TOKEN } from "@/constant/common";
+import Loader from "../shared/Loader";
 
 interface BuyDetails {
   isDirty: boolean;
@@ -95,13 +96,15 @@ const BuyForm = ({
             <Image src={logo} width={20} height={20} alt={symbol} />
           )}
         </div>
-        <label className="text-sm text-blue-400">
+        <label className="flex flex-row space-x-2 mx-2 text-sm text-blue-400">
           {logo !== "" && (
             <>
               Available:{" "}
-              {isFetchingBalance
-                ? "Calculating..."
-                : `${formattedBalance} $${symbol}`}
+              {isFetchingBalance ? (
+                <Loader size="20" />
+              ) : (
+                `${formattedBalance} $${symbol}`
+              )}
             </>
           )}
         </label>

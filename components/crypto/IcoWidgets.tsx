@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import ConnectWallet from "../shared/ConnectWallet";
 import IcoCounter from "./IcoCounter";
 import IcoInfo from "./IcoInfo";
@@ -9,11 +8,12 @@ import { useEffect, useState } from "react";
 import { TransactionMethod } from "@/types/Response";
 import { useAccount } from "@particle-network/connectkit";
 import SkewButton from "../shared/SkewButton";
-import { useFeed } from "@/hooks/useFeed";
 import BuyForm from "./BuyForm";
 import { SUPPORTED_SPL_TOKENS } from "@/constant/common";
 import { displayFormatter } from "@/lib/utils";
 import { useSPL } from "@/hooks/useSPL";
+import { LAMPORTS_PER_SOL } from "@solana/web3.js";
+import Loader from "../shared/Loader";
 
 interface IcoWidgetsProps {
   currentPrice: number;
@@ -32,6 +32,7 @@ export default function IcoWidgets({
   const { getATAandBalance, getSOLBalance, buyViaSOL, buyViaSPL } = useSPL();
   const [activeMethod, setActiveMethod] = useState<TransactionMethod>("FIAT");
   const [isFetchingBalance, setIsFetchingBalance] = useState(false);
+  const [isBuying, setIsBuying] = useState(false);
   const [tokenState, setTokenState] = useState({
     address: "",
     balance: 0,
@@ -111,6 +112,42 @@ export default function IcoWidgets({
       });
     }
     setIsFetchingBalance(false);
+  };
+
+  const buyAction = async () => {
+    let hash: any;
+    setIsBuying(true);
+    try {
+      if (activeMethod === "CRYPTO_SOLANA") {
+        hash = await buyViaSOL(Number(buyDetails.amount) * LAMPORTS_PER_SOL);
+      } else if (activeMethod === "CRYPTO_USDC") {
+        hash = await buyViaSPL(
+          tokenState.address,
+          Number(buyDetails.amount) * 10 ** tokenState.decimals
+        );
+      } else if (activeMethod === "CRYPTO_USDT") {
+        hash = await buyViaSPL(
+          tokenState.address,
+          Number(buyDetails.amount) * 10 ** tokenState.decimals
+        );
+      } else {
+        console.log("Buying via card", buyDetails.amount);
+      }
+
+      // Reset and refetch balance
+      await handleMethod(activeMethod);
+      setBuyDetails({
+        ...buyDetails,
+        amount: "",
+        getAmount: "",
+        usdAmount: "",
+      });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsBuying(false);
+      console.log("hash", hash);
+    }
   };
 
   // Monitor priceFeed changes
@@ -208,10 +245,16 @@ export default function IcoWidgets({
         {isConnected ? (
           <SkewButton
             type="button"
+            disabled={buyDetails.amount === ""}
+            onClick={buyAction}
             className="flex w-full flex-row gap-3 py-5 items-center justify-center duration-200 ease-in-out"
             customClasses={"skew-buy-widgets"}
           >
-            <p className="font-spaceMono text-lg w-full">Buy Now</p>
+            {isBuying ? (
+              <Loader size="25" />
+            ) : (
+              <p className="font-spaceMono text-lg w-full">Buy Now</p>
+            )}
           </SkewButton>
         ) : (
           <ConnectWallet
