@@ -76,7 +76,7 @@ const BuyForm = ({
       getAmount: "",
       usdAmount: "",
     });
-  }, [logo, buyDetails, setBuyDetails]);
+  }, [logo]);
 
   return (
     <div className="flex gap-4">

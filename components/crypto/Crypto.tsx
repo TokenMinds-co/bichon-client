@@ -8,6 +8,7 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 import { useFeed } from "@/hooks/useFeed";
 import IcoWidgets from "./IcoWidgets";
+import { redirect } from "next/navigation";
 
 /*
 The flow:
@@ -40,44 +41,20 @@ const Crypto = ({ currentPrice }: CryptoProps) => {
     },
     enabled: !!address,
   });
+  if (users?.length === 0 || (users && users[0]?.kyc?.status !== "APPROVED")) {
+    redirect("/kyc");
+  }
 
   return (
     <div className="flex flex-col items-center justify-center w-full h-full space-y-2">
-      {users && users.length > 0 ? (
-        users[0].kyc?.status === "APPROVED" ? (
-          <div className="flex flex-col space-y-5 w-full h-full items-center justify-center">
-            <IcoWidgets
-              currentPrice={currentPrice}
-              solprice={solprice?.Price ?? 0}
-              usdcprice={usdcprice?.Price ?? 0}
-              usdtprice={usdtprice?.Price ?? 0}
-            />
-          </div>
-        ) : (
-          <div className="flex flex-col items-center justify-center w-full h-full space-y-3">
-            <p className="text-sm text-white">
-              Unfortunately, your KYC status is still{" "}
-              <span className="font-bold">{users[0].kyc?.status}</span>.
-            </p>
-            <p className="text-sm text-white">
-              Please continue or wait your KYC verification to join the presale
-              now.
-            </p>
-          </div>
-        )
-      ) : (
-        <div className="flex flex-col items-center justify-center w-full h-full space-y-3">
-          <p className="text-sm text-white">
-            Unfortunately, you are not a registered user. Please verify as user
-            candidate to join the presale now.
-          </p>
-          <Link href="/">
-            <Button className="text-sm text-white" variant="default">
-              Go to Verify Page
-            </Button>
-          </Link>
-        </div>
-      )}
+      <div className="flex flex-col space-y-5 w-full h-full items-center justify-center">
+        <IcoWidgets
+          currentPrice={currentPrice}
+          solprice={solprice?.Price ?? 0}
+          usdcprice={usdcprice?.Price ?? 0}
+          usdtprice={usdtprice?.Price ?? 0}
+        />
+      </div>
     </div>
   );
 };
