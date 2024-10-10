@@ -32,12 +32,12 @@ const Navbar = () => {
       href: "/",
     },
     {
-      name: "ICO",
-      href: "/ico",
+      name: "ABOUT US",
+      href: "#about ",
     },
     {
-      name: "BUY TOKENS",
-      href: "/payment",
+      name: "ICO",
+      href: "/ico",
     },
     {
       name: "DASHBOARD",

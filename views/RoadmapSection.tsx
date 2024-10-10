@@ -49,7 +49,7 @@ export default function RoadmapSection() {
   };
 
   return (
-    <section className="relative w-full bg-right-top min-h-screen flex flex-col">
+    <section id="about" className="relative w-full bg-right-top min-h-screen flex flex-col">
       <BgOverlayTop/>
       
       <Image // OVERLAY GRID

@@ -4,8 +4,6 @@ import { generateAxiosInstance } from "@/lib/axios-client";
 import { useAccount } from "@particle-network/connectkit";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import Link from "next/link";
-import { Button } from "../ui/button";
 import { useFeed } from "@/hooks/useFeed";
 import IcoWidgets from "./IcoWidgets";
 import { redirect } from "next/navigation";
@@ -46,16 +44,18 @@ const Crypto = ({ currentPrice }: CryptoProps) => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center w-full h-full space-y-2">
-      <div className="flex flex-col space-y-5 w-full h-full items-center justify-center">
-        <IcoWidgets
-          currentPrice={currentPrice}
-          solprice={solprice?.Price ?? 0}
-          usdcprice={usdcprice?.Price ?? 0}
-          usdtprice={usdtprice?.Price ?? 0}
-        />
+    users && (
+      <div className="flex flex-col items-center justify-center w-full h-full space-y-2">
+        <div className="flex flex-col space-y-5 w-full h-full items-center justify-center">
+          <IcoWidgets
+            currentPrice={currentPrice}
+            solprice={solprice?.Price ?? 0}
+            usdcprice={usdcprice?.Price ?? 0}
+            usdtprice={usdtprice?.Price ?? 0}
+          />
+        </div>
       </div>
-    </div>
+    )
   );
 };
 
