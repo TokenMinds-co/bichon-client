@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { Bitcoin, CreditCard } from "lucide-react";
 import Image from "next/image";
+import { BICHON_TOKEN } from "@/constant/common";
+import { Separator } from "../ui/separator";
 
 export default function ICO() {
   const [timeLeft, setTimeLeft] = useState({
@@ -43,16 +45,16 @@ export default function ICO() {
   }, []);
 
   return (
-    <div className="min-h-screen flex items-center justify-center text-white p-4">
+    <div className="w-full h-full max-w-lg flex items-center justify-center text-white p-4 bg-black">
       <div className="w-full max-w-md space-y-6">
-        <h1 className="text-3xl font-bold text-center mb-8">
+        <h1 className="text-3xl font-spaceMono font-bold text-center mb-8">
           LOREM IPSUM COLOR!
         </h1>
 
-        <div className="bg-[#1e2128] rounded-xl p-4 flex justify-between">
+        <div className="bg-gradient-to-r border-blue-800 from-blue-500 to-blue-700 opacity-95 hover:opacity-100 rounded-md p-4 flex justify-between">
           {Object.entries(timeLeft).map(([key, value]) => (
             <div key={key} className="text-center">
-              <div className="text-3xl font-mono">
+              <div className="text-3xl font-spaceMono font-semibold">
                 {value.toString().padStart(2, "0")}
               </div>
               <div className="text-sm capitalize">{key}</div>
@@ -61,30 +63,37 @@ export default function ICO() {
         </div>
 
         <div className="space-y-2">
-          <div className="flex justify-between text-sm">
-            <span>USDT RAISED: $549,213.31</span>
+          <div className="flex justify-center text-base font-jakarta">
+            <span>USD RAISED: $549,213.31</span>
+            <span className="px-2"> / </span>
             <span>$3,163,452</span>
           </div>
-          <div className="w-full bg-gray-700 rounded-full h-2.5">
+          <div className="w-full bg-gray-700 rounded-full h-4">
             <div
-              className="bg-blue-600 h-2.5 rounded-full"
-              style={{ width: "17%" }}
-            ></div>
+              className="bg-gradient-to-r border-blue-800 from-blue-500 to-blue-700 h-4 rounded-full"
+              style={{ width: "50%" }}
+            />
           </div>
         </div>
 
-        <div className="space-y-2 text-sm">
-          <div className="flex justify-between">
-            <span>Your purchased $LOREMIPSUM= 0</span>
-            <span className="text-blue-400">ⓘ</span>
+        <div className="space-y-2 text-base font-jakarta font-medium">
+          <div className="flex items-center justify-center">
+            <span>Your purchased ${BICHON_TOKEN.symbol}= 0</span>
+            <span className="text-blue-400 px-2">ⓘ</span>
           </div>
-          <div className="flex justify-between">
-            <span>Your stakeable $LOREMIPSUM= 0</span>
-            <span className="text-blue-400">ⓘ</span>
+          <div className="flex items-center justify-center">
+            <span>Your stakeable ${BICHON_TOKEN.symbol}= 0</span>
+            <span className="text-blue-400 px-2">ⓘ</span>
           </div>
         </div>
 
-        <div className="text-center">1 LOREM = $0.0312</div>
+        <div className="flex flex-row items-center justify-center w-full">
+          <Separator className="flex-1" />
+          <p className="text-center whitespace-nowrap mx-2">
+            1 ${BICHON_TOKEN.symbol} = $0.0312
+          </p>
+          <Separator className="flex-1" />
+        </div>
 
         <div className="flex justify-between gap-2">
           <button className="flex-1 bg-gray-700 py-2 rounded-md flex items-center justify-center gap-2">

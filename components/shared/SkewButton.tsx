@@ -17,7 +17,8 @@ export default function SkewButton({
   ...props
 }: SkewButtonProps) {
   const buttonClasses = {
-    primary: "bg-gradient-to-r border-blue-800 from-blue-500 to-blue-700 opacity-95 hover:opacity-100",
+    primary:
+      "bg-gradient-to-r border-blue-800 from-blue-500 to-blue-700 opacity-95 hover:opacity-100",
     secondary: "border-white bg-white/10",
   };
 
