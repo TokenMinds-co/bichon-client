@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Image from "next/image";
 import SkewButton from "@/components/shared/SkewButton";
 import { ArrowLeft } from "lucide-react";
@@ -8,7 +10,7 @@ export default function RoadmapSection() {
   const roadmapStep = [
     {
       step: 1,
-      time: "Q4 2024",
+      time: "Q1 2024",
       title: "Founding of Bichon",
       desc: "Lorem ipsum dolor sit amet conceteur. codimentum arcu ut posuere in ut ec volutpat proin estiam.",
     },
@@ -32,6 +34,19 @@ export default function RoadmapSection() {
     },
   ];
 
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const progress = (currentIndex / (roadmapStep.length - 1)) * 100;
+
+  const goToPrevious = () => {
+    setCurrentIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : prevIndex));
+  };
+
+  const goToNext = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex < roadmapStep.length - 1 ? prevIndex + 1 : prevIndex
+    );
+  };
+
   return (
     <section className="relative w-full bg-right-top min-h-screen flex flex-col">
       <Image // OVERLAY GRID
@@ -45,12 +60,16 @@ export default function RoadmapSection() {
       <div className="flex flex-col xl:pl-60 md:px-20 px-10 pt-20">
         {/* TITLE & PAGINATE */}
         <div className="flex flex-col sm:flex-row items-center sm:justify-between mb-12 sm:mb-20">
-          <h1 className="text-6xl text-white">ROADMAP BICHON</h1>
+          <h1 className="text-6xl text-white">ROADMAP BICHON {currentIndex}</h1>
           <div className="flex flex-row gap-4 mt-12 sm:mt-0">
-            <SkewButton className="px-8 py-6" variant="secondary">
+            <SkewButton
+              onClick={goToPrevious}
+              className="px-8 py-6"
+              variant="secondary"
+            >
               <ArrowLeft className="rotate-[-45deg]" />
             </SkewButton>
-            <SkewButton className="px-8 py-6">
+            <SkewButton onClick={goToNext} className="px-8 py-6">
               <ArrowLeft className="rotate-[135deg]" />
             </SkewButton>
           </div>
@@ -59,10 +78,31 @@ export default function RoadmapSection() {
         {/* ROADMAP CONTENT */}
         <div className="">
           <RoadmapCard
-            time={roadmapStep[0].time}
-            desc={roadmapStep[0].desc}
-            title={roadmapStep[0].title}
+            time={roadmapStep[currentIndex].time}
+            desc={roadmapStep[currentIndex].desc}
+            title={roadmapStep[currentIndex].title}
           />
+
+          <div className="relative">
+            {/* {roadmapStep.map((_, index) => (
+              <div
+                key={index}
+                className={`absolute top-1/2 transform -translate-y-[-6px] z-10 w-4 h-4 rounded-full border-2 border-white ${
+                  index <= currentIndex ? "bg-blue-500" : "bg-gray-700"
+                }`}
+                style={{
+                  left: `calc(${(index / (roadmapStep.length - 1)) * 82.5}%)`,
+                }}
+              />
+            ))} */}
+
+            <div className="mt-10 relative h-1 bg-gray-700 rounded-full overflow-hidden">
+              <div
+                className="absolute top-0 left-0 h-full bg-blue-500 transition-all duration-300 ease-in-out"
+                style={{ width: `${progress}%` }}
+              ></div>
+            </div>
+          </div>
         </div>
       </div>
 
