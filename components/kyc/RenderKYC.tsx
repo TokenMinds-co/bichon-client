@@ -87,8 +87,7 @@ const RenderKYC = ({ users, address }: RenderKYCProps) => {
   }
   return (
     <StatusKYC
-      // status={users[0].kyc ? users[0].kyc.status : "DOCUMENTS_REQUESTED"}
-      status="REJECTED"
+      status={users[0].kyc ? users[0].kyc.status : "DOCUMENTS_REQUESTED"}
       email={users[0].email}
       address={users[0].address}
     />
