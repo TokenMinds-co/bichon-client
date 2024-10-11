@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 const DashboardPage = () => {
   
   return (
-    <main className="container bg-sky min-h-screen mx-auto flex flex-col">
+    <main className="bg-sky min-h-screen flex flex-col">
       <Dashboard />
     </main>
   );

@@ -45,12 +45,13 @@ export default function Dashboard() {
   });
 
   return isConnected ? (
-    <div className="flex flex-col pb-8 pt-28">
+    <div className="flex flex-col pb-8 pt-28 container mx-auto">
       <div className="flex flex-row justify-between items-center mb-8">
         <h1 className="text-3xl font-bold text-white">User Dashboard</h1>
       </div>
 
       <Overview />
+      
       <TransactionHistory
         sort={sort}
         setSort={setSort}
@@ -58,6 +59,7 @@ export default function Dashboard() {
           transactions?.data?.transactions as UserTransactionResponse[]
         }
       />
+
       <TablePagination
         currentPage={page}
         setCurrentPage={setPage}
@@ -65,6 +67,6 @@ export default function Dashboard() {
       />
     </div>
   ) : (
-    <h1 className="absolute h-screen text-2xl text-white font-spaceMono text-center flex justify-center items-center container mx-auto">Connect Wallet To Continue</h1>
+    <h1 className="absolute w-screen h-screen text-2xl text-white font-spaceMono text-center flex justify-center items-center">Connect Wallet To Continue</h1>
   );
 }

@@ -27,7 +27,7 @@ const Support = () => {
   }
 
   return isConnected ? (
-    <div className="flex flex-col space-y-2 w-full h-full items-center justify-center">
+    <div className="flex flex-col pt-24 space-y-2 w-full h-full items-center justify-center">
       {users && users.length > 0 && <FormSupport email={users[0].email} />}
     </div>
   ) : (
