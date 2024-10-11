@@ -159,16 +159,18 @@ export default function IcoWidgets({
     setIsBuying(true);
     try {
       if (activeMethod === "CRYPTO_SOLANA") {
-        hash = await buyViaSOL(Number(buyDetails.amount) * LAMPORTS_PER_SOL);
+        hash = await buyViaSOL(
+          Math.ceil(Number(buyDetails.amount) * LAMPORTS_PER_SOL)
+        );
       } else if (activeMethod === "CRYPTO_USDC") {
         hash = await buyViaSPL(
           tokenState.address,
-          Number(buyDetails.amount) * 10 ** tokenState.decimals
+          Math.ceil(Number(buyDetails.amount) * 10 ** tokenState.decimals)
         );
       } else if (activeMethod === "CRYPTO_USDT") {
         hash = await buyViaSPL(
           tokenState.address,
-          Number(buyDetails.amount) * 10 ** tokenState.decimals
+          Math.ceil(Number(buyDetails.amount) * 10 ** tokenState.decimals)
         );
       } else {
         console.log("Buying via card", buyDetails.amount);
