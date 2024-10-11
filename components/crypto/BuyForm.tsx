@@ -76,6 +76,7 @@ const BuyForm = ({
       getAmount: "",
       usdAmount: "",
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [logo]);
 
   return (
