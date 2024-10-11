@@ -29,11 +29,11 @@ const Navbar = () => {
   const navMenu = [
     {
       name: "HOME",
-      href: "/",
+      href: "/#home",
     },
     {
       name: "ABOUT US",
-      href: "#about ",
+      href: "/#about ",
     },
     {
       name: "ICO",

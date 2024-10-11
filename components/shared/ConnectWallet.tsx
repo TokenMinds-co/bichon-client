@@ -39,7 +39,7 @@ const ConnectWallet = ({ label, customClasses }: ConnectWalletProps) => {
           <EllipsisVerticalIcon size={13} color="#FEFEFE" />
         </>
       ) : (
-        <p className="font-spaceMono text-lg w-full">{label}</p>
+        <p className="font-spaceMono w-full">{label}</p>
       )}
     </SkewButton>
   );

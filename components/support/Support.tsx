@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { generateAxiosInstance } from "@/lib/axios-client";
 import { useAccount } from "@particle-network/connectkit";
@@ -8,8 +8,7 @@ import FormSupport from "./FormSupport";
 import { redirect } from "next/navigation";
 
 const Support = () => {
-  const { address } = useAccount();
-
+  const { address, isConnected } = useAccount();
   const { data: users } = useQuery({
     queryKey: ["get-types", address],
     queryFn: async () => {
@@ -27,10 +26,12 @@ const Support = () => {
     redirect("/kyc");
   }
 
-  return (
-    <div className="flex flex-col space-y-2 w-full h-full items-center justify-center">
+  return isConnected ? (
+    <div className="flex flex-col pt-24 space-y-2 w-full h-full items-center justify-center">
       {users && users.length > 0 && <FormSupport email={users[0].email} />}
     </div>
+  ) : (
+    <h1 className="text-2xl text-center h-full">Connect Wallet To Continue</h1>
   );
 };
 

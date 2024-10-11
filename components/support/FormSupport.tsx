@@ -182,7 +182,9 @@ export default function FormSupport({ email }: FormSupportProps) {
         onSubmit={form.handleSubmit(onSubmit)}
         className="max-w-6xl mx-auto p-6 text-wrap rounded-lg shadow"
       >
-        <h2 className="text-2xl font-bold mb-10 text-center">Submit a Support Ticket</h2>
+        <h2 className="text-2xl font-bold mb-10 text-center">
+          Submit a Support Ticket
+        </h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="space-y-4">
             <FormField
@@ -333,7 +335,11 @@ export default function FormSupport({ email }: FormSupportProps) {
           </div>
         </div>
 
-        <SkewButton disabled={isSubmitting} className="w-full mt-6">
+        <SkewButton
+          disabled={isSubmitting}
+          className="w-full mt-6"
+          customClasses="skew-buy-widgets"
+        >
           {isSubmitting ? "Submitting..." : "Submit Ticket"}
         </SkewButton>
       </form>
