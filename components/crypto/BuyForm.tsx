@@ -95,9 +95,15 @@ const BuyForm = ({
             onChange={handleAmountChange}
           />
           {logo === "" ? (
-            <p className="whitespace-nowrap">$ USD</p>
+            <p className="whitespace-nowrap ml-2">$ USD</p>
           ) : (
-            <Image src={logo} width={20} height={20} alt={symbol} />
+            <Image
+              src={logo}
+              width={20}
+              height={20}
+              alt={symbol}
+              className="ml-2"
+            />
           )}
         </div>
         {logo !== "" && (
@@ -120,7 +126,7 @@ const BuyForm = ({
             readOnly
             className="bg-transparent w-full outline-none"
           />
-          <p className="whitespace-nowrap">{BICHON_TOKEN.symbol}</p>
+          <p className="whitespace-nowrap ml-2">{BICHON_TOKEN.symbol}</p>
         </div>
       </div>
     </div>

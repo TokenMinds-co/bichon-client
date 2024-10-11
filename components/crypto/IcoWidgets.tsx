@@ -9,7 +9,7 @@ import { TransactionMethod } from "@/types/Response";
 import { useAccount } from "@particle-network/connectkit";
 import SkewButton from "../shared/SkewButton";
 import BuyForm from "./BuyForm";
-import { SUPPORTED_SPL_TOKENS } from "@/constant/common";
+import { BICHON_TOKEN, SUPPORTED_SPL_TOKENS } from "@/constant/common";
 import { displayFormatter } from "@/lib/utils";
 import { useSPL } from "@/hooks/useSPL";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
@@ -27,6 +27,7 @@ interface IcoWidgetsProps {
   usdtprice: number;
   usdcprice: number;
   until: string;
+  userAllocation: number | undefined;
 }
 
 interface SubmitTx {
@@ -45,6 +46,7 @@ export default function IcoWidgets({
   usdcprice,
   usdtprice,
   until,
+  userAllocation,
 }: IcoWidgetsProps) {
   const router = useRouter();
   const { isConnected, address } = useAccount();
@@ -260,18 +262,23 @@ export default function IcoWidgets({
   }, [solprice, usdcprice, usdtprice]);
 
   return (
-    <div className="w-full h-full max-w-lg flex items-center justify-center text-white p-10 bg-black skew-widgets">
+    <div className="w-full h-full max-w-lg flex items-center justify-center text-white p-10 bg-black/40 skew-widgets">
       <div className="w-full max-w-md space-y-6">
-        <h1 className="text-3xl font-spaceMono font-bold text-center mb-8">
-          LOREM IPSUM COLOR!
-        </h1>
+        <div className="flex flex-col space-y-1">
+          <h1 className="text-3xl font-spaceMono font-bold text-center">
+            {BICHON_TOKEN.name}
+          </h1>
+          <p className="text-base font-spaceMono font-bold text-center mb-8">
+            ICO is Live!
+          </p>
+        </div>
 
         <IcoCounter until={until} />
         <IcoInfo
           raised={raisedAmount}
           total={targetAmount}
-          purchased={241}
-          stakeable={50}
+          purchased={userAllocation}
+          stakeable={0}
           price={tokenState.price}
           symbol={tokenState.symbol}
           isFetchingBalance={isFetchingBalance}

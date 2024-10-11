@@ -125,6 +125,7 @@ declare global {
     id: string;
     address: string;
     email: string;
+    allocation: number;
     createdAt: string;
     updatedAt: string;
     deletedAt: string | null;

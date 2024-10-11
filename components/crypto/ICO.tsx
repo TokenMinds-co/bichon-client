@@ -57,6 +57,7 @@ const ICO = ({ currentPrice, targetAmount, raisedAmount, until }: ICOProps) => {
           targetAmount={targetAmount}
           raisedAmount={raisedAmount}
           until={until}
+          userAllocation={!users ? 0 : users[0]?.allocation}
         />
       </div>
     </div>
