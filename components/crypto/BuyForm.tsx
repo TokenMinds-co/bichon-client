@@ -117,6 +117,7 @@ const BuyForm = ({
             type="text"
             placeholder="0"
             value={buyDetails.getAmount}
+            readOnly
             className="bg-transparent w-full outline-none"
           />
           <p className="whitespace-nowrap">{BICHON_TOKEN.symbol}</p>

@@ -18,11 +18,14 @@ The flow:
 6. Initiate the transaction.
 */
 
-interface CryptoProps {
+interface ICOProps {
   currentPrice: number;
+  targetAmount: number;
+  raisedAmount: number;
+  until: string;
 }
 
-const Crypto = ({ currentPrice }: CryptoProps) => {
+const ICO = ({ currentPrice, targetAmount, raisedAmount, until }: ICOProps) => {
   const { address } = useAccount();
   const { solprice, usdcprice, usdtprice } = useFeed();
 
@@ -51,10 +54,13 @@ const Crypto = ({ currentPrice }: CryptoProps) => {
           solprice={solprice?.Price ?? 0}
           usdcprice={usdcprice?.Price ?? 0}
           usdtprice={usdtprice?.Price ?? 0}
+          targetAmount={targetAmount}
+          raisedAmount={raisedAmount}
+          until={until}
         />
       </div>
     </div>
   );
 };
 
-export default Crypto;
+export default ICO;

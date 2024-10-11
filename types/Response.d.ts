@@ -167,6 +167,8 @@ declare global {
     deletedAt: string | null;
     targetAmount: number;
     maxAmount: number;
+    raisedAmount: number;
+    purchased: number;
     stripePriceId: string;
     transactions: IcoTransaction[];
   }

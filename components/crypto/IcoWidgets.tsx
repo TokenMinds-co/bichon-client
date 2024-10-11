@@ -21,9 +21,12 @@ import { useRouter } from "next/navigation";
 
 interface IcoWidgetsProps {
   currentPrice: number;
+  targetAmount: number;
+  raisedAmount: number;
   solprice: number;
   usdtprice: number;
   usdcprice: number;
+  until: string;
 }
 
 interface SubmitTx {
@@ -36,9 +39,12 @@ interface SubmitTx {
 
 export default function IcoWidgets({
   currentPrice,
+  raisedAmount,
+  targetAmount,
   solprice,
   usdcprice,
   usdtprice,
+  until,
 }: IcoWidgetsProps) {
   const router = useRouter();
   const { isConnected, address } = useAccount();
@@ -260,10 +266,10 @@ export default function IcoWidgets({
           LOREM IPSUM COLOR!
         </h1>
 
-        <IcoCounter until="2024-10-13T23:59:59" />
+        <IcoCounter until={until} />
         <IcoInfo
-          raised={1549213.31}
-          total={3163452}
+          raised={raisedAmount}
+          total={targetAmount}
           purchased={241}
           stakeable={50}
           price={tokenState.price}
