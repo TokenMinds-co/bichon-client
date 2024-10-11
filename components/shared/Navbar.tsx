@@ -56,7 +56,7 @@ const Navbar = () => {
       }`}
     >
       <div className="w-full flex flex-row justify-between">
-        <Link href="/" className="text-white text-2xl hidden lg:block">
+        <Link href="/#home" className="text-white text-2xl hidden lg:block">
           <Image src="/assets/bichon.png" alt="bichon" height={55} width={55} />
         </Link>
 

@@ -10,21 +10,25 @@ export default function HeroSection() {
     >
       <div className="z-30 xl:w-[70%] w-full h-full flex flex-col justify-between xl:pl-56 md:px-20 px-10">
         <div className="flex flex-col gap-y-12">
-          <div className="text-lg">LOREM IPSUM COLOR SIT DOLOR.</div>
-          <h1 className="text-5xl md:text-6xl xl:text-7xl xl:leading-[5rem]">
+          <div data-aos="fade-down" className="text-lg">
+            LOREM IPSUM COLOR SIT DOLOR.
+          </div>
+          <h1
+            data-aos="fade-down"
+            data-aos-delay="500"
+            className="text-5xl md:text-6xl xl:text-7xl xl:leading-[5rem]"
+          >
             EXPLORE THE BICHON UNIVERSE
           </h1>
           <div className="flex flex-col sm:flex-row gap-5">
-            <SkewButton >
+            <SkewButton data-aos="fade-left" data-aos-delay="750">
               Button CTA
             </SkewButton>
-            <SkewButton variant="secondary">
-              Read more
-            </SkewButton>
+            <SkewButton data-aos="fade-left" data-aos-delay="1000" variant="secondary">Read more</SkewButton>
           </div>
         </div>
 
-        <div className="w-full sm:w-fit pb-20 z-20 sm:pb-28">
+        <div className="w-full sm:w-fit pb-20 z-20 sm:pb-28" data-aos="fade-up" data-aos-delay="1250">
           <hr className="hidden sm:block" />
           <div className="flex  flex-col sm:flex-row gap-5 pt-5 whitespace-nowrap">
             <div className="flex flex-col gap-1 text-center px-3 sm:px-5 md:px-10">

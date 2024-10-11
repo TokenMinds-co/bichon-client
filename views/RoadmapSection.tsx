@@ -49,9 +49,12 @@ export default function RoadmapSection() {
   };
 
   return (
-    <section id="about" className="relative w-full bg-right-top min-h-screen flex flex-col">
-      <BgOverlayTop/>
-      
+    <section
+      id="about"
+      className="relative w-full bg-right-top min-h-screen flex flex-col scroll-mt-28"
+    >
+      <BgOverlayTop />
+
       <Image // OVERLAY GRID
         className="absolute right-0 top-0 z-[5]"
         src="/assets/bg/grid.png"
@@ -60,7 +63,10 @@ export default function RoadmapSection() {
         height={1400}
       />
 
-      <div className="flex flex-col xl:pl-60 md:px-20 px-10 pt-20 z-20">
+      <div
+        data-aos="fade-down"
+        className="flex flex-col xl:pl-60 md:px-20 px-10 pt-20 z-20"
+      >
         {/* TITLE & PAGINATE */}
         <div className="flex flex-col sm:flex-row items-center sm:justify-between mb-12 sm:mb-20">
           <h1 className="text-5xl xl:text-6xl text-white">ROADMAP BICHON</h1>
@@ -79,7 +85,7 @@ export default function RoadmapSection() {
         </div>
 
         {/* ROADMAP CONTENT */}
-        <div>
+        <div data-aos="fade-up">
           {roadmapStep.map(
             (step, index) =>
               currentIndex === index && (

@@ -34,7 +34,10 @@ export default function PartnerSection() {
       <BgOverlayTop />
 
       <div className="z-30 flex flex-col gap-16 sm:gap-24 w-full sm:w-[75%] mx-auto items-center">
-        <h1 className="text-4xl sm:text-5xl md:text-6xl xl:text-7xl text-center">
+        <h1
+          data-aos="fade-down"
+          className="text-4xl sm:text-5xl md:text-6xl xl:text-7xl text-center"
+        >
           OUR PARTNERS
         </h1>
 

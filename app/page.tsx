@@ -20,8 +20,8 @@ export default function Home() {
       <HeroSection />
       <CastleSection />
       <SaturnSection />
-      <RoadmapSection/>
-      <PartnerSection/>
+      <RoadmapSection />
+      <PartnerSection />
       <EarthSection />
     </div>
   );

@@ -13,7 +13,10 @@ export default function CastleSection() {
       />
 
       <div className="flex flex-col justify-between h-full xl:pl-56 md:px-20 px-10 py-16">
-        <div className="text-base sm:text-xl md:text-2xl lg:text-4xl 2xl:text-5xl self-start w-[70%] sm:w-1/2 lg:w-[40%] border-b-[1px] pb-2 xl:pb-6">
+        <div
+          data-aos="fade-up"
+          className="text-base sm:text-xl md:text-2xl lg:text-4xl 2xl:text-5xl self-start w-[70%] sm:w-1/2 lg:w-[40%] border-b-[1px] pb-2 xl:pb-6"
+        >
           Lorem ipsum color dot sit
         </div>
 
@@ -25,7 +28,10 @@ export default function CastleSection() {
           src="/assets/floating/castle.svg"
         />
 
-        <div className="text-base sm:text-xl md:text-2xl lg:text-4xl 2xl:text-5xl self-end w-[70%] sm:w-1/2 lg:w-[40%] border-b-[1px] pb-2 xl:pb-6">
+        <div
+          data-aos="fade-up"
+          className="text-base sm:text-xl md:text-2xl lg:text-4xl 2xl:text-5xl self-end w-[70%] sm:w-1/2 lg:w-[40%] border-b-[1px] pb-2 xl:pb-6"
+        >
           Earn a pasive income instant.
         </div>
       </div>

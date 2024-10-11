@@ -14,12 +14,17 @@ export default function SaturnSection() {
       />
 
       <div className="z-30 flex flex-col items-center gap-10 pt-24 sm:pt-0">
-        <div className="text-white text-3xl md:text-4xl lg:text-5xl xl:text-6xl w-3/4 2xl:w-1/2 text-center mx-auto xl:leading-[4.5rem]">
+        <div
+          data-aos="fade-down"
+          className="text-white text-3xl md:text-4xl lg:text-5xl xl:text-6xl w-3/4 2xl:w-1/2 text-center mx-auto xl:leading-[4.5rem]"
+        >
           EXPLORE MORE UNIVERSES WITH EXTRAORDINARY NUANCES
         </div>
         <div className="flex flex-row gap-5">
-          <SkewButton>Button CTA</SkewButton>
-          <SkewButton variant="secondary">Read more</SkewButton>
+          <SkewButton data-aos="fade-right">Button CTA</SkewButton>
+          <SkewButton data-aos="fade-left" variant="secondary">
+            Read more
+          </SkewButton>
         </div>
       </div>
 

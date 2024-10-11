@@ -7,6 +7,7 @@ import { Toaster } from "@/components/ui/sooner";
 import { Space_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { AOSInit } from "@/components/shared/AOS";
 
 const spaceMono = Space_Mono({
   weight: ["400", "700"],
@@ -39,6 +40,7 @@ export default function RootLayout({
       >
         <ParticleConnectkit>
           <ReactQueryProvider>
+            <AOSInit />
             <ToastContainer
               position="bottom-right"
               autoClose={5000}
