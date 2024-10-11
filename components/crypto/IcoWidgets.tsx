@@ -247,7 +247,8 @@ export default function IcoWidgets({
         ),
       });
     }
-  }, [solprice, usdcprice, usdtprice, activeMethod, tokenState]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [solprice, usdcprice, usdtprice]);
 
   return (
     <div className="w-full h-full max-w-lg flex items-center justify-center text-white p-10 bg-black skew-widgets">
