@@ -66,6 +66,7 @@ export default function IcoWidgets({
 
   const submitTx = useMutation({
     mutationFn: async (data: SubmitTx) => {
+      // console.log("Buy data", data);
       const axiosInstance = await generateAxiosInstance(undefined);
       const { data: res } = await axiosInstance.post(
         `/transactions/crypto`,
@@ -193,11 +194,11 @@ export default function IcoWidgets({
       }
 
       // Reset and refetch balance
-      if (activeMethod !== "FIAT") {
+      if (activeMethod !== "FIAT" && hash !== null) {
         await Promise.all([
           submitTx.mutateAsync({
             address,
-            amount: Number(buyDetails.amount),
+            amount: Number(buyDetails.getAmount),
             usdAmount: Number(buyDetails.usdAmount),
             hash: hash as string,
             method: activeMethod,
