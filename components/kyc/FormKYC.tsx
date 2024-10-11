@@ -33,7 +33,7 @@ const FormKYC = () => {
   };
 
   return (
-    <div className="flex flex-col w-full items-center justify-center ">
+    <div className="flex flex-col w-full items-center justify-center">
       {isConnected ? (
         <>
           <div className="text-white text-center text-xl mb-10">
