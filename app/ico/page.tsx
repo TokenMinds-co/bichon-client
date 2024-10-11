@@ -1,4 +1,4 @@
-import Crypto from "@/components/crypto/Crypto";
+import ICO from "@/components/crypto/ICO";
 import { axiosInstance } from "@/lib/axios";
 import { Metadata } from "next";
 import React from "react";
@@ -37,7 +37,12 @@ const CryptoPaymentPage = async () => {
 
   return (
     <main className="flex flex-col space-y-5 w-full h-full items-center justify-center bg-sky min-h-screen p-5 pt-28">
-      <Crypto currentPrice={ico?.currentPrice ?? 0} />
+      <ICO
+        currentPrice={ico?.currentPrice ?? 0}
+        targetAmount={ico?.targetAmount ?? 0}
+        raisedAmount={ico?.raisedAmount ?? 0}
+        until={ico?.validUntil ?? ""}
+      />
     </main>
   );
 };

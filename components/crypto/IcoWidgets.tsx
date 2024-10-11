@@ -9,7 +9,7 @@ import { TransactionMethod } from "@/types/Response";
 import { useAccount } from "@particle-network/connectkit";
 import SkewButton from "../shared/SkewButton";
 import BuyForm from "./BuyForm";
-import { SUPPORTED_SPL_TOKENS } from "@/constant/common";
+import { BICHON_TOKEN, SUPPORTED_SPL_TOKENS } from "@/constant/common";
 import { displayFormatter } from "@/lib/utils";
 import { useSPL } from "@/hooks/useSPL";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
@@ -21,9 +21,13 @@ import { useRouter } from "next/navigation";
 
 interface IcoWidgetsProps {
   currentPrice: number;
+  targetAmount: number;
+  raisedAmount: number;
   solprice: number;
   usdtprice: number;
   usdcprice: number;
+  until: string;
+  userAllocation: number | undefined;
 }
 
 interface SubmitTx {
@@ -36,9 +40,13 @@ interface SubmitTx {
 
 export default function IcoWidgets({
   currentPrice,
+  raisedAmount,
+  targetAmount,
   solprice,
   usdcprice,
   usdtprice,
+  until,
+  userAllocation,
 }: IcoWidgetsProps) {
   const router = useRouter();
   const { isConnected, address } = useAccount();
@@ -159,16 +167,18 @@ export default function IcoWidgets({
     setIsBuying(true);
     try {
       if (activeMethod === "CRYPTO_SOLANA") {
-        hash = await buyViaSOL(Number(buyDetails.amount) * LAMPORTS_PER_SOL);
+        hash = await buyViaSOL(
+          Math.ceil(Number(buyDetails.amount) * LAMPORTS_PER_SOL)
+        );
       } else if (activeMethod === "CRYPTO_USDC") {
         hash = await buyViaSPL(
           tokenState.address,
-          Number(buyDetails.amount) * 10 ** tokenState.decimals
+          Math.ceil(Number(buyDetails.amount) * 10 ** tokenState.decimals)
         );
       } else if (activeMethod === "CRYPTO_USDT") {
         hash = await buyViaSPL(
           tokenState.address,
-          Number(buyDetails.amount) * 10 ** tokenState.decimals
+          Math.ceil(Number(buyDetails.amount) * 10 ** tokenState.decimals)
         );
       } else {
         console.log("Buying via card", buyDetails.amount);
@@ -252,18 +262,23 @@ export default function IcoWidgets({
   }, [solprice, usdcprice, usdtprice]);
 
   return (
-    <div className="w-full h-full max-w-lg flex items-center justify-center text-white p-10 bg-black skew-widgets">
+    <div className="w-full h-full max-w-lg flex items-center justify-center text-white p-10 bg-black/40 skew-widgets">
       <div className="w-full max-w-md space-y-6">
-        <h1 className="text-3xl font-spaceMono font-bold text-center mb-8">
-          LOREM IPSUM COLOR!
-        </h1>
+        <div className="flex flex-col space-y-1">
+          <h1 className="text-3xl font-spaceMono font-bold text-center">
+            {BICHON_TOKEN.name}
+          </h1>
+          <p className="text-base font-spaceMono font-bold text-center mb-8">
+            ICO is Live!
+          </p>
+        </div>
 
-        <IcoCounter until="2024-10-13T23:59:59" />
+        <IcoCounter until={until} />
         <IcoInfo
-          raised={1549213.31}
-          total={3163452}
-          purchased={241}
-          stakeable={50}
+          raised={raisedAmount}
+          total={targetAmount}
+          purchased={userAllocation}
+          stakeable={0}
           price={tokenState.price}
           symbol={tokenState.symbol}
           isFetchingBalance={isFetchingBalance}

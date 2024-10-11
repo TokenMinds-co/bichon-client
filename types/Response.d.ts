@@ -125,6 +125,7 @@ declare global {
     id: string;
     address: string;
     email: string;
+    allocation: number;
     createdAt: string;
     updatedAt: string;
     deletedAt: string | null;
@@ -167,6 +168,8 @@ declare global {
     deletedAt: string | null;
     targetAmount: number;
     maxAmount: number;
+    raisedAmount: number;
+    purchased: number;
     stripePriceId: string;
     transactions: IcoTransaction[];
   }

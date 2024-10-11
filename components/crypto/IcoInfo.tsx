@@ -7,7 +7,7 @@ import Loader from "../shared/Loader";
 interface IcoInfoProps {
   raised: number;
   total: number;
-  purchased: number;
+  purchased: number | undefined;
   stakeable: number;
   price: number;
   symbol: string;
@@ -42,9 +42,18 @@ const IcoInfo = ({
 
       <div className="space-y-2 text-base font-jakarta font-medium">
         <div className="flex items-center justify-center">
-          <span>
-            Your purchased ${BICHON_TOKEN.symbol}= {purchased}
-          </span>
+          <div className="flex flex-row space-x-2">
+            <span>Your purchased ${BICHON_TOKEN.symbol}=</span>
+            {purchased === undefined ? (
+              <Loader size="20" />
+            ) : (
+              <span>
+                {purchased % 1 === 0
+                  ? displayFormatter(purchased, 0)
+                  : displayFormatter(purchased, BICHON_TOKEN.decimals)}
+              </span>
+            )}
+          </div>
           <span className="text-blue-400 px-2">ⓘ</span>
         </div>
         <div className="flex items-center justify-center">
