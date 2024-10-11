@@ -1,15 +1,21 @@
 "use client";
 
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import SkewButton from "../shared/SkewButton";
 import Link from "next/link";
 import { KYCStatus } from "@/types/Response";
 import { useRouter } from "next/navigation";
+import Loader from "../shared/Loader";
 
 const statuses = [
   {
-    list: ["REJECTED", "REQUIRES_ACTION", "RESUBMISSION_REQUESTED"],
+    list: [
+      "REJECTED",
+      "REQUIRES_ACTION",
+      "DOCUMENTS_REQUESTED",
+      "RESUBMISSION_REQUESTED",
+    ],
     image: "/assets/kyc/rejected.png",
     code: 0,
   },
@@ -19,7 +25,7 @@ const statuses = [
     code: 1,
   },
   {
-    list: ["PROCESSING", "DOCUMENTS_REQUESTED", "PENDING"],
+    list: ["PROCESSING", "PENDING"],
     image: "/assets/kyc/on-progress.png",
     code: 2,
   },
@@ -32,6 +38,7 @@ interface StatusKYCProps {
 }
 
 export default function StatusKYC({ status, email, address }: StatusKYCProps) {
+  const [isSubmitting, setSubmitting] = useState(false);
   const router = useRouter();
   const imageSrc = statuses.find((s) => s.list.includes(status))
     ?.image as string;
@@ -39,6 +46,7 @@ export default function StatusKYC({ status, email, address }: StatusKYCProps) {
     ?.code as number;
 
   const handleUpdateDocs = async () => {
+    setSubmitting(true);
     router.push(
       `/verify?email=${encodeURIComponent(email)}&address=${address}`
     );
@@ -68,9 +76,10 @@ export default function StatusKYC({ status, email, address }: StatusKYCProps) {
               type="button"
               customClasses="skew-buy-widgets"
               className="w-full"
+              disabled={isSubmitting}
               onClick={handleUpdateDocs}
             >
-              Update your documents
+              {isSubmitting ? <Loader size="20" /> : "Update your documents"}
             </SkewButton>
           )}
         </div>
