@@ -34,10 +34,9 @@ export const metadata: Metadata = {
 const CryptoPaymentPage = async () => {
   const { data: res } = await axiosInstance.get("/ico/current");
   const ico = res.data as IcoResponse;
-  
+
   return (
-    <main className="flex flex-col space-y-5 w-full h-full items-center justify-start bg-sky min-h-screen p-5 pt-28">
-      <h1 className="text-white text-2xl">Crypto Payment Page</h1>
+    <main className="flex flex-col space-y-5 w-full h-full items-center justify-center bg-sky min-h-screen p-5 pt-28">
       <Crypto currentPrice={ico?.currentPrice ?? 0} />
     </main>
   );

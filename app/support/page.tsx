@@ -32,7 +32,7 @@ export const metadata: Metadata = {
 
 const TicketSupportPage = () => {
   return (
-    <main className="bg-sky font-spaceMono text-white flex flex-col space-y-5 w-full min-h-screen h-full items-center justify-start p-5 pt-24">
+    <main className="bg-sky font-spaceMono text-white flex flex-col space-y-5 w-full min-h-screen h-full items-center justify-center p-5 pt-24">
       <Support />
     </main>
   );

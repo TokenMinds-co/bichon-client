@@ -4,20 +4,27 @@ import React from "react";
 
 export default function HeroSection() {
   return (
-    <section className="bg-hero bg-cover bg-top w-full h-screen pt-32 lg:pt-40 text-white  ">
+    <section
+      id="home"
+      className="bg-hero bg-cover bg-top w-full h-screen pt-32 lg:pt-40 text-white  "
+    >
       <div className="z-30 xl:w-[70%] w-full h-full flex flex-col justify-between xl:pl-56 md:px-20 px-10">
         <div className="flex flex-col gap-y-12">
           <div className="text-lg">LOREM IPSUM COLOR SIT DOLOR.</div>
           <h1 className="text-5xl md:text-6xl xl:text-7xl xl:leading-[5rem]">
             EXPLORE THE BICHON UNIVERSE
           </h1>
-          <div className="flex flex-row gap-5">
-            <SkewButton>Button CTA</SkewButton>
-            <SkewButton variant="secondary">Read more</SkewButton>
+          <div className="flex flex-col sm:flex-row gap-5">
+            <SkewButton >
+              Button CTA
+            </SkewButton>
+            <SkewButton variant="secondary">
+              Read more
+            </SkewButton>
           </div>
         </div>
 
-        <div className="w-full sm:w-fit pb-28">
+        <div className="w-full sm:w-fit pb-20 z-20 sm:pb-28">
           <hr className="hidden sm:block" />
           <div className="flex  flex-col sm:flex-row gap-5 pt-5 whitespace-nowrap">
             <div className="flex flex-col gap-1 text-center px-3 sm:px-5 md:px-10">

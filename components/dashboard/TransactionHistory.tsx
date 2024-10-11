@@ -55,7 +55,7 @@ export default function TransactionHistory({
             </TableRow>
           </TableHeader>
 
-          {transactions.length <= 0 ? (
+          {transactions?.length <= 0 ? (
             <TableBody>
               <TableRow>
                 <td colSpan={5} className="text-center py-4 text-white">

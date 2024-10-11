@@ -36,6 +36,10 @@ const FormKYC = () => {
     <div className="flex flex-col w-full items-center justify-center ">
       {isConnected ? (
         <>
+          <div className="text-white text-center text-xl mb-10">
+            Before participating in ICO, you should complete KYC
+          </div>
+
           <form
             id="sumsub_form"
             onSubmit={handleSubmit}
@@ -63,6 +67,7 @@ const FormKYC = () => {
               disabled={isSubmitting}
               type="submit"
               variant="primary"
+              customClasses="skew-buy-widgets"
             >
               {isSubmitting ? "Submitting..." : "Start KYC"}
             </SkewButton>
@@ -77,7 +82,9 @@ const FormKYC = () => {
           />
         </>
       ) : (
-        <h1 className="text-white">Connect your wallet to proceed with KYC</h1>
+        <h1 className="text-2xl text-white text-center h-full">
+          Connect Wallet To Continue
+        </h1>
       )}
     </div>
   );

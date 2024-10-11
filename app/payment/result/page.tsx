@@ -14,7 +14,7 @@ const PaymentResultPage = () => {
     const canceled = searchParams.get("canceled");
 
     return (
-      <div className="flex flex-col gap-4 text-lg text-white font-bold items-center text-center justify-center h-screen w-screen">
+      <div className="flex bg-sky flex-col gap-4 text-lg text-white font-bold items-center text-center justify-center h-screen w-screen">
         {success && (
           <p>Order placed! You will receive an email confirmation.</p>
         )}
