@@ -10,7 +10,7 @@ import { useAccount } from "@particle-network/connectkit";
 import SkewButton from "../shared/SkewButton";
 import BuyForm from "./BuyForm";
 import { BICHON_TOKEN, SUPPORTED_SPL_TOKENS } from "@/constant/common";
-import { displayFormatter } from "@/lib/utils";
+import { displayFormatter, stringToNumber } from "@/lib/utils";
 import { useSPL } from "@/hooks/useSPL";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import Loader from "../shared/Loader";
@@ -87,6 +87,29 @@ export default function IcoWidgets({
     },
   });
 
+  const checkAvailability = async (
+    amount: number
+  ): Promise<{ isAvailable: boolean; available: number }> => {
+    try {
+      const axiosInstance = await generateAxiosInstance(undefined);
+      const { data } = await axiosInstance.get(
+        `/transactions/availability?amount=${amount}`
+      );
+
+      const result = {
+        isAvailable: data.data.isAvailable,
+        available: data.data.available,
+      };
+
+      return result;
+    } catch (error) {
+      return {
+        isAvailable: false,
+        available: 0,
+      };
+    }
+  };
+
   const handleMethod = async (method: TransactionMethod) => {
     setActiveMethod(method);
     let pricePer1BCH = currentPrice;
@@ -95,7 +118,10 @@ export default function IcoWidgets({
     if (method === "CRYPTO_SOLANA") {
       balance = await getSOLBalance();
       pricePer1BCH = Number(
-        displayFormatter(1 / solprice, SUPPORTED_SPL_TOKENS[0].decimals)
+        displayFormatter(
+          currentPrice / solprice,
+          SUPPORTED_SPL_TOKENS[0].decimals
+        )
       );
       setTokenState({
         ...tokenState,
@@ -110,7 +136,10 @@ export default function IcoWidgets({
     } else if (method === "CRYPTO_USDT") {
       const res = await getATAandBalance(SUPPORTED_SPL_TOKENS[1].address);
       pricePer1BCH = Number(
-        displayFormatter(1 / usdtprice, SUPPORTED_SPL_TOKENS[1].decimals)
+        displayFormatter(
+          currentPrice / usdtprice,
+          SUPPORTED_SPL_TOKENS[1].decimals
+        )
       );
 
       setTokenState({
@@ -126,7 +155,10 @@ export default function IcoWidgets({
     } else if (method === "CRYPTO_USDC") {
       const res = await getATAandBalance(SUPPORTED_SPL_TOKENS[2].address);
       pricePer1BCH = Number(
-        displayFormatter(1 / usdcprice, SUPPORTED_SPL_TOKENS[2].decimals)
+        displayFormatter(
+          currentPrice / usdcprice,
+          SUPPORTED_SPL_TOKENS[2].decimals
+        )
       );
       setTokenState({
         ...tokenState,
@@ -162,6 +194,19 @@ export default function IcoWidgets({
     }
     if (Number(buyDetails.amount) <= 0) {
       toast.error("Invalid quantity!");
+      return;
+    }
+
+    const { available, isAvailable } = await checkAvailability(
+      stringToNumber(buyDetails.getAmount)
+    );
+    if (!isAvailable) {
+      toast.error(
+        `You can only buy ${displayFormatter(
+          available,
+          BICHON_TOKEN.decimals
+        )} tokens`
+      );
       return;
     }
 
