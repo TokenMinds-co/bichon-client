@@ -232,7 +232,7 @@ export default function IcoWidgets({
         
         const res = await axiosInstance
           .post(`/transactions/stripe/payment`, {
-            quantity: Number(buyDetails.getAmount),
+            quantity: stringToNumber(buyDetails.getAmount),
             address: address,
           })
           .catch((error) => {
