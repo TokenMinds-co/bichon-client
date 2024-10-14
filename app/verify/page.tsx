@@ -39,8 +39,9 @@ const VerifyPage = async ({ searchParams }: URLProps) => {
     method: "POST",
   });
   const data = await response.json();
+  
   return (
-    <main className="w-screen h-screen flex flex-col items-center justify-center bg-sky p-5">
+    <main className="container mx-auto pt-32 h-full flex flex-col items-center justify-center bg-[#000A19] p-5">
       <SBWebSDK accessToken={data.token} email={email!} />
     </main>
   );
