@@ -18,7 +18,6 @@ const IcoInfo = ({
   raised,
   total,
   purchased,
-  stakeable,
   price,
   symbol,
   isFetchingBalance,
@@ -56,12 +55,12 @@ const IcoInfo = ({
           </div>
           <span className="text-blue-400 px-2">ⓘ</span>
         </div>
-        <div className="flex items-center justify-center">
+        {/* <div className="flex items-center justify-center">
           <span>
             Your stakeable ${BICHON_TOKEN.symbol}= {stakeable}
           </span>
           <span className="text-blue-400 px-2">ⓘ</span>
-        </div>
+        </div> */}
       </div>
 
       <div className="flex flex-row items-center justify-center w-full">
