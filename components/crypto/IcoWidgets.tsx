@@ -184,6 +184,7 @@ export default function IcoWidgets({
         );
       } else {
         const axiosInstance = await generateAxiosInstance(undefined);
+        
         const res = await axiosInstance
           .post(`/transactions/stripe/payment`, {
             quantity: Number(buyDetails.getAmount),
