@@ -8,14 +8,14 @@ interface SBWebSDKProps {
   email: string;
 }
 
-const SBWebSDK = ({ accessToken }: SBWebSDKProps) => {
+const SBWebSDK = ({ accessToken, email }: SBWebSDKProps) => {
   return (
     <SumsubWebSdk
       accessToken={accessToken}
       expirationHandler={() => accessToken}
       config={{
         lang: "en", //language of WebSDK texts and comments (ISO 639-1 format)
-        email: "graita@purpleminds.co",
+        email: { email },
         theme: "dark",
       }}
       options={{ addViewportTag: true, adaptIframeHeight: true }}
