@@ -186,7 +186,7 @@ export default function IcoWidgets({
         const axiosInstance = await generateAxiosInstance(undefined);
         const res = await axiosInstance
           .post(`/transactions/stripe/payment`, {
-            quantity: Number(buyDetails.amount),
+            quantity: Number(buyDetails.getAmount),
             address: address,
           })
           .catch((error) => {
