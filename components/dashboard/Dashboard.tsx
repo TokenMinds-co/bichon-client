@@ -59,7 +59,9 @@ export default function Dashboard() {
       <Unauthenticated />
     </div>
   ) : isLoading ? (
-    <Loader size="50" />
+    <div className="absoltue h-screen w-full flex items-center justify-center">
+      <Loader size="50" />
+    </div>
   ) : (
     users &&
     users.length !== 0 &&
