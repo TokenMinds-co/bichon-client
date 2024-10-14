@@ -10,7 +10,7 @@ import { useAccount } from "@particle-network/connectkit";
 import SkewButton from "../shared/SkewButton";
 import BuyForm from "./BuyForm";
 import { BICHON_TOKEN, SUPPORTED_SPL_TOKENS } from "@/constant/common";
-import { displayFormatter } from "@/lib/utils";
+import { displayFormatter, stringToNumber } from "@/lib/utils";
 import { useSPL } from "@/hooks/useSPL";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import Loader from "../shared/Loader";
@@ -86,6 +86,29 @@ export default function IcoWidgets({
       });
     },
   });
+
+  const checkAvailability = async (
+    amount: number
+  ): Promise<{ isAvailable: boolean; available: number }> => {
+    try {
+      const axiosInstance = await generateAxiosInstance(undefined);
+      const { data } = await axiosInstance.get(
+        `/transactions/availability?amount=${amount}`
+      );
+
+      const result = {
+        isAvailable: data.data.isAvailable,
+        available: data.data.available,
+      };
+
+      return result;
+    } catch (error) {
+      return {
+        isAvailable: false,
+        available: 0,
+      };
+    }
+  };
 
   const handleMethod = async (method: TransactionMethod) => {
     setActiveMethod(method);
@@ -171,6 +194,19 @@ export default function IcoWidgets({
     }
     if (Number(buyDetails.amount) <= 0) {
       toast.error("Invalid quantity!");
+      return;
+    }
+
+    const { available, isAvailable } = await checkAvailability(
+      stringToNumber(buyDetails.getAmount)
+    );
+    if (!isAvailable) {
+      toast.error(
+        `You can only buy ${displayFormatter(
+          available,
+          BICHON_TOKEN.decimals
+        )} tokens`
+      );
       return;
     }
 

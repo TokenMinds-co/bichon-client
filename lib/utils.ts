@@ -47,3 +47,14 @@ export const displayFormatter = (value: number, fraction: number) => {
 
   return fmt.format(value);
 };
+
+export const stringToNumber = (value: string) => {
+  const cleanedValue = value.replace(/,/g, "");
+  const result = parseFloat(cleanedValue);
+
+  if (isNaN(result)) {
+    throw new Error(`Invalid number: ${value}`);
+  }
+
+  return result;
+};
