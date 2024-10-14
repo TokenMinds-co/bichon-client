@@ -45,6 +45,9 @@ export default function TransactionHistory({
             <TableRow className="border-gray-700 whitespace-nowrap">
               <TableHead className="text-gray-300">Date & Time</TableHead>
               <TableHead className="text-gray-300 text-center">
+                Method
+              </TableHead>
+              <TableHead className="text-gray-300 text-center">
                 Amount
               </TableHead>
               <TableHead className="text-gray-300 text-center">Price</TableHead>

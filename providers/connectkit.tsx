@@ -1,7 +1,7 @@
 "use client";
 
 import { ConnectKitProvider, createConfig } from "@particle-network/connectkit";
-import { solanaDevnet } from "@particle-network/connectkit/chains";
+import { solanaDevnet, solana } from "@particle-network/connectkit/chains";
 import {
   injected as solaInjected,
   solanaWalletConnectors,
@@ -15,6 +15,22 @@ const appId = process.env.NEXT_PUBLIC_APP_ID as string;
 if (!projectId || !clientKey || !appId) {
   throw new Error("Please configure the Particle project in .env first!");
 }
+
+const NODE_ENV = process.env.NEXT_PUBLIC_NODE_ENV as
+  | "development"
+  | "production";
+const currentChain: readonly [typeof solanaDevnet] | readonly [typeof solana] =
+  NODE_ENV === "development" ? [solanaDevnet] : [solana];
+
+export const getExplorer = () => {
+  const NODE_ENV = process.env.NODE_ENV as "development" | "production";
+  const chain = NODE_ENV === "production" ? solana : solanaDevnet;
+
+  return {
+    explorer: chain.blockExplorers.default.url,
+    env: NODE_ENV,
+  };
+};
 
 const config = createConfig({
   projectId,
@@ -46,7 +62,7 @@ const config = createConfig({
       visible: false, // Dictates whether or not the wallet modal is included/visible or not
     }),
   ],
-  chains: [solanaDevnet],
+  chains: currentChain,
 });
 
 // Export ConnectKitProvider to be used within your index or layout file (or use createConfig directly within those files).

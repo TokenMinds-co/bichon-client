@@ -2,24 +2,6 @@ import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { HmacSHA256, enc } from "crypto-js";
 
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
-
-export function shortenTx(txhash: string) {
-  return txhash.slice(0, 28) + "...";
-}
-
-export const displayFormatter = (value: number, fraction: number) => {
-  const fmt = new Intl.NumberFormat("default", {
-    style: "decimal",
-    minimumFractionDigits: fraction,
-    maximumFractionDigits: fraction,
-  });
-
-  return fmt.format(value);
-};
-
 interface GenerateSignatureprops {
   method: string;
   url: string;
@@ -46,4 +28,22 @@ export const generateSignature = ({
 
   // Set headers
   return signature;
+};
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+
+export function shortenTx(txhash: string) {
+  return txhash.slice(0, 28) + "...";
+}
+
+export const displayFormatter = (value: number, fraction: number) => {
+  const fmt = new Intl.NumberFormat("default", {
+    style: "decimal",
+    minimumFractionDigits: fraction,
+    maximumFractionDigits: fraction,
+  });
+
+  return fmt.format(value);
 };
