@@ -95,7 +95,10 @@ export default function IcoWidgets({
     if (method === "CRYPTO_SOLANA") {
       balance = await getSOLBalance();
       pricePer1BCH = Number(
-        displayFormatter(1 / solprice, SUPPORTED_SPL_TOKENS[0].decimals)
+        displayFormatter(
+          currentPrice / solprice,
+          SUPPORTED_SPL_TOKENS[0].decimals
+        )
       );
       setTokenState({
         ...tokenState,
@@ -110,7 +113,10 @@ export default function IcoWidgets({
     } else if (method === "CRYPTO_USDT") {
       const res = await getATAandBalance(SUPPORTED_SPL_TOKENS[1].address);
       pricePer1BCH = Number(
-        displayFormatter(1 / usdtprice, SUPPORTED_SPL_TOKENS[1].decimals)
+        displayFormatter(
+          currentPrice / usdtprice,
+          SUPPORTED_SPL_TOKENS[1].decimals
+        )
       );
 
       setTokenState({
@@ -126,7 +132,10 @@ export default function IcoWidgets({
     } else if (method === "CRYPTO_USDC") {
       const res = await getATAandBalance(SUPPORTED_SPL_TOKENS[2].address);
       pricePer1BCH = Number(
-        displayFormatter(1 / usdcprice, SUPPORTED_SPL_TOKENS[2].decimals)
+        displayFormatter(
+          currentPrice / usdcprice,
+          SUPPORTED_SPL_TOKENS[2].decimals
+        )
       );
       setTokenState({
         ...tokenState,
