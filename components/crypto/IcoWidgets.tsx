@@ -262,7 +262,7 @@ export default function IcoWidgets({
   }, [solprice, usdcprice, usdtprice]);
 
   return (
-    <div className="w-full h-full max-w-lg flex items-center justify-center text-white p-10 bg-black/40 skew-widgets">
+    <div className="w-full h-full mx-5 max-w-lg flex items-center justify-center text-white p-12 bg-gray-700/20 skew-widgets">
       <div className="w-full max-w-md space-y-6">
         <div className="flex flex-col space-y-1">
           <h1 className="text-3xl font-spaceMono font-bold text-center">

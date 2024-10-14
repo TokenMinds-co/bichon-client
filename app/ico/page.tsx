@@ -36,7 +36,7 @@ const CryptoPaymentPage = async () => {
   const ico = res.data as IcoResponse;
 
   return (
-    <main className="flex flex-col space-y-5 w-full h-full items-center justify-center bg-sky min-h-screen p-5 pt-28">
+    <main className="flex flex-col space-y-5 w-full h-full items-center justify-center bg-sky min-h-screen">
       <ICO
         currentPrice={ico?.currentPrice ?? 0}
         targetAmount={ico?.targetAmount ?? 0}

@@ -180,7 +180,7 @@ export default function FormSupport({ email }: FormSupportProps) {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="max-w-6xl mx-auto p-6 text-wrap rounded-lg shadow"
+        className="max-w-6xl font-spaceMono mx-auto p-10 text-wrap rounded-lg shadow bg-gray-700/20"
       >
         <h2 className="text-2xl font-bold mb-10 text-center">
           Submit a Support Ticket
@@ -194,7 +194,7 @@ export default function FormSupport({ email }: FormSupportProps) {
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input {...field} required />
+                    <Input className="text-white bg-transparent" {...field} required />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -207,7 +207,7 @@ export default function FormSupport({ email }: FormSupportProps) {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input {...field} required readOnly />
+                    <Input  className="text-white bg-transparent"  {...field} required readOnly />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -280,7 +280,7 @@ export default function FormSupport({ email }: FormSupportProps) {
                 <FormItem>
                   <FormLabel>Subject</FormLabel>
                   <FormControl>
-                    <Input {...field} required />
+                    <Input  className="text-white bg-transparent"  {...field} required />
                   </FormControl>
                   <FormDescription>
                     Subject should be at least 5 characters long and at most 100
@@ -297,7 +297,7 @@ export default function FormSupport({ email }: FormSupportProps) {
                 <FormItem>
                   <FormLabel>Message</FormLabel>
                   <FormControl>
-                    <Textarea rows={5} {...field} required />
+                    <Textarea  className="text-white bg-transparent"  rows={5} {...field} required />
                   </FormControl>
                   <FormDescription>
                     Message should be at least 50 characters long and at most

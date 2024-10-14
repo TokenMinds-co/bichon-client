@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import FormSupport from "./FormSupport";
 import { redirect } from "next/navigation";
+import Unauthenticated from "../shared/unauthenticated";
 
 const Support = () => {
   const { address, isConnected } = useAccount();
@@ -27,11 +28,11 @@ const Support = () => {
   }
 
   return isConnected ? (
-    <div className="flex flex-col pt-24 space-y-2 w-full h-full items-center justify-center">
+    <div className="text-white flex flex-col space-y-2 w-full h-full items-center justify-center p-5 pt-24">
       {users && users.length > 0 && <FormSupport email={users[0].email} />}
     </div>
   ) : (
-    <h1 className="text-2xl text-center h-full">Connect Wallet To Continue</h1>
+    <Unauthenticated />
   );
 };
 

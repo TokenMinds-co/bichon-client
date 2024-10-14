@@ -54,40 +54,35 @@ export default function Dashboard() {
     }
   }, [isLoading, users]);
 
-  return (
-    <div className="flex flex-col w-full h-full">
-      {!isConnected ? (
-        <Unauthenticated />
-      ) : isLoading ? (
-        <Loader size="50" />
-      ) : (
-        users &&
-        users.length !== 0 &&
-        users[0]?.kyc &&
-        users[0].kyc.status === "APPROVED" && (
-          <div className="flex flex-col pb-8 pt-28 container mx-auto">
-            <div className="flex flex-row justify-between items-center mb-8">
-              <h1 className="text-3xl font-bold text-white">User Dashboard</h1>
-            </div>
-
-            <Overview />
-
-            <TransactionHistory
-              sort={sort}
-              setSort={setSort}
-              transactions={
-                transactions?.data?.transactions as UserTransactionResponse[]
-              }
-            />
-
-            <TablePagination
-              currentPage={page}
-              setCurrentPage={setPage}
-              totalPages={transactions?.metadata?.totalPage || 0}
-            />
-          </div>
-        )
-      )}
+  return !isConnected ? (
+    <div className="absoltue h-screen w-full flex items-center justify-center">
+      <Unauthenticated />
     </div>
+  ) : isLoading ? (
+    <Loader size="50" />
+  ) : (
+    users &&
+    users.length !== 0 &&
+    users[0]?.kyc &&
+    users[0].kyc.status === "APPROVED" && (
+      <div className="flex flex-col pb-8 pt-24 container mx-auto px-5 md:px-0">
+        <div className="flex flex-row justify-between items-center mb-8">
+          <h1 className="text-3xl font-bold text-white">User Dashboard</h1>
+        </div>
+        <Overview />
+        <TransactionHistory
+          sort={sort}
+          setSort={setSort}
+          transactions={
+            transactions?.data?.transactions as UserTransactionResponse[]
+          }
+        />
+        <TablePagination
+          currentPage={page}
+          setCurrentPage={setPage}
+          totalPages={transactions?.metadata?.totalPage || 0}
+        />
+      </div>
+    )
   );
 }
