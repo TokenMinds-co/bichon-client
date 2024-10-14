@@ -31,7 +31,7 @@ const PaymentResultPage = () => {
           </p>
         )}
 
-        <Link href={"/payment"}>
+        <Link href={"/ico"}>
           <Button>Buy Again</Button>
         </Link>
       </div>
