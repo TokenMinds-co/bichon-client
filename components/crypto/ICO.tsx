@@ -3,10 +3,12 @@
 import { generateAxiosInstance } from "@/lib/axios-client";
 import { useAccount } from "@particle-network/connectkit";
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useEffect } from "react";
 import { useFeed } from "@/hooks/useFeed";
 import IcoWidgets from "./IcoWidgets";
 import { redirect } from "next/navigation";
+import Loader from "../shared/Loader";
+import Unauthenticated from "../shared/unauthenticated";
 
 /*
 The flow:
@@ -28,8 +30,9 @@ interface ICOProps {
 const ICO = ({ currentPrice, targetAmount, raisedAmount, until }: ICOProps) => {
   const { address } = useAccount();
   const { solprice, usdcprice, usdtprice } = useFeed();
+  const { isConnected } = useAccount();
 
-  const { data: users } = useQuery({
+  const { data: users, isLoading } = useQuery({
     queryKey: ["get-types", address],
     queryFn: async () => {
       if (!address) return [];
@@ -42,23 +45,42 @@ const ICO = ({ currentPrice, targetAmount, raisedAmount, until }: ICOProps) => {
     },
     enabled: !!address,
   });
-  if (users?.length === 0 || (users && users[0]?.kyc?.status !== "APPROVED")) {
-    redirect("/kyc");
-  }
+
+  useEffect(() => {
+    if (!isLoading) {
+      if (
+        users?.length === 0 ||
+        (users && users[0]?.kyc?.status !== "APPROVED")
+      ) {
+        redirect("/kyc");
+      }
+    }
+  }, [isLoading, users]);
 
   return (
     <div className="flex flex-col items-center justify-center w-full h-full space-y-2">
       <div className="flex flex-col space-y-5 w-full h-full items-center justify-center">
-        <IcoWidgets
-          currentPrice={currentPrice}
-          solprice={solprice?.Price ?? 0}
-          usdcprice={usdcprice?.Price ?? 0}
-          usdtprice={usdtprice?.Price ?? 0}
-          targetAmount={targetAmount}
-          raisedAmount={raisedAmount}
-          until={until}
-          userAllocation={!users ? 0 : users[0]?.allocation}
-        />
+        {!isConnected ? (
+          <Unauthenticated />
+        ) : isLoading ? (
+          <Loader size="50" />
+        ) : (
+          users &&
+          users.length !== 0 &&
+          users[0]?.kyc &&
+          users[0].kyc.status === "APPROVED" && (
+            <IcoWidgets
+              currentPrice={currentPrice}
+              solprice={solprice?.Price ?? 0}
+              usdcprice={usdcprice?.Price ?? 0}
+              usdtprice={usdtprice?.Price ?? 0}
+              targetAmount={targetAmount}
+              raisedAmount={raisedAmount}
+              until={until}
+              userAllocation={!users ? 0 : users[0]?.allocation}
+            />
+          )
+        )}
       </div>
     </div>
   );

@@ -1,12 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Overview from "./Overview";
 import TransactionHistory from "./TransactionHistory";
 import { generateAxiosInstance } from "@/lib/axios-client";
 import { useQuery } from "@tanstack/react-query";
 import { useAccount } from "@particle-network/connectkit";
 import TablePagination from "../shared/TablePagination";
+import Unauthenticated from "../shared/unauthenticated";
+import Loader from "../shared/Loader";
 import { redirect } from "next/navigation";
 
 export default function Dashboard() {
@@ -14,7 +16,7 @@ export default function Dashboard() {
   const [sort, setSort] = useState<string>("desc");
   const { address, isConnected } = useAccount();
 
-  const { data: users } = useQuery({
+  const { data: users, isLoading } = useQuery({
     queryKey: ["get-types", address],
     queryFn: async () => {
       if (!address) return [];
@@ -27,9 +29,6 @@ export default function Dashboard() {
     },
     enabled: !!address,
   });
-  if (users?.length === 0 || (users && users[0]?.kyc?.status !== "APPROVED")) {
-    redirect("/kyc");
-  }
 
   const { data: transactions } = useQuery({
     queryKey: ["get-transactions", address, sort, page],
@@ -44,29 +43,51 @@ export default function Dashboard() {
     enabled: !!address,
   });
 
-  return isConnected ? (
-    <div className="flex flex-col pb-8 pt-28 container mx-auto">
-      <div className="flex flex-row justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold text-white">User Dashboard</h1>
-      </div>
+  useEffect(() => {
+    if (!isLoading) {
+      if (
+        users?.length === 0 ||
+        (users && users[0]?.kyc?.status !== "APPROVED")
+      ) {
+        redirect("/kyc");
+      }
+    }
+  }, [isLoading, users]);
 
-      <Overview />
-      
-      <TransactionHistory
-        sort={sort}
-        setSort={setSort}
-        transactions={
-          transactions?.data?.transactions as UserTransactionResponse[]
-        }
-      />
+  return (
+    <div className="flex flex-col w-full h-full">
+      {!isConnected ? (
+        <Unauthenticated />
+      ) : isLoading ? (
+        <Loader size="50" />
+      ) : (
+        users &&
+        users.length !== 0 &&
+        users[0]?.kyc &&
+        users[0].kyc.status === "APPROVED" && (
+          <div className="flex flex-col pb-8 pt-28 container mx-auto">
+            <div className="flex flex-row justify-between items-center mb-8">
+              <h1 className="text-3xl font-bold text-white">User Dashboard</h1>
+            </div>
 
-      <TablePagination
-        currentPage={page}
-        setCurrentPage={setPage}
-        totalPages={transactions?.metadata?.totalPage || 0}
-      />
+            <Overview />
+
+            <TransactionHistory
+              sort={sort}
+              setSort={setSort}
+              transactions={
+                transactions?.data?.transactions as UserTransactionResponse[]
+              }
+            />
+
+            <TablePagination
+              currentPage={page}
+              setCurrentPage={setPage}
+              totalPages={transactions?.metadata?.totalPage || 0}
+            />
+          </div>
+        )
+      )}
     </div>
-  ) : (
-    <h1 className="absolute w-screen h-screen text-2xl text-white font-spaceMono text-center flex justify-center items-center">Connect Wallet To Continue</h1>
   );
 }
