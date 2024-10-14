@@ -51,7 +51,7 @@ export default function IcoWidgets({
   const router = useRouter();
   const { isConnected, address } = useAccount();
   const { getATAandBalance, getSOLBalance, buyViaSOL, buyViaSPL } = useSPL();
-  const [activeMethod, setActiveMethod] = useState<TransactionMethod>("FIAT");
+  const [activeMethod, setActiveMethod] = useState<TransactionMethod>("CRYPTO_SOLANA");
   const [isFetchingBalance, setIsFetchingBalance] = useState(false);
   const [isBuying, setIsBuying] = useState(false);
   const [tokenState, setTokenState] = useState({

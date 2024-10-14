@@ -43,28 +43,43 @@ const BuyForm = ({
       : displayFormatter(balance, decimals);
 
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!buyDetails.isDirty) {
+    if (logo === "") {
+      const getAmount = e.target.value;
+      const amount = Number(getAmount) * usdPrice;
+      const usdAmount = Number(amount) * rawPrice;
+
       setBuyDetails({
         ...buyDetails,
+        amount: amount.toString(),
         isDirty: true,
+        getAmount,
+        usdAmount: displayFormatter(usdAmount, 2),
+      });
+    } else {
+      if (!buyDetails.isDirty) {
+        setBuyDetails({
+          ...buyDetails,
+          isDirty: true,
+        });
+      }
+      const amount = e.target.value;
+      const amountGet =
+        logo === ""
+          ? Number(amount) / Number(usdPrice)
+          : Number(amount) / price;
+      const usdAmount = Number(amount) * rawPrice;
+      setBuyDetails({
+        ...buyDetails,
+        amount,
+        isDirty: true,
+        getAmount:
+          amountGet % 1 === 0
+            ? displayFormatter(amountGet, 0)
+            : displayFormatter(amountGet, BICHON_TOKEN.decimals),
+        // getAmount: amountGet.toLocaleString("en-US"),
+        usdAmount: displayFormatter(usdAmount, 2),
       });
     }
-
-    const amount = e.target.value;
-    const amountGet =
-      logo === "" ? Number(amount) / Number(usdPrice) : Number(amount) / price;
-    const usdAmount = Number(amount) * rawPrice;
-    setBuyDetails({
-      ...buyDetails,
-      amount,
-      isDirty: true,
-      getAmount:
-        amountGet % 1 === 0
-          ? displayFormatter(amountGet, 0)
-          : displayFormatter(amountGet, BICHON_TOKEN.decimals),
-      // getAmount: amountGet.toLocaleString("en-US"),
-      usdAmount: displayFormatter(usdAmount, 2),
-    });
   };
 
   // Monitor if the method is changed
@@ -80,7 +95,9 @@ const BuyForm = ({
   }, [logo]);
 
   return (
-    <div className="flex gap-4">
+    <div
+      className={`flex gap-4 ${logo === "" ? "flex-row-reverse" : "flex-row"}`}
+    >
       <div className="flex-1 space-y-1">
         <div className="bg-[#1e2128] rounded-md p-2 flex justify-between items-center">
           <input
@@ -92,7 +109,8 @@ const BuyForm = ({
             disabled={isFetchingBalance}
             max={logo !== "" ? balance : undefined}
             value={buyDetails.amount}
-            onChange={handleAmountChange}
+            readOnly={logo === ""}
+            onChange={logo !== "" ? handleAmountChange : () => {}}
           />
           {logo === "" ? (
             <p className="whitespace-nowrap ml-2">$ USD</p>
@@ -123,7 +141,8 @@ const BuyForm = ({
             type="text"
             placeholder="0"
             value={buyDetails.getAmount}
-            readOnly
+            readOnly={logo !== ""}
+            onChange={logo === "" ? handleAmountChange : () => {}}
             className="bg-transparent w-full outline-none"
           />
           <p className="whitespace-nowrap ml-2">{BICHON_TOKEN.symbol}</p>
