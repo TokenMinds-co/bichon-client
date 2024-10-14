@@ -33,7 +33,7 @@ const ICO = ({ currentPrice, targetAmount, raisedAmount, until }: ICOProps) => {
   const { isConnected } = useAccount();
 
   const { data: users, isLoading } = useQuery({
-    queryKey: ["get-types", address],
+    queryKey: ["get-user-details", address],
     queryFn: async () => {
       if (!address) return [];
       const axiosInstance = await generateAxiosInstance(undefined);

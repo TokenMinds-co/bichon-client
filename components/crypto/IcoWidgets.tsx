@@ -14,7 +14,7 @@ import { displayFormatter } from "@/lib/utils";
 import { useSPL } from "@/hooks/useSPL";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import Loader from "../shared/Loader";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { generateAxiosInstance } from "@/lib/axios-client";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
@@ -72,17 +72,19 @@ export default function IcoWidgets({
     usdAmount: "",
   });
 
+  const queryClient = useQueryClient();
   const submitTx = useMutation({
     mutationFn: async (data: SubmitTx) => {
       // console.log("Buy data", data);
       const axiosInstance = await generateAxiosInstance(undefined);
-      const { data: res } = await axiosInstance.post(
-        `/transactions/crypto`,
-        data
-      );
-      console.log("Response", res);
+      await axiosInstance.post(`/transactions/crypto`, data);
     },
     mutationKey: ["submit-tx"],
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["get-user-details", address],
+      });
+    },
   });
 
   const handleMethod = async (method: TransactionMethod) => {
@@ -181,7 +183,6 @@ export default function IcoWidgets({
           Math.ceil(Number(buyDetails.amount) * 10 ** tokenState.decimals)
         );
       } else {
-        console.log("Buying via card", buyDetails.amount);
         const axiosInstance = await generateAxiosInstance(undefined);
         const res = await axiosInstance
           .post(`/transactions/stripe/payment`, {
@@ -230,7 +231,6 @@ export default function IcoWidgets({
       );
     } finally {
       setIsBuying(false);
-      console.log("hash", hash);
     }
   };
 
@@ -335,7 +335,7 @@ export default function IcoWidgets({
         {isConnected ? (
           <SkewButton
             type="button"
-            disabled={buyDetails.amount === ""}
+            disabled={buyDetails.amount === "" || isBuying}
             onClick={buyAction}
             className="flex w-full flex-row gap-3 py-5 items-center justify-center duration-200 ease-in-out"
             customClasses={"skew-buy-widgets"}
