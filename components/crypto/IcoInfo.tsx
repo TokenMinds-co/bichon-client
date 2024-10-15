@@ -68,7 +68,7 @@ const IcoInfo = ({
         </div>
         {/* <div className="flex items-center justify-center">
           <span>
-            Your stakeable ${BICHON_TOKEN.symbol}= {stakeable}
+            Your stakeable ${bichon_symbol}= {stakeable}
           </span>
           <span className="text-blue-400 px-2">ⓘ</span>
         </div> */}

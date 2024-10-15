@@ -9,7 +9,7 @@ import { TransactionMethod } from "@/types/Response";
 import { useAccount } from "@particle-network/connectkit";
 import SkewButton from "../shared/SkewButton";
 import BuyForm from "./BuyForm";
-import { BICHON_TOKEN, SUPPORTED_SPL_TOKENS } from "@/constant/common";
+import { SUPPORTED_SPL_TOKENS } from "@/constant/common";
 import { displayFormatter, stringToNumber } from "@/lib/utils";
 import { useSPL } from "@/hooks/useSPL";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
@@ -185,7 +185,7 @@ export default function IcoWidgets({
   };
 
   const buyAction = async () => {
-    if (!address) return;
+    if (!address || !tokenDetails) return;
     // Validation buy amout
     if (
       activeMethod !== "FIAT" &&
@@ -206,7 +206,7 @@ export default function IcoWidgets({
       toast.error(
         `You can only buy ${displayFormatter(
           available,
-          BICHON_TOKEN.decimals
+          tokenDetails.decimal
         )} tokens`
       );
       return;
@@ -217,15 +217,18 @@ export default function IcoWidgets({
     try {
       if (activeMethod === "CRYPTO_SOLANA") {
         hash = await buyViaSOL(
+          tokenDetails.treasury,
           Math.ceil(Number(buyDetails.amount) * LAMPORTS_PER_SOL)
         );
       } else if (activeMethod === "CRYPTO_USDC") {
         hash = await buyViaSPL(
+          tokenDetails.treasury,
           tokenState.address,
           Math.ceil(Number(buyDetails.amount) * 10 ** tokenState.decimals)
         );
       } else if (activeMethod === "CRYPTO_USDT") {
         hash = await buyViaSPL(
+          tokenDetails.treasury,
           tokenState.address,
           Math.ceil(Number(buyDetails.amount) * 10 ** tokenState.decimals)
         );
