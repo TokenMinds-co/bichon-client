@@ -101,7 +101,7 @@ export default function Overview() {
                 ${overview?.tokenPrice || 0}
               </div>
               <p className="text-sm text-pink-200 mt-1">
-                +$0.5 from last batch
+                Token price on current batch
               </p>
             </div>
             <div className="bg-pink-500/30 p-3 rounded-full">
