@@ -3,6 +3,8 @@ import { axiosInstance } from "@/lib/axios";
 import { Metadata } from "next";
 import React from "react";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Bichon Defender | Crypto Payment",
   description: "Solana Presale Bichon Defender Crypto Payment",
