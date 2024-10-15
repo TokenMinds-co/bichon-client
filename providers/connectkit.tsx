@@ -1,7 +1,11 @@
 "use client";
 
 import { ConnectKitProvider, createConfig } from "@particle-network/connectkit";
-import { solanaDevnet, solana } from "@particle-network/connectkit/chains";
+import {
+  solanaDevnet,
+  solana,
+  defineChain,
+} from "@particle-network/connectkit/chains";
 import {
   injected as solaInjected,
   solanaWalletConnectors,
@@ -12,6 +16,25 @@ const projectId = process.env.NEXT_PUBLIC_PROJECT_ID as string;
 const clientKey = process.env.NEXT_PUBLIC_CLIENT_KEY as string;
 const appId = process.env.NEXT_PUBLIC_APP_ID as string;
 
+const solanaMainnet = defineChain({
+  id: 101,
+  name: "Solana",
+  nativeCurrency: {
+    decimals: 9,
+    name: "Solana SOL",
+    symbol: "SOL",
+  },
+  rpcUrls: {
+    default: {
+      http: [process.env.NEXT_PUBLIC_SOLANA_RPC_URL as string],
+    },
+  },
+  blockExplorers: {
+    default: { name: "Explorer", url: "https://explorer.solana.com" },
+  },
+  testnet: false,
+});
+
 if (!projectId || !clientKey || !appId) {
   throw new Error("Please configure the Particle project in .env first!");
 }
@@ -19,8 +42,10 @@ if (!projectId || !clientKey || !appId) {
 const NODE_ENV = process.env.NEXT_PUBLIC_NODE_ENV as
   | "development"
   | "production";
-const currentChain: readonly [typeof solanaDevnet] | readonly [typeof solana] =
-  NODE_ENV === "development" ? [solanaDevnet] : [solana];
+const currentChain:
+  | readonly [typeof solanaDevnet]
+  | readonly [typeof solanaMainnet] =
+  NODE_ENV === "development" ? [solanaDevnet] : [solanaMainnet];
 
 export const getExplorer = () => {
   const NODE_ENV = process.env.NODE_ENV as "development" | "production";
