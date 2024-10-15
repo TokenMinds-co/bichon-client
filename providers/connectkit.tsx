@@ -43,12 +43,11 @@ const NODE_ENV = process.env.NEXT_PUBLIC_NODE_ENV as
   | "development"
   | "production";
 const currentChain:
-  | readonly [typeof solanaDevnet]
-  | readonly [typeof solanaMainnet] =
-  NODE_ENV === "development" ? [solanaDevnet] : [solanaMainnet];
+  | readonly [typeof solanaMainnet]
+  | readonly [typeof solanaDevnet] =
+  NODE_ENV === "production" ? [solanaMainnet] : [solanaDevnet];
 
 export const getExplorer = () => {
-  const NODE_ENV = process.env.NODE_ENV as "development" | "production";
   const chain = NODE_ENV === "production" ? solana : solanaDevnet;
 
   return {

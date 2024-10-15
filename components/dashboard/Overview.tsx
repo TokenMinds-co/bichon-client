@@ -9,11 +9,13 @@ import {
 } from "@particle-network/connectkit";
 import { useQuery } from "@tanstack/react-query";
 import { generateAxiosInstance } from "@/lib/axios-client";
+import { useTokenDetails } from "@/hooks/useTokenDetails";
 
 export default function Overview() {
   const publicClient = usePublicClient<SolanaChain>();
   const [primaryWallet] = useWallets();
   const { address, chain } = useAccount();
+  const { tokenDetails } = useTokenDetails();
 
   const { data: overview } = useQuery<OverviewProps | null>({
     queryKey: ["get-overview", address],
@@ -75,7 +77,7 @@ export default function Overview() {
           <div className="flex items-center justify-between">
             <div>
               <div className="text-3xl font-extrabold text-white">
-                {overview?.totalToken || 0} BCH
+                {overview?.totalToken || 0} {tokenDetails?.ticker}
               </div>
               <p className="text-sm text-green-200 mt-1">
                 Amount of token bought on presale

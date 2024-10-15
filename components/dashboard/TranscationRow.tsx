@@ -9,9 +9,10 @@ import Link from "next/link";
 
 interface TransactionRowProps {
   tx: UserTransactionResponse;
+  ticker: string;
 }
 
-export default function TranscationRow({ tx }: TransactionRowProps) {
+export default function TranscationRow({ tx, ticker }: TransactionRowProps) {
   const { env, explorer } = getExplorer();
   const copyToClipboard = async (text: string) => {
     await navigator.clipboard.writeText(text);
@@ -30,7 +31,7 @@ export default function TranscationRow({ tx }: TransactionRowProps) {
       </TableCell>
       <TableCell className="text-gray-300 text-center">{tx.method}</TableCell>
       <TableCell className="text-gray-300 text-center">
-        {tx.amount.toLocaleString()} BCH
+        {tx.amount.toLocaleString()} {ticker}
       </TableCell>
       <TableCell className="text-gray-300 text-center">
         ${(tx.totalPrice / tx.amount).toFixed(2)}

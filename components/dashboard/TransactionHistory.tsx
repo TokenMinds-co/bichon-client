@@ -15,12 +15,16 @@ import {
   SelectValue,
 } from "../ui/select";
 import TranscationRow from "./TranscationRow";
+import { useTokenDetails } from "@/hooks/useTokenDetails";
+import Loader from "../shared/Loader";
 
 export default function TransactionHistory({
   transactions,
   sort,
   setSort,
 }: TransactionHistoryProps) {
+  const { tokenDetails } = useTokenDetails();
+
   return (
     <Card className="bg-gradient-to-br mt-8 from-gray-700 to-gray-800 border-gray-600 shadow-xl">
       <CardHeader className="flex flex-row justify-between items-center">
@@ -61,15 +65,25 @@ export default function TransactionHistory({
           {transactions?.length <= 0 ? (
             <TableBody>
               <TableRow>
-                <td colSpan={5} className="text-center py-4 text-white">
+                <td colSpan={6} className="text-center py-4 text-white">
                   No transactions found
                 </td>
               </TableRow>
             </TableBody>
+          ) : !tokenDetails ? (
+            <TableRow>
+              <td colSpan={6} className="text-center py-4 text-white">
+                <Loader size="20" />
+              </td>
+            </TableRow>
           ) : (
             <TableBody>
               {transactions?.map((tx) => (
-                <TranscationRow key={tx.id} tx={tx} />
+                <TranscationRow
+                  key={tx.id}
+                  tx={tx}
+                  ticker={tokenDetails.ticker}
+                />
               ))}
             </TableBody>
           )}

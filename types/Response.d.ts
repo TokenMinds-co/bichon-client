@@ -187,7 +187,7 @@ declare global {
     Signature: string;
   }
 
-  interface TokenDetailRespone {
+  interface TokenDetailsResponse {
     id: string;
     name: string;
     ticker: string;

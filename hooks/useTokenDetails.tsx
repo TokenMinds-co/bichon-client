@@ -6,9 +6,9 @@ import { generateAxiosInstance } from "@/lib/axios-client";
 export const useTokenDetails = () => {
   const REFRESH_INTERVAL = 1000 * 60 * 0.5; // 1 minutes
 
-  const { data: tokenDetails } = useQuery<TokenDetailRespone>({
+  const { data: tokenDetails } = useQuery<TokenDetailsResponse>({
     queryKey: ["token-details"],
-    queryFn: async (): Promise<TokenDetailRespone> => {
+    queryFn: async (): Promise<TokenDetailsResponse> => {
       const axiosInstance = await generateAxiosInstance(undefined);
       const { data } = await axiosInstance.get("/token");
 

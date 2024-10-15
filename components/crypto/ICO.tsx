@@ -9,6 +9,7 @@ import IcoWidgets from "./IcoWidgets";
 import { redirect } from "next/navigation";
 import Loader from "../shared/Loader";
 import Unauthenticated from "../shared/unauthenticated";
+import { useTokenDetails } from "@/hooks/useTokenDetails";
 
 /*
 The flow:
@@ -31,6 +32,7 @@ const ICO = ({ currentPrice, targetAmount, raisedAmount, until }: ICOProps) => {
   const { address } = useAccount();
   const { solprice, usdcprice, usdtprice } = useFeed();
   const { isConnected } = useAccount();
+  const { tokenDetails } = useTokenDetails();
 
   const { data: users, isLoading } = useQuery({
     queryKey: ["get-user-details", address],
@@ -57,12 +59,20 @@ const ICO = ({ currentPrice, targetAmount, raisedAmount, until }: ICOProps) => {
     }
   }, [isLoading, users]);
 
+  // useEffect(() => {
+  //   console.log("SOL", solprice?.Price);
+  //   console.log("USDC", usdcprice?.Price);
+  //   console.log("USDT", usdtprice?.Price);
+  // }, [solprice, usdcprice, usdtprice]);
+
   return (
     <div className="flex flex-col items-center justify-center w-full h-full space-y-2">
       <div className="flex flex-col space-y-5 w-full h-full items-center justify-center">
         {!isConnected ? (
           <Unauthenticated />
         ) : isLoading ? (
+          <Loader size="50" />
+        ) : !tokenDetails ? (
           <Loader size="50" />
         ) : (
           users &&
@@ -78,6 +88,7 @@ const ICO = ({ currentPrice, targetAmount, raisedAmount, until }: ICOProps) => {
               raisedAmount={raisedAmount}
               until={until}
               userAllocation={!users ? 0 : users[0]?.allocation}
+              tokenDetails={tokenDetails}
             />
           )
         )}

@@ -18,7 +18,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { generateAxiosInstance } from "@/lib/axios-client";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-import { useTokenDetails } from "@/hooks/useTokenDetails";
 
 interface IcoWidgetsProps {
   currentPrice: number;
@@ -29,6 +28,7 @@ interface IcoWidgetsProps {
   usdcprice: number;
   until: string;
   userAllocation: number | undefined;
+  tokenDetails: TokenDetailsResponse;
 }
 
 interface SubmitTx {
@@ -48,11 +48,11 @@ export default function IcoWidgets({
   usdtprice,
   until,
   userAllocation,
+  tokenDetails,
 }: IcoWidgetsProps) {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { isConnected, address } = useAccount();
-  const { tokenDetails } = useTokenDetails();
   const { getATAandBalance, getSOLBalance, buyViaSOL, buyViaSPL } = useSPL();
   const [activeMethod, setActiveMethod] = useState<TransactionMethod>("FIAT");
   const [isFetchingBalance, setIsFetchingBalance] = useState(false);
@@ -185,36 +185,37 @@ export default function IcoWidgets({
   };
 
   const buyAction = async () => {
-    if (!address || !tokenDetails) return;
-    // Validation buy amout
-    if (
-      activeMethod !== "FIAT" &&
-      Number(buyDetails.amount) > tokenState.balance
-    ) {
-      toast.error("Insufficient balance");
-      return;
-    }
-    if (Number(buyDetails.amount) <= 0) {
-      toast.error("Invalid quantity!");
-      return;
-    }
-
-    const { available, isAvailable } = await checkAvailability(
-      stringToNumber(buyDetails.getAmount)
-    );
-    if (!isAvailable) {
-      toast.error(
-        `You can only buy ${displayFormatter(
-          available,
-          tokenDetails.decimal
-        )} tokens`
-      );
-      return;
-    }
-
-    let hash: unknown;
-    setIsBuying(true);
     try {
+      if (!address || !tokenDetails) return;
+      setIsBuying(true);
+      let hash: unknown;
+
+      // Validation buy amout
+      if (
+        activeMethod !== "FIAT" &&
+        Number(buyDetails.amount) > tokenState.balance
+      ) {
+        toast.error("Insufficient balance");
+        return;
+      }
+      if (Number(buyDetails.amount) <= 0) {
+        toast.error("Invalid quantity!");
+        return;
+      }
+
+      const { available, isAvailable } = await checkAvailability(
+        stringToNumber(buyDetails.getAmount)
+      );
+      if (!isAvailable) {
+        toast.error(
+          `You can only buy ${displayFormatter(
+            available,
+            tokenDetails.decimal
+          )} tokens`
+        );
+        return;
+      }
+
       if (activeMethod === "CRYPTO_SOLANA") {
         hash = await buyViaSOL(
           tokenDetails.treasury,
@@ -291,21 +292,30 @@ export default function IcoWidgets({
       setTokenState({
         ...tokenState,
         price: Number(
-          displayFormatter(1 / solprice, SUPPORTED_SPL_TOKENS[0].decimals)
+          displayFormatter(
+            currentPrice / solprice,
+            SUPPORTED_SPL_TOKENS[0].decimals
+          )
         ),
       });
     } else if (activeMethod === "CRYPTO_USDT") {
       setTokenState({
         ...tokenState,
         price: Number(
-          displayFormatter(1 / usdtprice, SUPPORTED_SPL_TOKENS[1].decimals)
+          displayFormatter(
+            currentPrice / usdtprice,
+            SUPPORTED_SPL_TOKENS[1].decimals
+          )
         ),
       });
     } else if (activeMethod === "CRYPTO_USDC") {
       setTokenState({
         ...tokenState,
         price: Number(
-          displayFormatter(1 / usdcprice, SUPPORTED_SPL_TOKENS[2].decimals)
+          displayFormatter(
+            currentPrice / usdcprice,
+            SUPPORTED_SPL_TOKENS[2].decimals
+          )
         ),
       });
     }
@@ -313,105 +323,101 @@ export default function IcoWidgets({
   }, [solprice, usdcprice, usdtprice]);
 
   return (
-    <>
-      {tokenDetails && (
-        <div className="w-full h-full mx-5 max-w-lg flex items-center justify-center text-white p-12 bg-gray-700/20 skew-widgets">
-          <div className="w-full max-w-md space-y-5">
-            <div className="flex flex-col space-y-1">
-              <h1 className="text-3xl font-spaceMono font-bold text-center">
-                {tokenDetails.name}
-              </h1>
-              <p className="text-base font-spaceMono font-bold text-center mb-8">
-                ICO is Live!
-              </p>
-            </div>
-
-            <IcoCounter until={until} />
-            <IcoInfo
-              raised={raisedAmount}
-              total={targetAmount}
-              purchased={userAllocation}
-              stakeable={0}
-              price={tokenState.price}
-              symbol={tokenState.symbol}
-              isFetchingBalance={isFetchingBalance}
-              bichon_decimal={tokenDetails.decimal}
-              bichon_symbol={tokenDetails.ticker}
-            />
-
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 font-spaceMono font-bold">
-              <IcoMethod
-                src="/assets/icons/solana.svg"
-                label="SOL"
-                method="CRYPTO_SOLANA"
-                handleClick={handleMethod}
-                active={activeMethod}
-              />
-
-              <IcoMethod
-                src="/assets/icons/usdt.svg"
-                label="USDT"
-                method="CRYPTO_USDT"
-                handleClick={handleMethod}
-                active={activeMethod}
-              />
-
-              <IcoMethod
-                src="/assets/icons/usdc.svg"
-                label="USDC"
-                method="CRYPTO_USDC"
-                handleClick={handleMethod}
-                active={activeMethod}
-              />
-
-              <IcoMethod
-                src=""
-                label="CARD"
-                method="FIAT"
-                handleClick={handleMethod}
-                active={activeMethod}
-                isFiat
-              />
-            </div>
-
-            <BuyForm
-              buyDetails={buyDetails}
-              setBuyDetails={setBuyDetails}
-              balance={tokenState.balance}
-              decimals={tokenState.decimals}
-              symbol={tokenState.symbol}
-              logo={tokenState.logo}
-              price={tokenState.price}
-              rawPrice={tokenState.rawPrice}
-              usdPrice={currentPrice}
-              isFetchingBalance={isFetchingBalance}
-              bichon_decimal={tokenDetails.decimal}
-              bichon_symbol={tokenDetails.ticker}
-            />
-
-            {isConnected ? (
-              <SkewButton
-                type="button"
-                disabled={buyDetails.amount === "" || isBuying}
-                onClick={buyAction}
-                className="flex w-full flex-row gap-3 py-5 items-center justify-center duration-200 ease-in-out"
-                customClasses={"skew-buy-widgets"}
-              >
-                {isBuying ? (
-                  <Loader size="25" />
-                ) : (
-                  <p className="font-spaceMono text-lg w-full">Buy Now</p>
-                )}
-              </SkewButton>
-            ) : (
-              <ConnectWallet
-                label="Connect Wallet"
-                customClasses="skew-buy-widgets"
-              />
-            )}
-          </div>
+    <div className="w-full h-full mx-5 max-w-lg flex items-center justify-center text-white p-12 bg-gray-700/20 skew-widgets">
+      <div className="w-full max-w-md space-y-5">
+        <div className="flex flex-col space-y-1">
+          <h1 className="text-3xl font-spaceMono font-bold text-center">
+            {tokenDetails.name}
+          </h1>
+          <p className="text-base font-spaceMono font-bold text-center mb-8">
+            ICO is Live!
+          </p>
         </div>
-      )}
-    </>
+
+        <IcoCounter until={until} />
+        <IcoInfo
+          raised={raisedAmount}
+          total={targetAmount}
+          purchased={userAllocation}
+          stakeable={0}
+          price={tokenState.price}
+          symbol={tokenState.symbol}
+          isFetchingBalance={isFetchingBalance}
+          bichon_decimal={tokenDetails.decimal}
+          bichon_symbol={tokenDetails.ticker}
+        />
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 font-spaceMono font-bold">
+          <IcoMethod
+            src="/assets/icons/solana.svg"
+            label="SOL"
+            method="CRYPTO_SOLANA"
+            handleClick={handleMethod}
+            active={activeMethod}
+          />
+
+          <IcoMethod
+            src="/assets/icons/usdt.svg"
+            label="USDT"
+            method="CRYPTO_USDT"
+            handleClick={handleMethod}
+            active={activeMethod}
+          />
+
+          <IcoMethod
+            src="/assets/icons/usdc.svg"
+            label="USDC"
+            method="CRYPTO_USDC"
+            handleClick={handleMethod}
+            active={activeMethod}
+          />
+
+          <IcoMethod
+            src=""
+            label="CARD"
+            method="FIAT"
+            handleClick={handleMethod}
+            active={activeMethod}
+            isFiat
+          />
+        </div>
+
+        <BuyForm
+          buyDetails={buyDetails}
+          setBuyDetails={setBuyDetails}
+          balance={tokenState.balance}
+          decimals={tokenState.decimals}
+          symbol={tokenState.symbol}
+          logo={tokenState.logo}
+          price={tokenState.price}
+          rawPrice={tokenState.rawPrice}
+          usdPrice={currentPrice}
+          isFetchingBalance={isFetchingBalance}
+          bichon_decimal={tokenDetails.decimal}
+          bichon_symbol={tokenDetails.ticker}
+        />
+
+        {isConnected ? (
+          <SkewButton
+            type="button"
+            disabled={buyDetails.amount === "" || isBuying}
+            onClick={buyAction}
+            className="flex w-full flex-row gap-3 py-5 items-center justify-center duration-200 ease-in-out"
+            customClasses={"skew-buy-widgets"}
+          >
+            {isBuying ? (
+              <Loader size="25" />
+            ) : (
+              <p className="font-spaceMono text-lg w-full">Buy Now</p>
+            )}
+          </SkewButton>
+        ) : (
+          <ConnectWallet
+            label="Connect Wallet"
+            customClasses="skew-buy-widgets"
+          />
+        )}
+      </div>
+    </div>
   );
 }
