@@ -186,4 +186,19 @@ declare global {
     Source: string;
     Signature: string;
   }
+
+  interface TokenDetailRespone {
+    id: string;
+    name: string;
+    ticker: string;
+    treasury: string;
+    decimal: number;
+    totalSupply: number;
+    createdAt: string;
+    updatedAt: string;
+    stripeProductId: string;
+    totalRaised: number;
+    participants: number;
+    validUntil: string;
+  }
 }

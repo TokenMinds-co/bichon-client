@@ -1,6 +1,5 @@
 "use client";
 
-import { BICHON_TOKEN } from "@/constant/common";
 import {
   createTransferCheckedInstruction,
   getAssociatedTokenAddressSync,
@@ -69,7 +68,11 @@ export const useSPL = () => {
     }
   };
 
-  const buyViaSPL = async (mintAddress: string, amount: number) => {
+  const buyViaSPL = async (
+    treasury: string,
+    mintAddress: string,
+    amount: number
+  ) => {
     if (!solanaWallet) {
       console.error("Wallet not connected");
       return;
@@ -81,7 +84,7 @@ export const useSPL = () => {
     );
     const destinationATA = getAssociatedTokenAddressSync(
       mint,
-      BICHON_TOKEN.treasury
+      new PublicKey(treasury)
     );
 
     const instruction = createTransferCheckedInstruction(
@@ -119,7 +122,7 @@ export const useSPL = () => {
     }
   };
 
-  const buyViaSOL = async (lamports: number) => {
+  const buyViaSOL = async (treasury: string, lamports: number) => {
     if (!solanaWallet) {
       console.error("Wallet not connected");
       return;
@@ -128,7 +131,7 @@ export const useSPL = () => {
     const tx = new Transaction().add(
       SystemProgram.transfer({
         fromPubkey: solanaWallet.publicKey,
-        toPubkey: BICHON_TOKEN.treasury,
+        toPubkey: new PublicKey(treasury),
         lamports,
       })
     );

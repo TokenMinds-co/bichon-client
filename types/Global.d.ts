@@ -37,6 +37,7 @@ declare global {
     name: string;
     symbol: string;
     address: string;
+    host: string;
     feed: string;
     balance: number;
     decimals: number;
