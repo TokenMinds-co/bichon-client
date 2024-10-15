@@ -1,4 +1,3 @@
-import { BICHON_TOKEN } from "@/constant/common";
 import { displayFormatter } from "@/lib/utils";
 import React from "react";
 import { Separator } from "../ui/separator";
@@ -12,6 +11,8 @@ interface IcoInfoProps {
   price: number;
   symbol: string;
   isFetchingBalance: boolean;
+  bichon_symbol: string;
+  bichon_decimal: number;
 }
 
 const IcoInfo = ({
@@ -21,6 +22,8 @@ const IcoInfo = ({
   price,
   symbol,
   isFetchingBalance,
+  bichon_decimal,
+  bichon_symbol,
 }: IcoInfoProps) => {
   const percentage = raised >= total ? 100 : (raised / total) * 100;
 
@@ -50,14 +53,14 @@ const IcoInfo = ({
       <div className="space-y-2 text-base font-jakarta font-medium">
         <div className="flex items-center justify-center">
           <div className="flex flex-row space-x-2">
-            <span>Your purchased ${BICHON_TOKEN.symbol}=</span>
+            <span>Your purchased ${bichon_symbol} =</span>
             {purchased === undefined ? (
               <Loader size="20" />
             ) : (
               <span>
                 {purchased % 1 === 0
                   ? displayFormatter(purchased, 0)
-                  : displayFormatter(purchased, BICHON_TOKEN.decimals)}
+                  : displayFormatter(purchased, bichon_decimal)}
               </span>
             )}
           </div>
@@ -74,7 +77,7 @@ const IcoInfo = ({
       <div className="flex flex-row items-center justify-center w-full">
         <Separator className="flex-1" />
         <div className="flex flex-row text-center whitespace-nowrap space-x-2 mx-2">
-          1 <span className="font-semibold px-2">${BICHON_TOKEN.symbol}</span> ={" "}
+          1 <span className="font-semibold px-2">${bichon_symbol}</span> ={" "}
           {isFetchingBalance ? <Loader size="20" /> : `${price} `}
           {!isFetchingBalance && (
             <span className="font-semibold">${symbol}</span>

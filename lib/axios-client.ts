@@ -1,10 +1,11 @@
 import axios, { AxiosInstance } from "axios";
 
 export const generateAxiosInstance = async (
-  token: string | undefined
+  token: string | undefined,
+  host?: string
 ): Promise<AxiosInstance> => {
   const axiosInstanceClient = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
+    baseURL: host ? host : process.env.NEXT_PUBLIC_BACKEND_URL,
     headers: {
       "Content-Type": "application/json",
     },
@@ -28,10 +29,12 @@ export const generateAxiosInstance = async (
     });
     const signature = res.data;
     //   SET HEADERS
-    config.headers.Authorization = token ? `Bearer ${token}` : "";
-    config.headers["x-api-key"] = apiKey;
-    config.headers["x-timestamp"] = timestamp;
-    config.headers["x-signature"] = signature;
+    if (host === undefined) {
+      config.headers.Authorization = token ? `Bearer ${token}` : "";
+      config.headers["x-api-key"] = apiKey;
+      config.headers["x-timestamp"] = timestamp;
+      config.headers["x-signature"] = signature;
+    }
 
     return config;
   });

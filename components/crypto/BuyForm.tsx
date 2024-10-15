@@ -3,7 +3,6 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 import { displayFormatter } from "@/lib/utils";
-import { BICHON_TOKEN } from "@/constant/common";
 import Loader from "../shared/Loader";
 
 interface BuyDetails {
@@ -22,6 +21,8 @@ interface BuyFormProps {
   symbol: string;
   logo: string;
   buyDetails: BuyDetails;
+  bichon_symbol: string;
+  bichon_decimal: number;
   setBuyDetails: (details: BuyDetails) => void;
 }
 
@@ -34,6 +35,8 @@ const BuyForm = ({
   usdPrice,
   rawPrice,
   price,
+  bichon_decimal,
+  bichon_symbol,
   buyDetails,
   setBuyDetails,
 }: BuyFormProps) => {
@@ -75,7 +78,7 @@ const BuyForm = ({
         getAmount:
           amountGet % 1 === 0
             ? displayFormatter(amountGet, 0)
-            : displayFormatter(amountGet, BICHON_TOKEN.decimals),
+            : displayFormatter(amountGet, bichon_decimal),
         // getAmount: amountGet.toLocaleString("en-US"),
         usdAmount: displayFormatter(usdAmount, 2),
       });
@@ -145,7 +148,7 @@ const BuyForm = ({
             onChange={logo === "" ? handleAmountChange : () => {}}
             className="bg-transparent w-full outline-none"
           />
-          <p className="whitespace-nowrap ml-2">{BICHON_TOKEN.symbol}</p>
+          <p className="whitespace-nowrap ml-2">{bichon_symbol}</p>
         </div>
       </div>
     </div>
