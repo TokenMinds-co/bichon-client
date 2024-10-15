@@ -51,7 +51,8 @@ export default function IcoWidgets({
   const router = useRouter();
   const { isConnected, address } = useAccount();
   const { getATAandBalance, getSOLBalance, buyViaSOL, buyViaSPL } = useSPL();
-  const [activeMethod, setActiveMethod] = useState<TransactionMethod>("CRYPTO_SOLANA");
+  const [activeMethod, setActiveMethod] =
+    useState<TransactionMethod>("CRYPTO_SOLANA");
   const [isFetchingBalance, setIsFetchingBalance] = useState(false);
   const [isBuying, setIsBuying] = useState(false);
   const [tokenState, setTokenState] = useState({
@@ -229,7 +230,7 @@ export default function IcoWidgets({
         );
       } else {
         const axiosInstance = await generateAxiosInstance(undefined);
-        
+
         const res = await axiosInstance
           .post(`/transactions/stripe/payment`, {
             quantity: stringToNumber(buyDetails.getAmount),
@@ -255,8 +256,8 @@ export default function IcoWidgets({
         await Promise.all([
           submitTx.mutateAsync({
             address,
-            amount: Number(buyDetails.getAmount),
-            usdAmount: Number(buyDetails.usdAmount),
+            amount: stringToNumber(buyDetails.getAmount),
+            usdAmount: stringToNumber(buyDetails.usdAmount),
             hash: hash as string,
             method: activeMethod,
           }),
