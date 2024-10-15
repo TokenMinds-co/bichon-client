@@ -51,7 +51,7 @@ export default function IcoWidgets({
   const router = useRouter();
   const { isConnected, address } = useAccount();
   const { getATAandBalance, getSOLBalance, buyViaSOL, buyViaSPL } = useSPL();
-  const [activeMethod, setActiveMethod] = useState<TransactionMethod>("FIAT");  
+  const [activeMethod, setActiveMethod] = useState<TransactionMethod>("FIAT");
   const [isFetchingBalance, setIsFetchingBalance] = useState(false);
   const [isBuying, setIsBuying] = useState(false);
   const [tokenState, setTokenState] = useState({
@@ -255,8 +255,8 @@ export default function IcoWidgets({
         await Promise.all([
           submitTx.mutateAsync({
             address,
-            amount: Number(buyDetails.getAmount),
-            usdAmount: Number(buyDetails.usdAmount),
+            amount: stringToNumber(buyDetails.getAmount),
+            usdAmount: stringToNumber(buyDetails.usdAmount),
             hash: hash as string,
             method: activeMethod,
           }),
