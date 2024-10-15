@@ -250,9 +250,6 @@ export default function IcoWidgets({
           });
 
         if (res && res.data.statusCode === 200) {
-          toast.success("Token bought succesfully!");
-          router.push("/dashboard");
-        } else if (res && res.data.statusCode !== 200) {
           const url = res.data.data.paymentUrl;
           router.push(url);
         }
