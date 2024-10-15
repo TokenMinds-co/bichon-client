@@ -95,60 +95,69 @@ const BuyForm = ({
   }, [logo]);
 
   return (
-    <div
-      className={`flex gap-4 ${logo === "" ? "flex-row-reverse" : "flex-row"}`}
-    >
-      <div className="flex-1 space-y-1">
-        <div className="bg-[#1e2128] rounded-md p-2 flex justify-between items-center">
-          <input
-            type="number"
-            placeholder="0"
-            className="bg-transparent w-full outline-none"
-            min={0.000001}
-            step={0.000001}
-            disabled={isFetchingBalance}
-            max={logo !== "" ? balance : undefined}
-            value={buyDetails.amount}
-            readOnly={logo === ""}
-            onChange={logo !== "" ? handleAmountChange : () => {}}
-          />
-          {logo === "" ? (
-            <p className="whitespace-nowrap ml-2">$ USD</p>
-          ) : (
-            <Image
-              src={logo}
-              width={20}
-              height={20}
-              alt={symbol}
-              className="ml-2"
+    <>
+      <div
+        className={`flex gap-4 ${
+          logo === "" ? "flex-row-reverse" : "flex-row"
+        }`}
+      >
+        <div className="flex-1 space-y-1">
+          <div className="bg-[#1e2128] rounded-md p-2 flex justify-between items-center">
+            <input
+              type="number"
+              placeholder="0"
+              className="bg-transparent w-full outline-none"
+              min={0.000001}
+              step={0.000001}
+              disabled={isFetchingBalance}
+              max={logo !== "" ? balance : undefined}
+              value={buyDetails.amount}
+              readOnly={logo === ""}
+              onChange={logo !== "" ? handleAmountChange : () => {}}
             />
-          )}
-        </div>
-        {logo !== "" && (
-          <div className="flex flex-row w-full space-x-2 mx-2 text-sm text-blue-400">
-            Available:{" "}
-            {isFetchingBalance ? (
-              <Loader size="20" />
+            {logo === "" ? (
+              <p className="whitespace-nowrap ml-2">$ USD</p>
             ) : (
-              `${formattedBalance} $${symbol}`
+              <Image
+                src={logo}
+                width={20}
+                height={20}
+                alt={symbol}
+                className="ml-2"
+              />
             )}
           </div>
-        )}
-      </div>
-      <div className="flex-1 space-y-1">
-        <div className="bg-[#1e2128] rounded-md p-2 flex justify-between items-center">
-          <input
-            type="text"
-            placeholder="0"
-            value={buyDetails.getAmount}
-            readOnly={logo !== ""}
-            onChange={logo === "" ? handleAmountChange : () => {}}
-            className="bg-transparent w-full outline-none"
-          />
-          <p className="whitespace-nowrap ml-2">{BICHON_TOKEN.symbol}</p>
+        </div>
+        <div className="flex-1 space-y-1">
+          <div className="bg-[#1e2128] rounded-md p-2 flex justify-between items-center">
+            <input
+              type="text"
+              placeholder="0"
+              value={buyDetails.getAmount}
+              readOnly={logo !== ""}
+              onChange={logo === "" ? handleAmountChange : () => {}}
+              className="bg-transparent w-full outline-none"
+            />
+            <p className="whitespace-nowrap ml-2">{BICHON_TOKEN.symbol}</p>
+          </div>
         </div>
       </div>
-    </div>
+
+      {logo === "" ? (
+        <div className="flex flex-row w-full space-x-2 mx-2 text-sm text-blue-400">
+          Card payment only accept non-decimal value
+        </div>
+      ) : (
+        <div className="flex flex-row w-full space-x-2 mx-2 text-sm text-blue-400">
+          Available:{" "}
+          {isFetchingBalance ? (
+            <Loader size="20" />
+          ) : (
+            `${formattedBalance} $${symbol}`
+          )}
+        </div>
+      )}
+    </>
   );
 };
 
