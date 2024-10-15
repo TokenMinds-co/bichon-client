@@ -22,21 +22,29 @@ const IcoInfo = ({
   symbol,
   isFetchingBalance,
 }: IcoInfoProps) => {
-  const percentage = (raised / total) * 100;
+  const percentage = raised >= total ? 100 : (raised / total) * 100;
+
   return (
     <div className="flex flex-col w-full h-full space-y-5">
       <div className="space-y-2">
         <div className="flex justify-center text-base font-jakarta">
           <span>USD RAISED: ${displayFormatter(raised, 2)}</span>
-          <span className="px-2"> / </span>
-          <span>${displayFormatter(total, 2)}</span>
+          {total > 0 && (
+            <>
+              <span className="px-2"> / </span>
+              <span>${displayFormatter(total, 2)}</span>
+            </>
+          )}
         </div>
-        <div className="w-full bg-white/90 rounded-full h-4">
-          <div
-            className="bg-gradient-to-r border-blue-800 from-blue-500 to-blue-700 h-4 rounded-full"
-            style={{ width: `${percentage}%` }}
-          />
-        </div>
+
+        {total > 0 && (
+          <div className="w-full bg-white/90 rounded-full h-4">
+            <div
+              className="bg-gradient-to-r border-blue-800 from-blue-500 to-blue-700 h-4 rounded-full"
+              style={{ width: `${percentage}%` }}
+            />
+          </div>
+        )}
       </div>
 
       <div className="space-y-2 text-base font-jakarta font-medium">

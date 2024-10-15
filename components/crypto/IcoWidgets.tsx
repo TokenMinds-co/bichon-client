@@ -49,6 +49,7 @@ export default function IcoWidgets({
   userAllocation,
 }: IcoWidgetsProps) {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const { isConnected, address } = useAccount();
   const { getATAandBalance, getSOLBalance, buyViaSOL, buyViaSPL } = useSPL();
   const [activeMethod, setActiveMethod] = useState<TransactionMethod>("FIAT");
@@ -72,7 +73,6 @@ export default function IcoWidgets({
     usdAmount: "",
   });
 
-  const queryClient = useQueryClient();
   const submitTx = useMutation({
     mutationFn: async (data: SubmitTx) => {
       // console.log("Buy data", data);
