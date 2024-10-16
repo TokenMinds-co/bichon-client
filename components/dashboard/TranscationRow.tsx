@@ -6,6 +6,7 @@ import { shortenTx } from "@/lib/utils";
 import { format } from "date-fns";
 import { getExplorer } from "@/providers/connectkit";
 import Link from "next/link";
+import { Badge } from "../ui/badge";
 
 interface TransactionRowProps {
   tx: UserTransactionResponse;
@@ -38,6 +39,19 @@ export default function TranscationRow({ tx, ticker }: TransactionRowProps) {
       </TableCell>
       <TableCell className="text-gray-300 text-center">
         ${tx.totalPrice.toFixed(2)}
+      </TableCell>
+      <TableCell className="text-gray-300 text-center">
+        <Badge
+          className={
+            tx.state === "COMPLETED"
+              ? "bg-green-500"
+              : tx.state === "PENDING"
+              ? "bg-orange-500"
+              : "bg-red-500"
+          }
+        >
+          {tx.state}
+        </Badge>
       </TableCell>
       <TableCell className="text-gray-300 text-center">
         {tx.method === "FIAT" ? (

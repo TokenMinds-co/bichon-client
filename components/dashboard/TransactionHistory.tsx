@@ -56,6 +56,7 @@ export default function TransactionHistory({
               </TableHead>
               <TableHead className="text-gray-300 text-center">Price</TableHead>
               <TableHead className="text-gray-300 text-center">Total</TableHead>
+              <TableHead className="text-gray-300 text-center">State</TableHead>
               <TableHead className="text-gray-300 text-center">
                 Reference
               </TableHead>
@@ -65,14 +66,14 @@ export default function TransactionHistory({
           {transactions?.length <= 0 ? (
             <TableBody>
               <TableRow>
-                <td colSpan={6} className="text-center py-4 text-white">
+                <td colSpan={7} className="text-center py-4 text-white">
                   No transactions found
                 </td>
               </TableRow>
             </TableBody>
           ) : !tokenDetails ? (
             <TableRow>
-              <td colSpan={6} className="text-center py-4 text-white">
+              <td colSpan={7} className="text-center py-4 text-white">
                 <Loader size="20" />
               </td>
             </TableRow>
