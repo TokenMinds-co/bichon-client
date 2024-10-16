@@ -46,7 +46,7 @@ const VerifyPage = async ({ searchParams }: URLProps) => {
     return (
       <main className="flex flex-col space-y-5 items-center justify-center bg-sky min-h-screen">
         <h3 className="text-2xl font-semibold text-white text-center">
-          Your account was deactivated.
+          Your account was rejected.
         </h3>
 
         <Link href="/support">
