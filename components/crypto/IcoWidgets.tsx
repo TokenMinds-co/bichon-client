@@ -18,7 +18,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { generateAxiosInstance } from "@/lib/axios-client";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-import { StringToBytesOpts } from "viem";
 
 interface IcoWidgetsProps {
   currentPrice: number;
