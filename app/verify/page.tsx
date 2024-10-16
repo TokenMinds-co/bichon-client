@@ -3,6 +3,8 @@ import SBWebSDK from "@/components/sumsub/SBWebSDK";
 import { createSumsumSig } from "@/lib/sumsub";
 import { axiosInstance } from "@/lib/axios";
 import { redirect } from "next/navigation";
+import Link from "next/link";
+import SkewButton from "@/components/shared/SkewButton";
 
 const VerifyPage = async ({ searchParams }: URLProps) => {
   const email = searchParams.email;
@@ -39,10 +41,26 @@ const VerifyPage = async ({ searchParams }: URLProps) => {
     method: "POST",
   });
   const data = await response.json();
-  
+
+  if (!data?.token) {
+    return (
+      <main className="flex flex-col space-y-5 items-center justify-center bg-sky min-h-screen">
+        <h3 className="text-2xl font-semibold text-white text-center">
+          Your account was deactivated.
+        </h3>
+
+        <Link href="/support">
+          <SkewButton type="button" customClasses="skew-buy-widgets">
+            Contact Support
+          </SkewButton>
+        </Link>
+      </main>
+    );
+  }
+
   return (
     <main className="container mx-auto pt-32 h-full flex flex-col items-center justify-center bg-[#000A19] p-5">
-      <SBWebSDK accessToken={data.token} email={email!} />
+      <SBWebSDK accessToken={data.token} email={email} />
     </main>
   );
 };
