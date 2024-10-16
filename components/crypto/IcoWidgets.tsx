@@ -18,6 +18,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { generateAxiosInstance } from "@/lib/axios-client";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { StringToBytesOpts } from "viem";
 
 interface IcoWidgetsProps {
   currentPrice: number;
@@ -91,7 +92,7 @@ export default function IcoWidgets({
 
   const checkAvailability = async (
     amount: number
-  ): Promise<{ isAvailable: boolean; available: number }> => {
+  ): Promise<{ isAvailable: boolean; available: number; message: string }> => {
     try {
       const axiosInstance = await generateAxiosInstance(undefined);
       const { data } = await axiosInstance.get(
@@ -101,13 +102,25 @@ export default function IcoWidgets({
       const result = {
         isAvailable: data.data.isAvailable,
         available: data.data.available,
+        message: `You can only buy ${data.data.avaialable} tokens!`,
       };
 
       return result;
-    } catch (error) {
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      if (error && error.response.data.statusCode === 400) {
+        return {
+          isAvailable: false,
+          available: 0,
+          message: error.response.data.message,
+        };
+      }
+
       return {
         isAvailable: false,
         available: 0,
+        message: error.response.data.message,
       };
     }
   };
@@ -203,16 +216,11 @@ export default function IcoWidgets({
         return;
       }
 
-      const { available, isAvailable } = await checkAvailability(
+      const { isAvailable, message } = await checkAvailability(
         stringToNumber(buyDetails.getAmount)
       );
       if (!isAvailable) {
-        toast.error(
-          `You can only buy ${displayFormatter(
-            available,
-            tokenDetails.decimal
-          )} tokens`
-        );
+        toast.error(message);
         return;
       }
 
