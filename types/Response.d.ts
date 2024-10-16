@@ -23,6 +23,7 @@ export type TransactionType =
   | "WITHDRAW"
   | "AIR_DROP"
   | "ADJUSTMENT";
+export type TransactionState = "REFUNDED" | "PENDING" | "COMPLETED";
 
 // enum AdminRole {
 //   SUPER_ADMIN,
@@ -114,6 +115,7 @@ declare global {
     id: string;
     method: TransactionMethod;
     type: TransactionType;
+    state: TransactionState;
     reference: string;
     amount: number;
     finalBalance: number;
