@@ -2,28 +2,37 @@
 
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
-import React, { Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import React, { Suspense, useEffect, useRef } from "react";
+import { toast } from "sonner";
 
 const PaymentResultPage = () => {
+  const router = useRouter();
+  const toastShown = useRef(false);
+  const searchParams = useSearchParams();
+  const success = searchParams.get("success");
+  const canceled = searchParams.get("canceled");
+
+  useEffect(() => {
+    if (!toastShown.current) {
+      if (success) {
+        toast.success("Payment successful!");
+        setTimeout(() => {
+          router.push("/dashboard");
+        }, 1000);
+      } else if (canceled) {
+        toast.error("Payment canceled!");
+      }
+      toastShown.current = true;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const PaymentResult = () => {
-    const searchParams = useSearchParams();
-
-    // Extract query parameters
-    const success = searchParams.get("success");
-    const canceled = searchParams.get("canceled");
-
     return (
       <div className="flex bg-sky flex-col gap-4 text-lg text-white font-bold items-center text-center justify-center h-screen w-screen">
-        {success && (
-          <p>Order placed! You will receive an email confirmation.</p>
-        )}
-        {canceled && (
-          <p>
-            Order canceled <br /> Continue to shop around and checkout when
-            you’re ready.
-          </p>
-        )}
+        {success && <p>Order placed! Redirecting to user dashboard...</p>}
+        {canceled && <p>Order canceled, checkout later when you’re ready.</p>}
         {!success && !canceled && (
           <p>
             Awaiting payment status. Check your dashboard to track your
@@ -31,9 +40,11 @@ const PaymentResultPage = () => {
           </p>
         )}
 
-        <Link href={"/"}>
-          <Button>Back to home</Button>
-        </Link>
+        {canceled && (
+          <Link href={"/"}>
+            <Button>Go Back</Button>
+          </Link>
+        )}
       </div>
     );
   };
