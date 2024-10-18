@@ -6,7 +6,7 @@ export default function SaturnSection() {
   return (
     <section className="relative bg-cover bg-sky2 w-full min-h-screen flex flex-col justify-center">
       <Image // FLOATING DOG
-        className="absolute top-0 w-[500px] pl-10 sm:pl-48 aspect-square animate-fly"
+        className="absolute top-0 left-0 w-[475px] xl:pl-36 aspect-square animate-fly"
         alt="floating-dog"
         width={50}
         height={50}
@@ -29,7 +29,7 @@ export default function SaturnSection() {
       </div>
 
       <Image // SATURN
-        className="absolute w-[750px] 2xl:w-[1000px] right-[-200px] bottom-[-80px] sm:bottom-[-150px] 2xl:right-[-300px] 2xl:bottom-[-250px] animate-flyReverse"
+        className="absolute w-[725px] 2xl:w-[1000px] right-[-200px] bottom-[-80px] sm:bottom-[-150px] 2xl:right-[-300px] 2xl:bottom-[-250px] animate-flyReverse"
         alt="floating-saturn"
         width={50}
         height={50}
