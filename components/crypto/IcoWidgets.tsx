@@ -84,7 +84,10 @@ export default function IcoWidgets({
     mutationKey: ["submit-tx"],
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["get-user-details", address],
+        queryKey: [
+          ["get-user-details", address],
+          ["get-ico", address],
+        ],
       });
     },
   });
@@ -275,6 +278,7 @@ export default function IcoWidgets({
           }),
           handleMethod(activeMethod),
         ]);
+
         toast.success("Transaction successful");
       }
       setBuyDetails({

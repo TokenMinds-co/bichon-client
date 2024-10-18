@@ -21,20 +21,13 @@ The flow:
 6. Initiate the transaction.
 */
 
-interface ICOProps {
-  currentPrice: number;
-  targetAmount: number;
-  raisedAmount: number;
-  until: string;
-}
-
-const ICO = ({ currentPrice, targetAmount, raisedAmount, until }: ICOProps) => {
+const ICO = () => {
   const { address } = useAccount();
   const { solprice, usdcprice, usdtprice } = useFeed();
   const { isConnected } = useAccount();
   const { tokenDetails } = useTokenDetails();
 
-  const { data: users, isLoading } = useQuery({
+  const { data: users, isLoading: userLoading } = useQuery({
     queryKey: ["get-user-details", address],
     queryFn: async () => {
       if (!address) return [];
@@ -43,13 +36,24 @@ const ICO = ({ currentPrice, targetAmount, raisedAmount, until }: ICOProps) => {
         `/users?limit=10&page=1&&address=${address}`
       );
       const users = data.data.users as UserResponse[];
+      // console.log("Users", users);
       return users;
     },
     enabled: !!address,
   });
 
+  const { data: currentICO, isLoading: icoLoading } = useQuery<IcoResponse>({
+    queryKey: ["get-ico", address],
+    queryFn: async () => {
+      const axiosInstance = await generateAxiosInstance(undefined);
+      const { data } = await axiosInstance.get("/ico/current");
+      // console.log("ICO", data.data);
+      return data.data;
+    },
+  });
+
   useEffect(() => {
-    if (!isLoading) {
+    if (!userLoading) {
       if (
         users?.length === 0 ||
         (users && users[0]?.kyc?.status !== "APPROVED")
@@ -57,7 +61,7 @@ const ICO = ({ currentPrice, targetAmount, raisedAmount, until }: ICOProps) => {
         redirect("/kyc");
       }
     }
-  }, [isLoading, users]);
+  }, [userLoading, users]);
 
   // useEffect(() => {
   //   console.log("SOL", solprice?.Price);
@@ -70,9 +74,9 @@ const ICO = ({ currentPrice, targetAmount, raisedAmount, until }: ICOProps) => {
       <div className="flex flex-col space-y-5 w-full h-full items-center justify-center">
         {!isConnected ? (
           <Unauthenticated />
-        ) : isLoading ? (
+        ) : userLoading || icoLoading ? (
           <Loader size="50" />
-        ) : !tokenDetails ? (
+        ) : !tokenDetails || !currentICO ? (
           <Loader size="50" />
         ) : (
           users &&
@@ -80,13 +84,13 @@ const ICO = ({ currentPrice, targetAmount, raisedAmount, until }: ICOProps) => {
           users[0]?.kyc &&
           users[0].kyc.status === "APPROVED" && (
             <IcoWidgets
-              currentPrice={currentPrice}
+              currentPrice={currentICO.currentPrice}
               solprice={solprice?.Price ?? 0}
               usdcprice={usdcprice?.Price ?? 0}
               usdtprice={usdtprice?.Price ?? 0}
-              targetAmount={targetAmount}
-              raisedAmount={raisedAmount}
-              until={until}
+              targetAmount={currentICO.targetAmount}
+              raisedAmount={currentICO.raisedAmount}
+              until={currentICO.validUntil}
               userAllocation={!users ? 0 : users[0]?.allocation}
               tokenDetails={tokenDetails}
             />

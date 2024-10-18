@@ -109,7 +109,7 @@ export const useSPL = () => {
       tx.feePayer = solanaWallet.publicKey;
 
       const transactionResponse = await solanaWallet.signTransaction(tx);
-      console.log("Transaction sent:", transactionResponse);
+      // console.log("Transaction sent:", transactionResponse);
       const hash = await solanaConnection.sendRawTransaction(
         transactionResponse.serialize()
       );
@@ -147,7 +147,7 @@ export const useSPL = () => {
       tx.feePayer = solanaWallet.publicKey;
 
       const transactionResponse = await solanaWallet.signTransaction(tx);
-      console.log("Transaction sent:", transactionResponse);
+      // console.log("Transaction sent:", transactionResponse);
       const hash = await solanaConnection.sendRawTransaction(
         transactionResponse.serialize()
       );
