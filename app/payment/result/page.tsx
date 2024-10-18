@@ -9,26 +9,27 @@ import { toast } from "sonner";
 const PaymentResultPage = () => {
   const router = useRouter();
   const toastShown = useRef(false);
-  const searchParams = useSearchParams();
-  const success = searchParams.get("success");
-  const canceled = searchParams.get("canceled");
-
-  useEffect(() => {
-    if (!toastShown.current) {
-      if (success) {
-        toast.success("Payment successful!");
-        setTimeout(() => {
-          router.push("/dashboard");
-        }, 1000);
-      } else if (canceled) {
-        toast.error("Payment canceled!");
-      }
-      toastShown.current = true;
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
+  
   const PaymentResult = () => {
+    const searchParams = useSearchParams();
+    const success = searchParams.get("success");
+    const canceled = searchParams.get("canceled");
+
+    useEffect(() => {
+      if (!toastShown.current) {
+        if (success) {
+          toast.success("Payment successful!");
+          setTimeout(() => {
+            router.push("/dashboard");
+          }, 1000);
+        } else if (canceled) {
+          toast.error("Payment canceled!");
+        }
+        toastShown.current = true;
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     return (
       <div className="flex bg-sky flex-col gap-4 text-lg text-white font-bold items-center text-center justify-center h-screen w-screen">
         {success && <p>Order placed! Redirecting to user dashboard...</p>}
