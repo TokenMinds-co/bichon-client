@@ -25,10 +25,22 @@ const VerifyPage = async ({ searchParams }: URLProps) => {
 
   // If not exist, create a candidate KYC user
   if (!isExist) {
-    await axiosInstance.post("/users", {
-      email,
-      address,
-    });
+    try {
+      await axiosInstance.post("/users", {
+        email,
+        address,
+      });
+    } catch (error) {
+      console.error(error);
+      return (
+        <main className="flex flex-col space-y-5 items-center justify-center bg-sky min-h-screen">
+          <h3 className="text-2xl font-semibold text-white text-center">
+            There&apos;s no scheduled ICO at the moment. <br /> Please check
+            back later.
+          </h3>
+        </main>
+      );
+    }
   }
 
   const url = "https://api.sumsub.com";
