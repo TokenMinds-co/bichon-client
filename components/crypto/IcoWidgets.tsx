@@ -9,7 +9,7 @@ import { TransactionMethod } from "@/types/Response";
 import { useAccount } from "@particle-network/connectkit";
 import SkewButton from "../shared/SkewButton";
 import BuyForm from "./BuyForm";
-import { SUPPORTED_SPL_TOKENS } from "@/constant/common";
+import { BICHON_TOKEN, SUPPORTED_SPL_TOKENS } from "@/constant/common";
 import { displayFormatter, stringToNumber } from "@/lib/utils";
 import { useSPL } from "@/hooks/useSPL";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
@@ -104,7 +104,10 @@ export default function IcoWidgets({
       const result = {
         isAvailable: data.data.isAvailable,
         available: data.data.available,
-        message: `You can only buy ${data.data.avaialable} tokens!`,
+        message: `You can only buy ${displayFormatter(
+          stringToNumber(data.data.available.toString()),
+          BICHON_TOKEN.decimals
+        )} tokens!`,
       };
 
       return result;
