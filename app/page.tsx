@@ -1,3 +1,5 @@
+import BgOverlayBottom from "@/components/shared/BgOverlayBottom";
+import { axiosInstance } from "@/lib/axios";
 import CastleSection from "@/views/CastleSection";
 import EarthSection from "@/views/EarthSection";
 import HeroSection from "@/views/HeroSection";
@@ -6,7 +8,41 @@ import RoadmapSection from "@/views/RoadmapSection";
 import SaturnSection from "@/views/SaturnSection";
 import Image from "next/image";
 
-export default function Home() {
+export default async function Home() {
+  const { data: icoRes } = await axiosInstance.get("/ico/current");
+  const { data: tokenRes } = await axiosInstance.get("/token");
+  const ico = icoRes.data as IcoResponse;
+  const token = tokenRes.data as TokenDetailsResponse;
+
+  if (!ico || !token) {
+    return (
+      <div className="bg-[#000A19] font-spaceMono overflow-x-hidden">
+        <Image // FIXED TIME FRAME
+          className="w-auto h-[70vh] fixed hidden xl:block left-32 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30 object-cover"
+          alt="time-frame"
+          width={10}
+          height={10}
+          src="/assets/time.svg"
+        />
+
+        <HeroSection
+          targetAmount={0}
+          tokenDecimal={2}
+          tokenName={"Bichon Defender"}
+          tokenTicker={"BDF"}
+          totalRaised={0}
+          validUntil={new Date().toISOString()}
+        />
+        <BgOverlayBottom />
+        <CastleSection />
+        <SaturnSection />
+        <RoadmapSection />
+        <PartnerSection />
+        <EarthSection />
+      </div>
+    );
+  }
+
   return (
     <div className="bg-[#000A19] font-spaceMono overflow-x-hidden">
       <Image // FIXED TIME FRAME
@@ -17,7 +53,15 @@ export default function Home() {
         src="/assets/time.svg"
       />
 
-      <HeroSection />
+      <HeroSection
+        targetAmount={ico.targetAmount}
+        tokenDecimal={token.decimal}
+        tokenName={token.name}
+        tokenTicker={token.ticker}
+        totalRaised={ico.raisedAmount}
+        validUntil={ico.validUntil}
+      />
+      <BgOverlayBottom />
       <CastleSection />
       <SaturnSection />
       <RoadmapSection />

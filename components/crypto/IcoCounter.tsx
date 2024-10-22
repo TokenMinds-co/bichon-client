@@ -2,12 +2,14 @@
 
 import React, { useEffect, useState } from "react";
 import Loader from "../shared/Loader";
+import { cn } from "@/lib/utils";
 
 interface IcoCounterProps {
   until: string;
+  className?: string;
 }
 
-const IcoCounter = ({ until }: IcoCounterProps) => {
+const IcoCounter = ({ until, className }: IcoCounterProps) => {
   const calculateTimeLeft = () => {
     const untilDate = new Date(until);
     const now = new Date();
@@ -75,7 +77,7 @@ const IcoCounter = ({ until }: IcoCounterProps) => {
       {!isMounted ? (
         <Loader size="20" color="#ffffff" />
       ) : (
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className={cn("grid grid-cols-4 gap-4", className)}>
           {Object.entries(timeLeft).map(([key, value]) => (
             <div key={key} className="text-center">
               <div className="text-3xl font-spaceMono font-semibold">
