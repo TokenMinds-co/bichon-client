@@ -14,9 +14,6 @@ export default async function Home() {
   const ico = icoRes.data as IcoResponse;
   const token = tokenRes.data as TokenDetailsResponse;
 
-  console.log("ICO", ico);
-  console.log("TOKEN", token);
-
   if (!ico || !token) {
     return (
       <div className="bg-[#000A19] font-spaceMono overflow-x-hidden">
