@@ -14,6 +14,9 @@ export default async function Home() {
   const ico = icoRes.data as IcoResponse;
   const token = tokenRes.data as TokenDetailsResponse;
 
+  console.log("ICO", ico);
+  console.log("TOKEN", token);
+
   if (!ico || !token) {
     return (
       <div className="bg-[#000A19] font-spaceMono overflow-x-hidden">
@@ -28,6 +31,7 @@ export default async function Home() {
         <HeroSection
           targetAmount={0}
           tokenDecimal={2}
+          tokenRemain={0}
           tokenName={"Bichon Defender"}
           tokenTicker={"BDF"}
           totalRaised={0}
@@ -57,6 +61,7 @@ export default async function Home() {
         targetAmount={ico.targetAmount}
         tokenDecimal={token.decimal}
         tokenName={token.name}
+        tokenRemain={ico.maxAmount - ico.purchased}
         tokenTicker={token.ticker}
         totalRaised={ico.raisedAmount}
         validUntil={ico.validUntil}

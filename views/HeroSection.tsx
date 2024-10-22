@@ -6,6 +6,7 @@ interface HeroSectionProps {
   tokenName: string;
   tokenDecimal: number;
   tokenTicker: string;
+  tokenRemain: number;
   validUntil: string;
   totalRaised: number;
   targetAmount: number;
@@ -47,6 +48,7 @@ export default function HeroSection(props: HeroSectionProps) {
             targetAmount={props.targetAmount}
             tokenDecimal={props.tokenDecimal}
             tokenName={props.tokenName}
+            tokenRemain={props.tokenRemain}
             tokenTicker={props.tokenTicker}
             totalRaised={props.totalRaised}
             validUntil={props.validUntil}

@@ -8,6 +8,7 @@ interface HeroICOProps {
   tokenName: string;
   tokenDecimal: number;
   tokenTicker: string;
+  tokenRemain: number;
   validUntil: string;
   totalRaised: number;
   targetAmount: number;
@@ -17,6 +18,7 @@ const HeroICO = ({
   targetAmount,
   tokenDecimal,
   tokenTicker,
+  tokenRemain,
   tokenName,
   totalRaised,
   validUntil,
@@ -50,6 +52,13 @@ const HeroICO = ({
             <span className="font-bold">
               ${displayFormatter(targetAmount, tokenDecimal)}
             </span>
+          </div>
+
+          <div className="flex flex-row space-x-2 items-center justify-center font-jakarta">
+            <p className="text-sm">Available ${tokenTicker} to purchase </p>
+            <p className="text-sm font-bold">
+              {displayFormatter(tokenRemain, tokenDecimal)}
+            </p>
           </div>
 
           <div className="w-full bg-white/90 rounded-full h-4">
