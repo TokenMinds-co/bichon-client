@@ -202,5 +202,6 @@ declare global {
     totalRaised: number;
     participants: number;
     validUntil: string;
+    available: number;
   }
 }

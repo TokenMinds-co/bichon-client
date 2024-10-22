@@ -84,10 +84,13 @@ export default function IcoWidgets({
     mutationKey: ["submit-tx"],
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [
-          ["get-user-details", address],
-          ["get-ico", address],
-        ],
+        queryKey: ["get-user-details", address],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["token-details"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["get-ico", address],
       });
     },
   });
@@ -359,6 +362,7 @@ export default function IcoWidgets({
           isFetchingBalance={isFetchingBalance}
           bichon_decimal={tokenDetails.decimal}
           bichon_symbol={tokenDetails.ticker}
+          bichon_available={tokenDetails.available}
         />
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2 font-spaceMono font-bold">

@@ -11,7 +11,6 @@ export const useTokenDetails = () => {
     queryFn: async (): Promise<TokenDetailsResponse> => {
       const axiosInstance = await generateAxiosInstance(undefined);
       const { data } = await axiosInstance.get("/token");
-
       return data.data;
     },
     // Refetch the data every 1 minute

@@ -47,7 +47,6 @@ const ICO = () => {
     queryFn: async () => {
       const axiosInstance = await generateAxiosInstance(undefined);
       const { data } = await axiosInstance.get("/ico/current");
-      // console.log("ICO", data.data);
       return data.data;
     },
   });
