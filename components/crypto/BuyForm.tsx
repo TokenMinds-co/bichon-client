@@ -105,7 +105,7 @@ const BuyForm = ({
         }`}
       >
         <div className="flex-1 space-y-1">
-          <div className="bg-[#1e2128] rounded-md p-2 flex justify-between items-center">
+          <div className="bg-[#1e2128] skew-buy-input p-2 flex justify-between items-center">
             <input
               type="number"
               placeholder="0"
@@ -132,7 +132,7 @@ const BuyForm = ({
           </div>
         </div>
         <div className="flex-1 space-y-1">
-          <div className="bg-[#1e2128] rounded-md p-2 flex justify-between items-center">
+          <div className="bg-[#1e2128] skew-buy-input  p-2 flex justify-between items-center">
             <input
               type="text"
               placeholder="0"
