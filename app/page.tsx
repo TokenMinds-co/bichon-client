@@ -1,4 +1,3 @@
-import BgOverlayBottom from "@/components/shared/BgOverlayBottom";
 import { axiosInstance } from "@/lib/axios";
 import CastleSection from "@/views/CastleSection";
 import EarthSection from "@/views/EarthSection";
@@ -35,7 +34,6 @@ export default async function Home() {
           totalRaised={0}
           validUntil={new Date().toISOString()}
         />
-        <BgOverlayBottom />
         <CastleSection />
         <SaturnSection />
         <RoadmapSection />
@@ -65,7 +63,6 @@ export default async function Home() {
         totalRaised={ico.raisedAmount}
         validUntil={ico.validUntil}
       />
-      <BgOverlayBottom />
       <CastleSection />
       <SaturnSection />
       <RoadmapSection />

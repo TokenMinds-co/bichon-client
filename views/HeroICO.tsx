@@ -30,10 +30,11 @@ const HeroICO = ({
     totalRaised >= targetAmount ? 100 : (totalRaised / targetAmount) * 100;
   return (
     <div
-      className="flex-col space-y-10 p-10 h-full max-w-lg flex items-center justify-center text-white bg-black/40 skew-widgets"
-      // data-aos="fade-left"
+      className="flex-col space-y-10 p-8 md:p-12 py-16 h-full max-w-lg flex items-center justify-center text-white bg-black/40 skew-widgets"
+      data-aos="fade-left"
+      data-aos-delay="1000"
     >
-      <div className="flex flex-col space-y-3">
+      <div className="flex flex-col space-y-5">
         <div className="flex flex-col space-y-1 uppercase">
           <h1 className="text-3xl font-bold text-center">{tokenName}</h1>
           <p className="text-base font-bold text-center mb-8">ICO is Live!</p>
