@@ -83,7 +83,7 @@ const IcoCounter = ({ until, className }: IcoCounterProps) => {
               <div className="text-3xl font-spaceMono font-semibold">
                 {value.toString().padStart(2, "0")}
               </div>
-              <div className="text-sm capitalize">{key}</div>
+              <div className="text-sm font-jakarta capitalize">{key}</div>
             </div>
           ))}
         </div>

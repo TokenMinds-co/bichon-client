@@ -31,6 +31,7 @@ export default async function Home() {
           tokenRemain={0}
           tokenName={"Bichon Defender"}
           tokenTicker={"BDF"}
+          tokenPrice={0}
           totalRaised={0}
           validUntil={new Date().toISOString()}
         />
@@ -60,6 +61,7 @@ export default async function Home() {
         tokenName={token.name}
         tokenRemain={ico.maxAmount - ico.purchased}
         tokenTicker={token.ticker}
+        tokenPrice={ico.currentPrice}
         totalRaised={ico.raisedAmount}
         validUntil={ico.validUntil}
       />

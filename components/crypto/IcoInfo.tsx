@@ -45,13 +45,6 @@ const IcoInfo = ({
           )}
         </div>
 
-        <div className="flex flex-row space-x-2 items-center justify-center">
-          <p className="text-sm">Available ${bichon_symbol} to purchase </p>
-          <p className="text-sm font-bold">
-            {displayFormatter(bichon_available, bichon_decimal)}
-          </p>
-        </div>
-
         {total > 0 && (
           <div className="w-full bg-white/90 rounded-full h-4">
             <div
@@ -63,7 +56,14 @@ const IcoInfo = ({
       </div>
 
       <div className="space-y-2 text-base font-jakarta font-medium">
-        <div className="flex items-center justify-center">
+        <div className="flex flex-col space-y-3 items-center justify-center">
+          <div className="flex flex-row space-x-2 items-center justify-center">
+            <p className="text-sm">Available to purchase </p>
+            <p className="text-sm font-bold">
+              {displayFormatter(bichon_available, bichon_decimal)} $
+              {bichon_symbol}
+            </p>
+          </div>
           <div className="flex flex-col space-y-2 items-center justify-center">
             <p className="text-sm">Your purchased ${bichon_symbol}</p>
             {purchased === undefined ? (
