@@ -13,7 +13,9 @@ export default async function Home() {
   const ico = icoRes.data as IcoResponse;
   const token = tokenRes.data as TokenDetailsResponse;
 
-  if (!ico || !token) {
+  console.log("Token", token);
+  console.log("ICO", ico);
+  if (!ico) {
     return (
       <div className="bg-[#000A19] font-spaceMono overflow-x-hidden">
         <Image // FIXED TIME FRAME
@@ -26,12 +28,12 @@ export default async function Home() {
 
         <HeroSection
           targetAmount={0}
-          tokenDecimal={2}
+          tokenDecimal={6}
           tokenRemain={0}
           tokenName={"Bichon Defender"}
           tokenTicker={"BDF"}
           tokenPrice={0}
-          totalRaised={0}
+          totalRaised={token.totalRaised ?? 0}
           validUntil={new Date().toISOString()}
         />
         <CastleSection />

@@ -10,6 +10,7 @@ interface IcoInfoProps {
   stakeable: number;
   price: number;
   symbol: string;
+  until: string;
   isFetchingBalance: boolean;
   bichon_symbol: string;
   bichon_decimal: number;
@@ -22,12 +23,14 @@ const IcoInfo = ({
   purchased,
   price,
   symbol,
+  until,
   isFetchingBalance,
   bichon_decimal,
   bichon_symbol,
   bichon_available,
 }: IcoInfoProps) => {
   const percentage = raised >= total ? 100 : (raised / total) * 100;
+  const isPresaleEnded = new Date() > new Date(until);
 
   return (
     <div className="flex flex-col w-full h-full space-y-5">
@@ -57,13 +60,15 @@ const IcoInfo = ({
 
       <div className="space-y-2 text-base font-jakarta font-medium">
         <div className="flex flex-col space-y-3 items-center justify-center">
-          <div className="flex flex-row space-x-2 items-center justify-center">
-            <p className="text-sm">Available to purchase </p>
-            <p className="text-sm font-bold">
-              {displayFormatter(bichon_available, bichon_decimal)} $
-              {bichon_symbol}
-            </p>
-          </div>
+          {!isPresaleEnded && (
+            <div className="flex flex-row space-x-2 items-center justify-center">
+              <p className="text-sm">Available to purchase </p>
+              <p className="text-sm font-bold">
+                {displayFormatter(bichon_available, bichon_decimal)} $
+                {bichon_symbol}
+              </p>
+            </div>
+          )}
           <div className="flex flex-col space-y-2 items-center justify-center">
             <p className="text-sm">Your purchased ${bichon_symbol}</p>
             {purchased === undefined ? (
@@ -79,17 +84,19 @@ const IcoInfo = ({
         </div>
       </div>
 
-      <div className="flex flex-row items-center justify-center w-full">
-        <Separator className="flex-1" />
-        <div className="flex flex-row text-center whitespace-nowrap space-x-2 mx-2">
-          1 <span className="font-semibold px-2">${bichon_symbol}</span> ={" "}
-          {isFetchingBalance ? <Loader size="20" /> : `${price} `}
-          {!isFetchingBalance && (
-            <span className="font-semibold">${symbol}</span>
-          )}
+      {!isPresaleEnded && (
+        <div className="flex flex-row items-center justify-center w-full">
+          <Separator className="flex-1" />
+          <div className="flex flex-row text-center whitespace-nowrap space-x-2 mx-2">
+            1 <span className="font-semibold px-2">${bichon_symbol}</span> ={" "}
+            {isFetchingBalance ? <Loader size="20" /> : `${price} `}
+            {!isFetchingBalance && (
+              <span className="font-semibold">${symbol}</span>
+            )}
+          </div>
+          <Separator className="flex-1" />
         </div>
-        <Separator className="flex-1" />
-      </div>
+      )}
     </div>
   );
 };

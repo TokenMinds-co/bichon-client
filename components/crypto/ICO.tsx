@@ -76,7 +76,7 @@ const ICO = () => {
           <Unauthenticated />
         ) : userLoading || icoLoading ? (
           <Loader size="50" />
-        ) : !tokenDetails || !currentICO ? (
+        ) : (users && !tokenDetails) || !currentICO ? ( // ICO Ended or unset
           <IcoWidgets
             currentPrice={0}
             solprice={solprice?.Price ?? 0}
@@ -87,22 +87,23 @@ const ICO = () => {
             until={new Date().toISOString()}
             userAllocation={0}
             tokenDetails={{
-              available: 0,
-              createdAt: new Date().toISOString(),
-              decimal: 6,
-              id: "none",
-              name: "Bichon Defender",
-              participants: 0,
-              stripeProductId: "none",
-              ticker: "BDF",
-              totalRaised: 0,
-              totalSupply: 0,
-              treasury: "x",
-              updatedAt: new Date().toISOString(),
-              validUntil: new Date().toISOString(),
+              available: tokenDetails?.available ?? 0,
+              createdAt: tokenDetails?.createdAt ?? new Date().toISOString(),
+              decimal: tokenDetails?.decimal ?? 6,
+              id: tokenDetails?.id ?? "none",
+              name: tokenDetails?.name ?? "Bichon Defender",
+              participants: tokenDetails?.participants ?? 0,
+              stripeProductId: tokenDetails?.stripeProductId ?? "none",
+              ticker: tokenDetails?.ticker ?? "BDF",
+              totalRaised: tokenDetails?.totalRaised ?? 0,
+              totalSupply: tokenDetails?.totalSupply ?? 0,
+              treasury: tokenDetails?.treasury ?? "0",
+              updatedAt: tokenDetails?.updatedAt ?? new Date().toISOString(),
+              validUntil: tokenDetails?.validUntil ?? new Date().toISOString(),
             }}
           />
         ) : (
+          tokenDetails &&
           users &&
           users.length !== 0 &&
           users[0]?.kyc &&

@@ -50,6 +50,7 @@ export default function IcoWidgets({
   userAllocation,
   tokenDetails,
 }: IcoWidgetsProps) {
+  const isPresaleEnded = new Date() > new Date(until);
   const router = useRouter();
   const queryClient = useQueryClient();
   const { isConnected, address } = useAccount();
@@ -346,9 +347,15 @@ export default function IcoWidgets({
           <h1 className="text-3xl font-spaceMono font-bold text-center">
             {tokenDetails.name}
           </h1>
-          <p className="text-base font-spaceMono font-bold text-center mb-8">
-            ICO is Live!
-          </p>
+          {isPresaleEnded ? (
+            <p className="text-base font-spaceMono font-bold text-center mb-8">
+              ICO is Ended!
+            </p>
+          ) : (
+            <p className="text-base font-spaceMono font-bold text-center mb-8">
+              ICO is Live!
+            </p>
+          )}
         </div>
 
         <IcoCounter until={until} />
@@ -359,63 +366,68 @@ export default function IcoWidgets({
           stakeable={0}
           price={tokenState.price}
           symbol={tokenState.symbol}
+          until={until}
           isFetchingBalance={isFetchingBalance}
           bichon_decimal={tokenDetails.decimal}
           bichon_symbol={tokenDetails.ticker}
           bichon_available={tokenDetails.available}
         />
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 font-spaceMono font-bold">
-          <IcoMethod
-            src="/assets/icons/solana.svg"
-            label="SOL"
-            method="CRYPTO_SOLANA"
-            handleClick={handleMethod}
-            active={activeMethod}
-          />
+        {!isPresaleEnded && (
+          <>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 font-spaceMono font-bold">
+              <IcoMethod
+                src="/assets/icons/solana.svg"
+                label="SOL"
+                method="CRYPTO_SOLANA"
+                handleClick={handleMethod}
+                active={activeMethod}
+              />
 
-          <IcoMethod
-            src="/assets/icons/usdt.svg"
-            label="USDT"
-            method="CRYPTO_USDT"
-            handleClick={handleMethod}
-            active={activeMethod}
-          />
+              <IcoMethod
+                src="/assets/icons/usdt.svg"
+                label="USDT"
+                method="CRYPTO_USDT"
+                handleClick={handleMethod}
+                active={activeMethod}
+              />
 
-          <IcoMethod
-            src="/assets/icons/usdc.svg"
-            label="USDC"
-            method="CRYPTO_USDC"
-            handleClick={handleMethod}
-            active={activeMethod}
-          />
+              <IcoMethod
+                src="/assets/icons/usdc.svg"
+                label="USDC"
+                method="CRYPTO_USDC"
+                handleClick={handleMethod}
+                active={activeMethod}
+              />
 
-          <IcoMethod
-            src=""
-            label="CARD"
-            method="FIAT"
-            handleClick={handleMethod}
-            active={activeMethod}
-            isFiat
-          />
-        </div>
+              <IcoMethod
+                src=""
+                label="CARD"
+                method="FIAT"
+                handleClick={handleMethod}
+                active={activeMethod}
+                isFiat
+              />
+            </div>
 
-        <BuyForm
-          buyDetails={buyDetails}
-          setBuyDetails={setBuyDetails}
-          balance={tokenState.balance}
-          decimals={tokenState.decimals}
-          symbol={tokenState.symbol}
-          logo={tokenState.logo}
-          price={tokenState.price}
-          rawPrice={tokenState.rawPrice}
-          usdPrice={currentPrice}
-          isFetchingBalance={isFetchingBalance}
-          bichon_decimal={tokenDetails.decimal}
-          bichon_symbol={tokenDetails.ticker}
-        />
+            <BuyForm
+              buyDetails={buyDetails}
+              setBuyDetails={setBuyDetails}
+              balance={tokenState.balance}
+              decimals={tokenState.decimals}
+              symbol={tokenState.symbol}
+              logo={tokenState.logo}
+              price={tokenState.price}
+              rawPrice={tokenState.rawPrice}
+              usdPrice={currentPrice}
+              isFetchingBalance={isFetchingBalance}
+              bichon_decimal={tokenDetails.decimal}
+              bichon_symbol={tokenDetails.ticker}
+            />
+          </>
+        )}
 
-        {isConnected ? (
+        {isPresaleEnded ? null : isConnected ? (
           <SkewButton
             type="button"
             disabled={
