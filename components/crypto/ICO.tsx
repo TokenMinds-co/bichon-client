@@ -47,6 +47,7 @@ const ICO = () => {
     queryFn: async () => {
       const axiosInstance = await generateAxiosInstance(undefined);
       const { data } = await axiosInstance.get("/ico/current");
+      // console.log("ICO", data.data);
       return data.data;
     },
   });
@@ -76,7 +77,31 @@ const ICO = () => {
         ) : userLoading || icoLoading ? (
           <Loader size="50" />
         ) : !tokenDetails || !currentICO ? (
-          <Loader size="50" />
+          <IcoWidgets
+            currentPrice={0}
+            solprice={solprice?.Price ?? 0}
+            usdcprice={usdcprice?.Price ?? 0}
+            usdtprice={usdtprice?.Price ?? 0}
+            targetAmount={0}
+            raisedAmount={0}
+            until={new Date().toISOString()}
+            userAllocation={0}
+            tokenDetails={{
+              available: 0,
+              createdAt: new Date().toISOString(),
+              decimal: 6,
+              id: "none",
+              name: "Bichon Defender",
+              participants: 0,
+              stripeProductId: "none",
+              ticker: "BDF",
+              totalRaised: 0,
+              totalSupply: 0,
+              treasury: "x",
+              updatedAt: new Date().toISOString(),
+              validUntil: new Date().toISOString(),
+            }}
+          />
         ) : (
           users &&
           users.length !== 0 &&

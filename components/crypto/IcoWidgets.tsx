@@ -418,7 +418,11 @@ export default function IcoWidgets({
         {isConnected ? (
           <SkewButton
             type="button"
-            disabled={buyDetails.amount === "" || isBuying}
+            disabled={
+              buyDetails.amount === "" ||
+              isBuying ||
+              tokenDetails.available === 0
+            }
             onClick={buyAction}
             className="flex w-full flex-row gap-3 py-5 items-center justify-center duration-200 ease-in-out"
             customClasses={"skew-buy-widgets"}
