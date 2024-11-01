@@ -2,10 +2,10 @@ import { axiosInstance } from "@/lib/axios";
 import CastleSection from "@/views/CastleSection";
 import EarthSection from "@/views/EarthSection";
 import HeroSection from "@/views/HeroSection";
-import PartnerSection from "@/views/PartnerSection";
-import RoadmapSection from "@/views/RoadmapSection";
 import SaturnSection from "@/views/SaturnSection";
 import Image from "next/image";
+import FAQSection from "@/views/FAQSection";
+import RoadmapSection from "@/views/RoadmapSection";
 
 export default async function Home() {
   const { data: icoRes } = await axiosInstance.get("/ico/current");
@@ -13,8 +13,6 @@ export default async function Home() {
   const ico = icoRes.data as IcoResponse;
   const token = tokenRes.data as TokenDetailsResponse;
 
-  console.log("Token", token);
-  console.log("ICO", ico);
   if (!ico) {
     return (
       <div className="bg-[#000A19] font-spaceMono overflow-x-hidden">
@@ -33,17 +31,17 @@ export default async function Home() {
           tokenName={"Bichon Defender"}
           tokenTicker={"BDF"}
           tokenPrice={0}
-          totalRaised={token.totalRaised ?? 0}
+          totalRaised={token?.totalRaised ?? 0}
           validUntil={new Date().toISOString()}
         />
         <CastleSection />
         <SaturnSection />
         <RoadmapSection />
-        <PartnerSection />
+        <FAQSection />
         <EarthSection />
       </div>
     );
-  }
+  } 
 
   return (
     <div className="bg-[#000A19] font-spaceMono overflow-x-hidden">
@@ -68,7 +66,7 @@ export default async function Home() {
       <CastleSection />
       <SaturnSection />
       <RoadmapSection />
-      <PartnerSection />
+      <FAQSection />
       <EarthSection />
     </div>
   );

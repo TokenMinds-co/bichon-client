@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { ParticleConnectkit } from "@/providers/connectkit";
 import Navbar from "@/components/shared/Navbar";
 import ReactQueryProvider from "@/providers/tanstack";
 import { Toaster } from "@/components/ui/sooner";
 import { Space_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Head from "next/head";
 import { AOSInit } from "@/components/shared/AOS";
+import { ParticleConnectkit } from "@/providers/connectkit";
 
 const spaceMono = Space_Mono({
   weight: ["400", "700"],
@@ -35,8 +36,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Head>
+        <meta httpEquiv="Permissions-Policy" content="accelerometer=(self)" />
+      </Head>
+
       <body
-        className={`${plusJakartaSans.variable} ${spaceMono.variable} antialiased bg-[#000A19]`}
+        className={`${plusJakartaSans.variable} ${spaceMono.variable} antialiased bg-bgDark`}
       >
         <ParticleConnectkit>
           <ReactQueryProvider>

@@ -18,7 +18,7 @@ export default function HeroSection(props: HeroSectionProps) {
   return (
     <section
       id="home"
-      className="bg-hero relative bg-cover bg-top w-full min-h-screen h-full pt-32 lg:pt-36 text-white"
+      className="bg-hero relative bg-cover w-full min-h-screen h-full pt-32 lg:pt-36 text-white"
     >
       <div className="z-30 w-full h-full flex flex-col xl:flex-row pr-0 lg:pr-20 pb-32 xl:pb-0">
         <div className="flex w-full lg:w-[55%] flex-col justify-between xl:pl-56 md:px-20 px-10 space-y-10">
