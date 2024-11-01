@@ -4,9 +4,12 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import SkewButton from "../shared/SkewButton";
 import Image from "next/image";
-import StatusKYC from "./StatusKYC";
+// import StatusKYC from "./StatusKYC";
+import { generateAxiosInstance } from "@/lib/axios-client";
 
 interface UserData {
+  firstName: string;
+  lastName: string;
   email: string;
   address: string;
 }
@@ -20,6 +23,8 @@ const RenderKYC = ({ users, address }: RenderKYCProps) => {
   const router = useRouter();
   const [isSubmitting, setSubmitting] = useState(false);
   const [userData, setUser] = useState<UserData>({
+    firstName: "",
+    lastName: "",
     email: "",
     address: address || "",
   });
@@ -28,13 +33,25 @@ const RenderKYC = ({ users, address }: RenderKYCProps) => {
     setSubmitting(true);
     e.preventDefault();
     const currentAddress = address;
-    // push to /verify and set the email and address in the query params
-    router.push(
-      `/verify?email=${encodeURIComponent(
-        userData.email
-      )}&address=${currentAddress}`
-    );
+
+    // GENERATE USER
+    const axiosInstance = await generateAxiosInstance(undefined);
+    const { data } = await axiosInstance.post(`/users`, {
+      firstName: userData.firstName,
+      lastName: userData.lastName,
+      email: userData.email,
+      address: currentAddress,
+    });
+
+    if (data.success) {
+      router.push(
+        `/verify?token=${encodeURIComponent(
+          userData.email
+        )}&address=${currentAddress}`
+      );
+    }
   };
+
   if (users.length === 0) {
     return (
       <>
@@ -47,6 +64,26 @@ const RenderKYC = ({ users, address }: RenderKYCProps) => {
           onSubmit={handleSubmit}
           className="flex flex-col w-full h-full rounded-md max-w-md items-center justify-center gap-4 text-black bg-gray-700/30 p-10 z-20"
         >
+          <input
+            type="text"
+            placeholder="First Name"
+            className="w-full py-2 px-4 bg-transparent text-white border-[1px] border-white/50 outline-none active:border-blue-500 focus:border-blue-500"
+            value={userData.firstName}
+            onChange={(e) =>
+              setUser({ ...userData, firstName: e.target.value })
+            }
+            required
+          />
+
+          <input
+            type="text"
+            placeholder="Last Name"
+            className="w-full py-2 px-4 bg-transparent text-white border-[1px] border-white/50 outline-none active:border-blue-500 focus:border-blue-500"
+            value={userData.lastName}
+            onChange={(e) => setUser({ ...userData, lastName: e.target.value })}
+            required
+          />
+
           <input
             type="email"
             placeholder="Email"
@@ -86,11 +123,12 @@ const RenderKYC = ({ users, address }: RenderKYCProps) => {
     );
   }
   return (
-    <StatusKYC
-      status={users[0].kyc ? users[0].kyc.status : "DOCUMENTS_REQUESTED"}
-      email={users[0].email}
-      address={users[0].address}
-    />
+    <div>KYC STATUS WILL BE UPDATED SOON (ONFIDO)</div>
+    // <StatusKYC
+    //   status={users[0].kyc ? users[0].kyc.status : "DOCUMENTS_REQUESTED"}
+    //   email={users[0].email}
+    //   address={users[0].address}
+    // />
   );
 };
 

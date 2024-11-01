@@ -1,60 +1,55 @@
 import React from "react";
-import SBWebSDK from "@/components/sumsub/SBWebSDK";
-import { createSumsumSig } from "@/lib/sumsub";
 import { axiosInstance } from "@/lib/axios";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import SkewButton from "@/components/shared/SkewButton";
+import OnfindoSDK from "@/components/kyc/OnfindoSDK";
 
 const VerifyPage = async ({ searchParams }: URLProps) => {
   const email = searchParams.email;
   const address = searchParams.address;
-
   if (!email || !address) {
     redirect("/dashboard");
   }
 
-  // Query users
+  // FETCH USER
   const ENDPOINT = `/users?limit=10&page=1&email=${encodeURIComponent(
     email!
   )}&address=${address}`;
-
   const { data: result } = await axiosInstance.get(ENDPOINT);
-  const users = result.data.users;
-  const isExist = users.length > 0;
+  const users = result.data.users[0];
 
-  // If not exist, create a candidate KYC user
-  if (!isExist) {
-    try {
-      await axiosInstance.post("/users", {
-        email,
-        address,
-      });
-    } catch (error) {
-      console.error(error);
-      return (
-        <main className="flex flex-col space-y-5 items-center justify-center bg-sky min-h-screen">
-          <h3 className="text-2xl font-semibold text-white text-center">
-            There&apos;s no scheduled ICO at the moment. <br /> Please check
-            back later.
-          </h3>
-        </main>
-      );
+  // GENERATE WORKFLOW
+  const workflowRes = await fetch(
+    `${process.env.ONFIDO_API_URL}/workflow_runs`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token token=${process.env.ONFIDO_API_TOKEN!}`,
+      },
+      body: JSON.stringify({
+        applicant_id: users?.kyc?.applicantId,
+        workflow_id: "1897dafa-af94-4de2-806c-87f08b99423c",
+      }),
+      method: "POST",
     }
-  }
+  );
+  const workflowData = await workflowRes.json();
 
-  const url = "https://api.sumsub.com";
-  const path = `/resources/accessTokens?userId=${encodeURIComponent(
-    email!
-  )}&levelName=basic-kyc-level&ttlInSecs=600`;
-  const config = createSumsumSig(path, "POST", null);
-  const response = await fetch(`${url}${path}`, {
-    headers: config,
+  // GENERATE TOKEN
+  const tokenRes = await fetch(`${process.env.ONFIDO_API_URL}/sdk_token`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Token token=${process.env.ONFIDO_API_TOKEN!}`,
+    },
+    body: JSON.stringify({
+      applicant_id: users?.kyc?.applicantId,
+    }),
     method: "POST",
   });
-  const data = await response.json();
+  const tokenData = await tokenRes.json();
 
-  if (!data?.token) {
+  if (!tokenData?.token || !workflowData?.id) {
     return (
       <main className="flex flex-col space-y-5 items-center justify-center bg-sky min-h-screen">
         <h3 className="text-2xl font-semibold text-white text-center">
@@ -71,8 +66,8 @@ const VerifyPage = async ({ searchParams }: URLProps) => {
   }
 
   return (
-    <main className="container mx-auto pt-32 h-full flex flex-col items-center justify-center bg-[#000A19] p-5">
-      <SBWebSDK accessToken={data.token} email={email} />
+    <main className="container mx-auto pt-32 h-full flex flex-col items-center justify-center bg-bgDark p-5">
+      <OnfindoSDK token={tokenData?.token} workflowRundId={workflowData?.id} />
     </main>
   );
 };
