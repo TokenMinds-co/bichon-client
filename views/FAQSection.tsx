@@ -1,32 +1,27 @@
-import PartnerCard from "@/components/landing/PartnerCard";
 import BgOverlayBottom from "@/components/shared/BgOverlayBottom";
 import BgOverlayTop from "@/components/shared/BgOverlayTop";
 import {
-  AxeIcon,
-  BananaIcon,
-  BellElectric,
-  ChartCandlestick,
-  DnaIcon,
-  DogIcon,
-  EggIcon,
-  GemIcon,
-  OmegaIcon,
-  WineIcon,
-} from "lucide-react";
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import React from "react";
 
 export default function FAQSection() {
-  const partners = [
-    { name: "BananaSwap", icon: <BananaIcon /> },
-    { name: "ElectricBell", icon: <BellElectric /> },
-    { name: "CryptoAxe", icon: <AxeIcon /> },
-    { name: "PuppyDEX", icon: <DogIcon /> },
-    { name: "WineAirdrop", icon: <WineIcon /> },
-    { name: "GlobalChart", icon: <ChartCandlestick /> },
-    { name: "CryptoDNA", icon: <DnaIcon /> },
-    { name: "Eggpad", icon: <EggIcon /> },
-    { name: "TreasuryGem", icon: <GemIcon /> },
-    { name: "HorseExchange", icon: <OmegaIcon /> },
+  const faqs = [
+    {
+      title: "Lorem ipsum dolor sit amet consectetur. Sagittis id.",
+      desc: "Lorem ipsum dolor sit amet consectetur. In augue ipsum tellus ultrices. Ac pharetra ultrices consectetur consequat tellus massa. Nec aliquam cras sagittis duis sed euismod arcu hac. Ornare amet ligula ornare lacus aliquam aenean. Eu lacus imperdiet urna amet congue ",
+    },
+    {
+      title: "Lorem ipsum dolor sit amet consectetur. Sagittis id.",
+      desc: "Lorem ipsum dolor sit amet consectetur. In augue ipsum tellus ultrices. Ac pharetra ultrices consectetur consequat tellus massa. Nec aliquam cras sagittis duis sed euismod arcu hac. Ornare amet ligula ornare lacus aliquam aenean. Eu lacus imperdiet urna amet congue ",
+    },
+    {
+      title: "Lorem ipsum dolor sit amet consectetur. Sagittis id.",
+      desc: "Lorem ipsum dolor sit amet consectetur. In augue ipsum tellus ultrices. Ac pharetra ultrices consectetur consequat tellus massa. Nec aliquam cras sagittis duis sed euismod arcu hac. Ornare amet ligula ornare lacus aliquam aenean. Eu lacus imperdiet urna amet congue ",
+    },
   ];
 
   return (
@@ -41,10 +36,19 @@ export default function FAQSection() {
           FAQ
         </h1>
 
-        <div className="flex flex-row gap-5 sm:gap-10 flex-wrap items-center justify-center">
-          {partners.map((partner, index) => (
-            <PartnerCard key={index} name={partner.name} icon={partner.icon} />
-          ))}
+        <div className="flex w-full flex-row gap-5 sm:gap-10 flex-wrap items-center justify-center">
+          <Accordion
+            type="single"
+            collapsible
+            className="w-[90%] sm:w-full xl:w-[90%] flex flex-col gap-5 "
+          >
+            {faqs.map((faq, index) => (
+              <AccordionItem key={index} value={`item-${index+1}`}>
+                <AccordionTrigger>{faq.title}</AccordionTrigger>
+                <AccordionContent>{faq.desc}</AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </div>
       </div>
 
