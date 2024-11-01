@@ -38,12 +38,13 @@ export default function FAQSection() {
 
         <div className="flex w-full flex-row gap-5 sm:gap-10 flex-wrap items-center justify-center">
           <Accordion
+            defaultValue="item-1"
             type="single"
             collapsible
             className="w-[90%] sm:w-full xl:w-[90%] flex flex-col gap-5 "
           >
             {faqs.map((faq, index) => (
-              <AccordionItem key={index} value={`item-${index+1}`}>
+              <AccordionItem key={index} value={`item-${index + 1}`}>
                 <AccordionTrigger>{faq.title}</AccordionTrigger>
                 <AccordionContent>{faq.desc}</AccordionContent>
               </AccordionItem>
