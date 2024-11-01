@@ -1,7 +1,7 @@
 "use client";
 
 import { Onfido } from "onfido-sdk-ui";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 interface OnfindoSdkProps {
   token: string;
@@ -9,22 +9,41 @@ interface OnfindoSdkProps {
 }
 
 export default function OnfindoSDK({ token, workflowRundId }: OnfindoSdkProps) {
-  useEffect(() => {
-    Onfido.init({
-      token: token,
-      containerId: "onfido-mount",
-      workflowRunId: workflowRundId,
-      onComplete: function (data) {
-        console.log(data);
-        console.log("everything is complete");
-      },
-      onError: function (error) {
-        console.log(error);
-        console.log("an error occurred");
-      },
-      
-    });
-  }, []);
+  const [isMounted, setIsMounted] = useState(false);
 
-  return <div id="onfido-mount" />;
+  useEffect(() => {
+    const mounting = () => {
+      Onfido.init({
+        token: token,
+        containerId: "onfido-mount",
+        workflowRunId: workflowRundId,
+        crossDevicePolicy: "force",
+        language: {
+          locale: "en",
+        },
+        _crossDeviceLinkMethods: ["qr_code", "copy_link"],
+        onComplete: function (data) {
+          console.log(data);
+          console.log("everything is complete");
+        },
+        onError: function (error) {
+          console.log(error);
+          console.log("an error occurred");
+        },
+      });
+    };
+
+    if (!isMounted) {
+      mounting();
+      setIsMounted(true);
+    }
+  }, [isMounted, token, workflowRundId]);
+
+  return (
+    <div className="flex w-full h-full items-center justify-center">
+      <div id="onfido-mount" className="flex"></div>
+    </div>
+  );
 }
+
+// <iframe src="https://eu.onfido.app/" id="onfido-mount" allow="" />
