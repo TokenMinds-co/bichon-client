@@ -11,6 +11,7 @@ import {
   solanaWalletConnectors,
 } from "@particle-network/connectkit/solana";
 import { wallet, EntryPosition } from "@particle-network/connectkit/wallet";
+import { ParallaxProvider } from "react-scroll-parallax";
 
 const projectId = process.env.NEXT_PUBLIC_PROJECT_ID as string;
 const clientKey = process.env.NEXT_PUBLIC_CLIENT_KEY as string;
@@ -91,5 +92,9 @@ const config = createConfig({
 
 // Export ConnectKitProvider to be used within your index or layout file (or use createConfig directly within those files).
 export const ParticleConnectkit = ({ children }: React.PropsWithChildren) => {
-  return <ConnectKitProvider config={config}>{children}</ConnectKitProvider>;
+  return (
+    <ParallaxProvider>
+      <ConnectKitProvider config={config}>{children}</ConnectKitProvider>)
+    </ParallaxProvider>
+  );
 };

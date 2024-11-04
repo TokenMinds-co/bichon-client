@@ -6,6 +6,7 @@ import SkewButton from "@/components/shared/SkewButton";
 import { ArrowLeft } from "lucide-react";
 import RoadmapCard from "@/components/shared/RoadmapCard";
 import BgOverlayTop from "@/components/shared/BgOverlayTop";
+import ClientParallax from "@/components/shared/ClientParallax";
 
 export default function RoadmapSection() {
   const roadmapStep = [
@@ -121,13 +122,18 @@ export default function RoadmapSection() {
         </div>
       </div>
 
-      <Image // FLOATING ROCK
-        className="absolute w-[500px] 2xl:w-[750px] left-[-200px] bottom-[-150px] 2xl:left-[-225px] 2xl:bottom-[-300px] animate-fly"
-        alt="floating-rock"
-        width={50}
-        height={50}
-        src="/assets/floating/rock.svg"
-      />
+      <ClientParallax
+        translateY={[-60, 30]}
+        className="absolute w-[500px] 2xl:w-[750px] left-[-200px] bottom-[-150px] 2xl:left-[-225px] 2xl:bottom-[-300px]"
+      >
+        <Image // FLOATING ROCK
+          className="w-[500px] 2xl:w-[750px] animate-fly"
+          alt="floating-rock"
+          width={50}
+          height={50}
+          src="/assets/floating/rock.svg"
+        />
+      </ClientParallax>
     </section>
   );
 }
