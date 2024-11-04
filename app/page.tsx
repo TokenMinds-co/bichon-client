@@ -37,11 +37,11 @@ export default async function Home() {
         <CastleSection />
         <SaturnSection />
         <RoadmapSection />
-        <FAQSection />
+          <FAQSection />
         <EarthSection />
       </div>
     );
-  } 
+  }
 
   return (
     <div className="bg-[#000A19] font-spaceMono overflow-x-hidden">
