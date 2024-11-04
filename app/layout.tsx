@@ -27,6 +27,29 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   title: "Bichon Defender",
   description: "Solana Presale Bichon Defender",
+  authors: {
+    name: "TokenMinds",
+    url: "https://tokenminds.co",
+  },
+  creator: "TokenMinds",
+  publisher: "TokenMinds",
+  keywords: ["Solana", "Presale", "Bichon", "Defender"],
+  openGraph: {
+    title: "Bichon Defender",
+    description: "Solana Presale Bichon Defender",
+    url: "https://bichondefender.io",
+    locale: "en_US",
+    type: "website",
+    siteName: "Bichon Defender",
+    images: [
+      {
+        url: "/images/bg/hero.png",
+        width: 800,
+        height: 600,
+        alt: "Bichon Defender",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
