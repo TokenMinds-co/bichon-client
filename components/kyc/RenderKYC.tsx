@@ -45,12 +45,14 @@ const RenderKYC = ({ users, address }: RenderKYCProps) => {
 
     if (data.success) {
       router.push(
-        `/verify?token=${encodeURIComponent(
+        `/verify?email=${encodeURIComponent(
           userData.email
         )}&address=${currentAddress}`
       );
     }
   };
+
+  console.log(users);
 
   if (users.length === 0) {
     return (
