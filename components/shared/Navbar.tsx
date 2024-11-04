@@ -7,6 +7,8 @@ import Image from "next/image";
 import { Button } from "../ui/button";
 import { AlignJustify } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
+import TranslatorWidget from "react-translate-widget";
+
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -71,7 +73,7 @@ const Navbar = () => {
             side="right"
             className="w-[300px] sm:w-[400px] text-white bg-[#000A19] border-white/50"
           >
-            <nav className="flex flex-col space-y-4 mt-4">
+            <nav className="flex flex-col gap gap-4 mt-4">
               <Link
                 href="/"
                 onClick={() => setIsOpen(false)}
@@ -95,6 +97,11 @@ const Navbar = () => {
                   {item.name}
                 </Link>
               ))}
+
+              <TranslatorWidget
+                sourceLanguageCode="en"
+                className="translator mt-10 font-spaceMono py-1 text-xs bg-gray-100 text-black w-full rounded-md px-2"
+              />
             </nav>
           </SheetContent>
         </Sheet>
@@ -112,6 +119,11 @@ const Navbar = () => {
               </Link>
             ))}
           </div>
+
+          <TranslatorWidget
+            sourceLanguageCode="en"
+            className="hidden lg:block translator font-spaceMono py-1 text-xs bg-gray-100 w-[150px] rounded-md px-2"
+          />
 
           <ConnectWallet label="Connect" />
         </div>

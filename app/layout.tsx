@@ -58,7 +58,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html>
       <Head>
         <meta httpEquiv="Permissions-Policy" content="accelerometer=(self)" />
       </Head>
