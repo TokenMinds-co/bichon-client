@@ -41,7 +41,7 @@ export default function FAQSection() {
             defaultValue="item-1"
             type="single"
             collapsible
-            className="w-[90%] sm:w-full xl:w-[90%] flex flex-col gap-5"
+            className="w-full flex flex-col gap-5"
             data-aos="fade-up"
           >
             {faqs.map((faq, index) => (
