@@ -6,6 +6,7 @@ import SkewButton from "../shared/SkewButton";
 import Image from "next/image";
 // import StatusKYC from "./StatusKYC";
 import { generateAxiosInstance } from "@/lib/axios-client";
+import StatusKYC from "./StatusKYC";
 
 interface UserData {
   firstName: string;
@@ -51,8 +52,6 @@ const RenderKYC = ({ users, address }: RenderKYCProps) => {
       );
     }
   };
-
-  console.log(users);
 
   if (users.length === 0) {
     return (
@@ -125,12 +124,11 @@ const RenderKYC = ({ users, address }: RenderKYCProps) => {
     );
   }
   return (
-    <div>KYC STATUS WILL BE UPDATED SOON (ONFIDO)</div>
-    // <StatusKYC
-    //   status={users[0].kyc ? users[0].kyc.status : "DOCUMENTS_REQUESTED"}
-    //   email={users[0].email}
-    //   address={users[0].address}
-    // />
+    <StatusKYC
+      status={users[0].kyc ? users[0].kyc.status : "DOCUMENTS_REQUESTED"}
+      email={users[0].email}
+      address={users[0].address}
+    />
   );
 };
 
