@@ -17,11 +17,11 @@ export default function OnfindoSDK({ token, workflowRundId }: OnfindoSdkProps) {
         token: token,
         containerId: "onfido-mount",
         workflowRunId: workflowRundId,
-        crossDevicePolicy: "disable",
+        crossDevicePolicy: "force",
         language: {
           locale: "en",
         },
-        // _crossDeviceLinkMethods: ["qr_code", "copy_link"],
+        _crossDeviceLinkMethods: ["qr_code", "copy_link"],
         onComplete: function (data) {
           console.log(data);
           console.log("everything is complete");
@@ -29,6 +29,28 @@ export default function OnfindoSDK({ token, workflowRundId }: OnfindoSdkProps) {
         onError: function (error) {
           console.log(error);
           console.log("an error occurred");
+        },
+        theme: {
+          name: "dark",
+          config: {
+            borderStyleSurfaceModal: "0px",
+            colorBackgroundSurfaceModal: "#0a0f25",
+            colorBackgroundIcon: "#0a0f25",
+            colorBorderLinkUnderline: "#0a0f25",
+            colorBackgroundLinkActive: "#0a0f25",
+            colorBackgroundLinkHover: "#0a0f25",
+            colorBackgroundDocTypeButton: "#0a0f25",
+          },
+        },
+        crossDeviceClientIntroProductLogoSrc:
+          "https://client-staging.bichondefender.io/_next/image?url=%2Fassets%2Fbichon.png&w=64&q=75",
+        enterpriseFeatures: {
+          logoCobrand: {
+            darkLogoSrc:
+              "https://client-staging.bichondefender.io/_next/image?url=%2Fassets%2Fbichon.png&w=64&q=75",
+            lightLogoSrc:
+              "https://client-staging.bichondefender.io/_next/image?url=%2Fassets%2Fbichon.png&w=64&q=75",
+          },
         },
       });
     };
@@ -40,10 +62,11 @@ export default function OnfindoSDK({ token, workflowRundId }: OnfindoSdkProps) {
   }, [isMounted, token, workflowRundId]);
 
   return (
-    <div className="flex w-full h-full items-center justify-center">
-      <div id="onfido-mount" className="flex items-center justify-center w-full h-full"></div>
+    <div className="flex w-full h-full">
+      <div
+        id="onfido-mount"
+        className="flex items-center justify-center w-full h-full"
+      />
     </div>
   );
 }
-
-// <iframe src="https://eu.onfido.app/" id="onfido-mount" allow="" />
