@@ -7,27 +7,10 @@ import Image from "next/image";
 import { Button } from "../ui/button";
 import { AlignJustify } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
-import TranslatorWidget from "react-translate-widget";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-
-  const handleScroll = () => {
-    if (window.scrollY > 0) {
-      setIsScrolled(true);
-    } else {
-      setIsScrolled(false);
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
   const navMenu = [
     {
       name: "HOME",
@@ -50,6 +33,21 @@ const Navbar = () => {
       href: "/support",
     },
   ];
+
+  const handleScroll = () => {
+    if (window.scrollY > 0) {
+      setIsScrolled(true);
+    } else {
+      setIsScrolled(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <nav
@@ -97,11 +95,6 @@ const Navbar = () => {
                   {item.name}
                 </Link>
               ))}
-
-              <TranslatorWidget
-                sourceLanguageCode="en"
-                className="translator mt-10 font-spaceMono py-1 text-xs bg-gray-100 text-black w-full rounded-md px-2"
-              />
             </nav>
           </SheetContent>
         </Sheet>
@@ -119,11 +112,6 @@ const Navbar = () => {
               </Link>
             ))}
           </div>
-
-          <TranslatorWidget
-            sourceLanguageCode="en"
-            className="hidden lg:block translator font-spaceMono py-1 text-xs bg-gray-100 w-[150px] rounded-md px-2"
-          />
 
           <ConnectWallet label="Connect" />
         </div>

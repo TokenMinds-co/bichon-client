@@ -54,4 +54,16 @@ declare global {
     desc: string;
     time: string;
   }
+
+  interface Window {
+    googleTranslateElementInit: () => void;
+    google: {
+      translate: {
+        TranslateElement: new (
+          options: { pageLanguage: string; autoDisplay: boolean },
+          elementId: string
+        ) => void;
+      };
+    };
+  }
 }

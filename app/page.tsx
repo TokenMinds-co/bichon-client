@@ -44,7 +44,7 @@ export default async function Home() {
   }
 
   return (
-    <div className="bg-[#000A19] font-spaceMono overflow-x-hidden">
+    <div className="font-spaceMono overflow-hidden">
       <Image // FIXED TIME FRAME
         className="w-auto h-[70vh] fixed hidden xl:block left-32 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30 object-cover"
         alt="time-frame"

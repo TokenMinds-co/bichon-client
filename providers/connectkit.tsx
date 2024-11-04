@@ -94,7 +94,7 @@ const config = createConfig({
 export const ParticleConnectkit = ({ children }: React.PropsWithChildren) => {
   return (
     <ParallaxProvider>
-      <ConnectKitProvider config={config}>{children}</ConnectKitProvider>)
+      <ConnectKitProvider config={config}>{children}</ConnectKitProvider>
     </ParallaxProvider>
   );
 };
