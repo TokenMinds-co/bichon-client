@@ -41,7 +41,7 @@ export default function OnfindoSDK({ token, workflowRundId }: OnfindoSdkProps) {
 
   return (
     <div className="flex w-full h-full items-center justify-center">
-      <div id="onfido-mount" className="flex"></div>
+      <div id="onfido-mount" className="flex w-[500px] h-full"></div>
     </div>
   );
 }
