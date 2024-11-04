@@ -52,9 +52,6 @@ const VerifyPage = async ({ searchParams }: URLProps) => {
   });
   const tokenData = await tokenRes.json();
 
-  // console.log("Token Data: ", tokenData.token);
-  // console.log("Workflow Data: ", workflowData.id);
-
   if (!tokenData?.token || !workflowData?.id) {
     return (
       <main className="flex flex-col space-y-5 items-center justify-center bg-sky min-h-screen">

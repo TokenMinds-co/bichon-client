@@ -17,11 +17,11 @@ export default function OnfindoSDK({ token, workflowRundId }: OnfindoSdkProps) {
         token: token,
         containerId: "onfido-mount",
         workflowRunId: workflowRundId,
-        crossDevicePolicy: "force",
+        crossDevicePolicy: "disable",
         language: {
           locale: "en",
         },
-        _crossDeviceLinkMethods: ["qr_code", "copy_link"],
+        // _crossDeviceLinkMethods: ["qr_code", "copy_link"],
         onComplete: function (data) {
           console.log(data);
           console.log("everything is complete");
@@ -41,7 +41,7 @@ export default function OnfindoSDK({ token, workflowRundId }: OnfindoSdkProps) {
 
   return (
     <div className="flex w-full h-full items-center justify-center">
-      <div id="onfido-mount" className="flex w-[500px] h-full"></div>
+      <div id="onfido-mount" className="flex items-center justify-center w-full h-full"></div>
     </div>
   );
 }
