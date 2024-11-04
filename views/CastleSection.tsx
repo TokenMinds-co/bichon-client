@@ -22,7 +22,7 @@ export default function CastleSection() {
         />
       </ClientParallax>
 
-      <div className="flex flex-col justify-around h-full xl:pl-56 md:px-20 px-10 py-16">
+      <div className="flex flex-col justify-around h-full xl:pl-44 md:px-20 px-10 py-16">
         <ClientParallax
           translateY={[200, -50]}
           opacity={[0, 1]}

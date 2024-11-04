@@ -25,7 +25,7 @@ export default function FAQSection() {
   ];
 
   return (
-    <section className="relative bg-faq bg-cover w-full min-h-screen text-white flex justify-center items-center">
+    <section className="relative bg-faq bg-top bg-cover w-full min-h-screen text-white flex justify-center items-center">
       <BgOverlayTop />
 
       <div className="z-30 flex flex-col gap-16 sm:gap-24 w-full sm:w-[75%] mx-auto items-center">

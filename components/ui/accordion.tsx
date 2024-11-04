@@ -11,10 +11,10 @@ const AccordionItem = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>
 >(({ className, ...props }, ref) => (
-  <div className="bg-gradient-to-r w-full from-white/75 from-[10%] via-gray-300 via-[20%] to-white/10 to-[70%] p-[1px]">
+  <div className="bg-gradient-to-r w-full backdrop-blur-sm from-white/75 from-[0%] via-gray-300 via-[10%] to-white/10 to-[70%] p-[1px]">
     <AccordionPrimitive.Item
       ref={ref}
-      className={cn("border-none bg-[#000A19]/95 py-2 px-6", className)}
+      className={cn("border-none bg-black/80 py-2 px-6", className)}
       {...props}
     />
   </div>
@@ -29,7 +29,7 @@ const AccordionTrigger = React.forwardRef<
     <AccordionPrimitive.Trigger
       ref={ref}
       className={cn(
-        "flex flex-1 justify-between items-center text-left py-4 text-lg font-medium transition-all hover:underline [&[data-state=open]>svg]:rotate-[-180deg]",
+        "flex flex-1 justify-between items-center text-left pt-5 pb-4 text-xl font-bold transition-all hover:underline [&[data-state=open]>svg]:rotate-[-180deg]",
         className
       )}
       {...props}
@@ -51,7 +51,7 @@ const AccordionContent = React.forwardRef<
 >(({ className, children, ...props }, ref) => (
   <AccordionPrimitive.Content
     ref={ref}
-    className="overflow-hidden text-white/70 text-left text-sm data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
+    className="overflow-hidden text-white/70 text-left data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
     {...props}
   >
     <div className={cn("pb-4 pt-0", className)}>{children}</div>

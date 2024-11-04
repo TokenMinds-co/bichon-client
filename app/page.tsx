@@ -45,14 +45,13 @@ export default async function Home() {
 
   return (
     <div className="font-spaceMono overflow-hidden bg-[#000A19]">
-      <Image // FIXED TIME FRAME
+      {/* <Image // FIXED TIME FRAME
         className="w-auto h-[70vh] fixed hidden xl:block left-32 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30 object-cover"
         alt="time-frame"
         width={10}
         height={10}
         src="/assets/time.svg"
-      />
-
+      /> */}
       <HeroSection
         targetAmount={ico.targetAmount}
         tokenDecimal={token.decimal}
