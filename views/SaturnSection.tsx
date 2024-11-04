@@ -1,3 +1,5 @@
+import BgOverlayBottom from "@/components/shared/BgOverlayBottom";
+import BgOverlayTop from "@/components/shared/BgOverlayTop";
 import ClientParallax from "@/components/shared/ClientParallax";
 import SkewButton from "@/components/shared/SkewButton";
 import Image from "next/image";
@@ -6,6 +8,8 @@ import React from "react";
 export default function SaturnSection() {
   return (
     <section className="relative bg-cover bg-sky2 w-full min-h-screen flex flex-col justify-center">
+      <BgOverlayTop />
+
       <ClientParallax
         translateY={[-10, 40]}
         className="w-full h-full mb-[100px] xl:mb-0 absolute top-0 left-0 z-10"
@@ -46,6 +50,8 @@ export default function SaturnSection() {
           src="/assets/floating/saturn.svg"
         />
       </ClientParallax>
+
+      <BgOverlayBottom />
     </section>
   );
 }

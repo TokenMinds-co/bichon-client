@@ -64,7 +64,7 @@ export default function RootLayout({
       </Head>
 
       <body
-        className={`${plusJakartaSans.variable} ${spaceMono.variable} antialiased bg-[#000A19]`}
+        className={`${plusJakartaSans.variable} ${spaceMono.variable} antialiased bg-bgDark`}
       >
         <ParticleConnectkit>
           <ReactQueryProvider>

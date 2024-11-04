@@ -1,10 +1,14 @@
 import React from "react";
 import Image from "next/image";
 import ClientParallax from "@/components/shared/ClientParallax";
+import BgOverlayBottom from "@/components/shared/BgOverlayBottom";
+import BgOverlayTop from "@/components/shared/BgOverlayTop";
 
 export default function CastleSection() {
   return (
     <section className="relative bg-sky bg-center bg-cover w-full h-fit xl:h-screen text-white flex flex-col">
+      <BgOverlayTop />
+
       <ClientParallax
         translateY={[40, -100]}
         className="h-full hidden xl:flex absolute justify-self-center self-center w-[1000px] mt-[300px] z-0 pl-20 aspect-square"
@@ -49,6 +53,8 @@ export default function CastleSection() {
           Earn a pasive income instant.
         </ClientParallax>
       </div>
+
+      <BgOverlayBottom />
     </section>
   );
 }
