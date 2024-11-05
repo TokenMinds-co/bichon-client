@@ -7,11 +7,11 @@ import React from "react";
 
 export default function SaturnSection() {
   return (
-    <section className="relative bg-cover bg-sky2 w-full min-h-screen mt-60 md:mt-32 lg:mt-0 flex flex-col justify-center overflow-hidden">
+    <section className="relative overflow-x-hidden bg-cover bg-sky2 w-full min-h-screen mt-60 md:mt-32 lg:mt-0 flex flex-col justify-center overflow-hidden">
       <BgOverlayTop />
 
       <ClientParallax
-        translateY={[-10, 40]}
+        translateY={[-10, 20]}
         className="w-full h-full mb-[100px] xl:mb-0 absolute top-0 left-0 z-10"
       >
         <Image // FLOATING DOG
@@ -30,10 +30,10 @@ export default function SaturnSection() {
         >
           EXPLORE MORE UNIVERSES WITH EXTRAORDINARY NUANCES
         </div>
-        <div className="flex flex-row gap-5">
-          <SkewButton data-aos="fade-right">Button CTA</SkewButton>
+        <div className="flex flex-col sm:flex-row gap-5">
+          <SkewButton data-aos="fade-right">Enter Multiverse</SkewButton>
           <SkewButton data-aos="fade-left" variant="secondary">
-            Read more
+            Explore Details
           </SkewButton>
         </div>
       </div>

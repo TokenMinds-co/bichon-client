@@ -28,7 +28,7 @@ export default function Footer() {
   // }, []);
 
   return (
-    <footer className="text-white w-full z-20 py-10 text-xs lg:text-sm absolute bottom-0 flex flex-col sm:flex-row items-center justify-between gap-3 lg:gap-0 xl:px-32 px-4 md:px-20">
+    <footer className="text-white z-20 py-10 text-xs lg:text-sm absolute bottom-0 flex flex-col md:flex-row items-center justify-between gap-3 lg:gap-0 w-full px-10 xl:px-20">
       <div
         data-aos="fade-right"
         className="flex gap-y-0 gap-3 sm:gap-4 lg:gap-8 flex-wrap justify-center items-center"

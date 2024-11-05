@@ -31,7 +31,7 @@ export default function FAQSection() {
     >
       <BgOverlayTop />
 
-      <div className="z-30 flex flex-col gap-16 sm:gap-24 w-full sm:w-[75%] mx-auto items-center">
+      <div className="z-30 flex flex-col gap-16 sm:gap-24 w-[90%] sm:w-[75%] mx-auto items-center">
         <h1
           data-aos="fade-down"
           className="text-4xl sm:text-5xl md:text-6xl xl:text-7xl text-center"
@@ -39,7 +39,7 @@ export default function FAQSection() {
           FAQ
         </h1>
 
-        <div className="flex w-full flex-row gap-5 sm:gap-10 flex-wrap items-center justify-center">
+        <div className="flex  md:w-full flex-row gap-5 sm:gap-10 flex-wrap items-center justify-center">
           <Accordion
             defaultValue="item-1"
             type="single"

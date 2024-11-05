@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 import ClientParallax from "@/components/shared/ClientParallax";
-import BgOverlayBottom from "@/components/shared/BgOverlayBottom";
 import BgOverlayTop from "@/components/shared/BgOverlayTop";
 import CardStack from "./card-stack";
 
@@ -12,7 +11,7 @@ export default function CastleSection() {
       <BgOverlayTop />
 
       <ClientParallax
-        translateY={[50, -5]}
+        translateY={[70, -5]}
         className="h-full hidden xl:flex absolute justify-self-center self-center w-[1000px] mt-[300px] z-0 pl-20 aspect-square right-0"
       >
         <Image // FLOATING CASTLE
@@ -40,7 +39,7 @@ export default function CastleSection() {
         </ClientParallax>
       </div>
 
-      <BgOverlayBottom />
+      {/* <BgOverlayBottom /> */}
     </section>
   );
 }

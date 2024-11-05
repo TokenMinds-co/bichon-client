@@ -32,56 +32,78 @@ const CardStack = () => {
     };
   }, []);
   return (
-    <div className="w-full flex flex-col absolute lg:relative container mx-auto items-start justify-start my-10 z-20">
+    <div className="w-full px-10 flex flex-col absolute lg:relative container mx-auto items-start justify-start my-10 z-20">
       <ul
-        className="list-none p-0 grid grid-cols-1 gap-[4vw] pb-[calc(4*1.5em)] mb-[4vw]"
-        style={{ gridTemplateRows: "repeat(4, 25vh)" }}
+        className="list-none p-0 grid grid-cols-1 gap-[2vw] pb-[calc(6*1.5em)] mb-[4vw]"
+        style={{ gridTemplateRows: "repeat(6, 30vh)" }}
       >
         <li className="sticky top-0 pt-[11.5em]">
           <div
             ref={(el) => {
               observerRefs.current[0] = el;
             }}
-            className="bg-[#5898ab] p-[30px] rounded-[50px] shadow-lg h-40 flex items-center justify-start transition-all duration-500"
+            className="bg-gray-400 p-[30px] skew-widgets shadow-lg h-40 flex items-center justify-start transition-all duration-500"
           >
-            <h2 className="text-2xl">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            </h2>
+            <h2 className="text-lg xl:text-2xl">Bichon Defender AI wallet</h2>
           </div>
         </li>
-        <li className="sticky top-0 pt-[13em]">
+        <li className="sticky top-0 pt-[12.5em]">
           <div
             ref={(el) => {
               observerRefs.current[1] = el;
             }}
-            className="bg-[#e5a36f] p-[30px] rounded-[50px] shadow-lg h-40 flex items-center justify-start transition-all duration-500"
+            className="bg-gray-500  p-[30px] skew-widgets shadow-lg h-40 flex items-center justify-start transition-all duration-500"
           >
-            <h2 className="text-2xl">
-              The quick brown fox jumps over the lazy dog.
+            <h2 className="text-lg xl:text-2xl">
+              Bichon Defenders Next-Level Security Innovation
+            </h2>
+          </div>
+        </li>
+        <li className="sticky top-0 pt-[13.5em]">
+          <div
+            ref={(el) => {
+              observerRefs.current[2] = el;
+            }}
+            className="bg-gray-600  p-[30px] skew-widgets shadow-lg h-40 flex items-center justify-start transition-all duration-500"
+          >
+            <h2 className="text-lg xl:text-2xl">
+              Bichon Defender AI Trading Bot
             </h2>
           </div>
         </li>
         <li className="sticky top-0 pt-[14.5em]">
           <div
             ref={(el) => {
-              observerRefs.current[2] = el;
+              observerRefs.current[3] = el;
             }}
-            className="bg-[#9cadce] p-[30px] rounded-[50px] shadow-lg h-40 flex items-center justify-start transition-all duration-500"
+            className="bg-gray-700  p-[30px] skew-widgets shadow-lg h-40 flex items-center justify-start transition-all duration-500"
           >
-            <h2 className="text-2xl">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+            <h2 className="text-lg xl:text-2xl">
+              Governance Structure of the Defenders DAO
             </h2>
           </div>
         </li>
-        <li className="sticky top-0 pt-[16em]">
+        <li className="sticky top-0 pt-[15.5em]">
           <div
             ref={(el) => {
-              observerRefs.current[3] = el;
+              observerRefs.current[4] = el;
             }}
-            className="bg-[#d4afb9] p-[30px] rounded-[50px] shadow-lg h-40 flex items-center justify-start transition-all duration-500"
+            className="bg-gray-800  p-[30px] skew-widgets shadow-lg h-40 flex items-center justify-start transition-all duration-500"
           >
-            <h2 className="text-2xl">
-              The quick brown fox jumps over the lazy dog.
+            <h2 className="text-lg xl:text-2xl">
+              Bichon Defender Exclusive NFTs
+            </h2>
+          </div>
+        </li>
+        <li className="sticky top-0 pt-[16.5em]">
+          <div
+            ref={(el) => {
+              observerRefs.current[5] = el;
+            }}
+            className="bg-gray-900  p-[30px] skew-widgets shadow-lg h-40 flex items-center justify-start transition-all duration-500"
+          >
+            <h2 className="text-lg xl:text-2xl">
+              Metaverse Land Acquisition and City Creation
             </h2>
           </div>
         </li>

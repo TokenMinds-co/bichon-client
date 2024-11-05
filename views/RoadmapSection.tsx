@@ -12,26 +12,32 @@ export default function RoadmapSection() {
   const roadmapStep = [
     {
       step: 1,
-      time: "Q1 2024",
-      title: "Founding of Bichon",
+      time: "Phase 1",
+      title: "Foundation and Community Building",
       desc: "Lorem ipsum dolor sit amet conceteur. codimentum arcu ut posuere in ut ec volutpat proin estiam.",
     },
     {
       step: 2,
-      time: "Q2 2024",
-      title: "Presale Start",
+      time: "Phase 2",
+      title: "AI and Security Enhancements",
       desc: "Lorem ipsum dolor sit amet conceteur. codimentum arcu ut posuere in ut ec volutpat proin estiam.",
     },
     {
       step: 3,
-      time: "Q3 2024",
-      title: "Partnership Start",
+      time: "Phase 3",
+      title: "Exchange Listing and Expansion",
       desc: "Lorem ipsum dolor sit amet conceteur. codimentum arcu ut posuere in ut ec volutpat proin estiam.",
     },
     {
       step: 4,
-      time: "Q4 2024",
-      title: "Airdorp Start",
+      time: "Phase 4",
+      title: "Community Testing and DAO Development",
+      desc: "Lorem ipsum dolor sit amet conceteur. codimentum arcu ut posuere in ut ec volutpat proin estiam.",
+    },
+    {
+      step: 5,
+      time: "Phase 5",
+      title: "Metaverse Expansion and DAO Rollout",
       desc: "Lorem ipsum dolor sit amet conceteur. codimentum arcu ut posuere in ut ec volutpat proin estiam.",
     },
   ];

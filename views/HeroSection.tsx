@@ -18,32 +18,33 @@ export default function HeroSection(props: HeroSectionProps) {
   return (
     <section
       id="home"
-      className="bg-hero relative bg-cover w-full min-h-screen h-full pt-32 lg:pt-36 text-white"
+      className="bg-hero overflow-x-hidden relative bg-cover w-full min-h-screen h-full pt-32 lg:pt-36 text-white"
     >
       <div className="z-30 w-full h-full flex flex-col xl:flex-row pr-0 pb-32 xl:pb-0">
-        <div className="flex w-full lg:w-[55%] flex-col justify-between xl:pl-44 md:px-20 px-10 space-y-10">
+        <div className="pt-4 flex w-full xl:w-[55%] flex-col justify-between xl:pl-24 2xl:pl-44 md:px-20 px-10 space-y-10">
           <div className="flex flex-col lg:flex-row items-start justify-between space-y-5 lg:space-y-0">
-            <div className="flex flex-col gap-y-12">
-              <div data-aos="fade-down" className="text-lg">
-                LOREM IPSUM COLOR SIT DOLOR.
+            <div className="flex flex-col gap-y-10">
+              <div data-aos="fade-down" className="text-md">
+                STEP INTO A NEW DIMENSION WHERE SECURITY MEETS INNOVATION
               </div>
               <h1
                 data-aos="fade-down"
                 data-aos-delay="500"
-                className="text-5xl md:text-6xl xl:text-7xl xl:leading-[5rem]"
+                className="text-4xl xl:text-5xl xl:leading-[4rem]"
               >
-                EXPLORE THE BICHON UNIVERSE
+                DISCOVER A UNIVERSE BUILT ON BLOCKCHAIN TECHNOLOGY AND PROTECTED
+                BY THE BICHON DEFENDER
               </h1>
               <div className="flex flex-col sm:flex-row gap-5">
                 <SkewButton data-aos="fade-left" data-aos-delay="750">
-                  Button CTA
+                  Start Journey
                 </SkewButton>
                 <SkewButton
                   data-aos="fade-left"
                   data-aos-delay="1000"
                   variant="secondary"
                 >
-                  Read more
+                  Discover More
                 </SkewButton>
               </div>
             </div>
