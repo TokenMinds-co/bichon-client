@@ -106,8 +106,9 @@ const ICO = () => {
           tokenDetails &&
           users &&
           users.length !== 0 &&
-          users[0]?.kyc &&
-          users[0].kyc.status === "APPROVED" && (
+          // users[0]?.kyc &&
+          // users[0].kyc.status === "APPROVED" && 
+          (
             <IcoWidgets
               currentPrice={currentICO.currentPrice}
               solprice={solprice?.Price ?? 0}
