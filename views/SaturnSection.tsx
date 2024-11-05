@@ -7,7 +7,7 @@ import React from "react";
 
 export default function SaturnSection() {
   return (
-    <section className="relative bg-cover bg-sky2 w-full min-h-screen flex flex-col justify-center">
+    <section className="relative bg-cover bg-sky2 w-full min-h-screen mt-60 md:mt-32 lg:mt-0 flex flex-col justify-center overflow-hidden">
       <BgOverlayTop />
 
       <ClientParallax
@@ -15,7 +15,7 @@ export default function SaturnSection() {
         className="w-full h-full mb-[100px] xl:mb-0 absolute top-0 left-0 z-10"
       >
         <Image // FLOATING DOG
-          className="w-[475px] xl:pl-36 aspect-square animate-fly"
+          className="w-[475px] lg:pl-36 aspect-square animate-fly"
           alt="floating-dog"
           width={50}
           height={50}
