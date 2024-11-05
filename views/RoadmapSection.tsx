@@ -51,7 +51,7 @@ export default function RoadmapSection() {
 
   return (
     <section
-      id="about"
+      id="roadmap"
       className="relative w-full bg-right-top min-h-screen flex flex-col scroll-mt-28"
     >
       <BgOverlayTop />

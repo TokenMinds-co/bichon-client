@@ -23,8 +23,11 @@ const Support = () => {
     },
     enabled: !!address,
   });
-  if (users?.length === 0 || (users && users[0]?.kyc?.status !== "APPROVED")) {
-    redirect("/kyc");
+  if (
+    users?.length === 0
+    // || (users && users[0]?.kyc?.status !== "APPROVED")
+  ) {
+    redirect("/register");
   }
 
   return isConnected ? (

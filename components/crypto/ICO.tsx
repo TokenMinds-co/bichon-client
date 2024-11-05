@@ -55,10 +55,10 @@ const ICO = () => {
   useEffect(() => {
     if (!userLoading) {
       if (
-        users?.length === 0 ||
-        (users && users[0]?.kyc?.status !== "APPROVED")
+        users?.length === 0 
+        // || (users && users[0]?.kyc?.status !== "APPROVED")
       ) {
-        redirect("/kyc");
+        redirect("/register");
       }
     }
   }, [userLoading, users]);

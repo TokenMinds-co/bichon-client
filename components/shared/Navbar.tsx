@@ -17,20 +17,28 @@ const Navbar = () => {
       href: "/#home",
     },
     {
-      name: "ABOUT US",
-      href: "/#about ",
+      name: "ROADMAP",
+      href: "/#roadmap ",
+    },
+    {
+      name: "FAQ",
+      href: "/#faq",
+    },
+    {
+      name: "WHITEPAPER",
+      href: "/#",
     },
     {
       name: "ICO",
       href: "/ico",
     },
     {
-      name: "DASHBOARD",
-      href: "/dashboard",
-    },
-    {
       name: "SUPPORT",
       href: "/support",
+    },
+    {
+      name: "DASHBOARD",
+      href: "/dashboard",
     },
   ];
 
