@@ -32,9 +32,9 @@ const CardStack = () => {
     };
   }, []);
   return (
-    <div className="w-full px-10 flex flex-col absolute lg:relative container mx-auto items-start justify-start my-10 z-20">
+    <div className="w-full flex flex-col absolute lg:relative px-10 items-start justify-start my-10 z-20">
       <ul
-        className="list-none p-0 grid grid-cols-1 gap-[2vw] pb-[calc(6*1.5em)] mb-[4vw]"
+        className="list-none p-0 grid grid-cols-1 gap-[2vw] pb-[calc(6*1.5em)] mb-[4vw] w-full "
         style={{ gridTemplateRows: "repeat(6, 30vh)" }}
       >
         <li className="sticky top-0 pt-[11.5em]">

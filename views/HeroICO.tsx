@@ -31,7 +31,7 @@ const HeroICO = ({
     totalRaised >= targetAmount ? 100 : (totalRaised / targetAmount) * 100;
   return (
     <div
-      className="flex-col space-y-10 p-8 md:p-12 py-16 h-full max-w-lg flex items-center justify-center text-white bg-black/50 skew-widgets"
+      className="flex-col h-fit space-y-10 p-8 md:p-12 py-16 h-full max-w-lg flex items-center justify-center text-white bg-black/50 skew-widgets"
       data-aos="fade-left"
       data-aos-delay="1000"
     >

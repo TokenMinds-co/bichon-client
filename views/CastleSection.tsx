@@ -1,16 +1,14 @@
 import React from "react";
-import Image from "next/image";
-import ClientParallax from "@/components/shared/ClientParallax";
-import BgOverlayTop from "@/components/shared/BgOverlayTop";
 import CardStack from "./card-stack";
 
 export default function CastleSection() {
   return (
-    <section className="bg-sky bg-center bg-cover w-full h-full text-white flex flex-col">
-      <CardStack />
-      <BgOverlayTop />
+    <section className="bg-sky overflow-x-hidden bg-center bg-cover w-full h-full text-white flex flex-col">
+      {/* <BgOverlayTop /> */}
 
-      <ClientParallax
+      <CardStack />
+      
+      {/* <ClientParallax
         translateY={[70, -5]}
         className="h-full hidden xl:flex absolute justify-self-center self-center w-[1000px] mt-[300px] z-0 pl-20 aspect-square right-0"
       >
@@ -21,9 +19,9 @@ export default function CastleSection() {
           height={50}
           src="/assets/floating/castle.svg"
         />
-      </ClientParallax>
+      </ClientParallax> */}
 
-      <div className="flex flex-col justify-start h-full xl:pl-44 md:px-20 px-10 py-16">
+      {/* <div className="flex flex-col justify-start h-full xl:pl-44 md:px-20 px-10 py-16">
         <ClientParallax
           translateY={[100, -30]}
           opacity={[0, 1]}
@@ -37,7 +35,7 @@ export default function CastleSection() {
             src="/assets/floating/castle.svg"
           />
         </ClientParallax>
-      </div>
+      </div> */}
 
       {/* <BgOverlayBottom /> */}
     </section>

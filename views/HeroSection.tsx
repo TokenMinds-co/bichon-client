@@ -2,6 +2,7 @@ import SkewButton from "@/components/shared/SkewButton";
 import React from "react";
 import HeroICO from "./HeroICO";
 import BgOverlayBottom from "@/components/shared/BgOverlayBottom";
+import Image from "next/image";
 
 interface HeroSectionProps {
   tokenName: string;
@@ -18,19 +19,19 @@ export default function HeroSection(props: HeroSectionProps) {
   return (
     <section
       id="home"
-      className="bg-hero overflow-x-hidden relative bg-[center_left_-20rem] sm:bg-cover sm:bg-left w-full min-h-screen h-full pt-32 lg:pt-36 text-white bg-no-repeat"
+      className="bg-hero overflow-hidden relative bg-[center_left_-20rem] sm:bg-cover sm:bg-left w-full min-h-screen h-full  pt-32 lg:pt-36 text-white bg-no-repeat pb-0 md:pb-48 xl:pb-0"
     >
       <div className="z-30 w-full h-full flex flex-col xl:flex-row pr-0 pb-32 xl:pb-0">
-        <div className="pt-4 flex w-full xl:w-[55%] flex-col justify-between xl:pl-24 2xl:pl-44 md:px-20 px-10 space-y-10">
+        <div className="pt-4 flex w-full xl:w-[50%] flex-col justify-between space-y-10 pr-10 md:px-20 px-10">
           <div className="flex flex-col lg:flex-row items-start justify-between space-y-5 lg:space-y-0">
-            <div className="flex flex-col gap-y-10">
+            <div className="flex flex-col gap-y-16 md:gap-y-12">
               <div data-aos="fade-down" className="text-md">
                 STEP INTO A NEW DIMENSION WHERE SECURITY MEETS INNOVATION
               </div>
               <h1
                 data-aos="fade-down"
                 data-aos-delay="500"
-                className="text-4xl xl:text-5xl xl:leading-[4rem]"
+                className="text-4xl xl:text-4xl xl:leading-[3rem]"
               >
                 DISCOVER A UNIVERSE BUILT ON BLOCKCHAIN TECHNOLOGY AND PROTECTED
                 BY THE BICHON DEFENDER
@@ -49,33 +50,9 @@ export default function HeroSection(props: HeroSectionProps) {
               </div>
             </div>
           </div>
-
-          {/* <div
-            className="w-full sm:w-fit pt-24 z-20 sm:pt-36"
-            data-aos="fade-up"
-            data-aos-delay="1250"
-          >
-            <hr className="hidden sm:block" />
-            <div className="flex  flex-col sm:flex-row gap-5 pt-5 whitespace-nowrap">
-              <div className="flex flex-col gap-1 text-center px-3 sm:px-5 md:px-10">
-                <div className="text-xs md:text-sm">Project</div>
-                <div className="text-xl md:text-2xl">250+</div>
-              </div>
-
-              <div className="flex flex-col gap-1 text-center px-3 sm:px-5 md:px-10 py-5 sm:py-0 border-t-[1px] border-b-[1px] sm:border-t-[0px] sm:border-b-[0px] sm:border-l-[1px] sm:border-r-[1px] border-white">
-                <div className="text-xs md:text-sm ">Client Success</div>
-                <div className="text-xl md:text-2xl">2000+</div>
-              </div>
-
-              <div className="flex flex-col gap-1 text-center px-3 sm:px-5 md:px-10">
-                <div className="text-xs md:text-sm">Profit</div>
-                <div className="text-xl md:text-2xl">1000 USD</div>
-              </div>
-            </div>
-          </div> */}
         </div>
 
-        <div className="flex w-full xl:w-[47%] h-full items-center justify-center pt-24 px-5 xl:px-0">
+        <div className="flex w-full xl:w-[50%] h-full xl:justify-end xl:items-start items-center justify-center pt-24 xl:pt-0 px-2 xl:pl-0 xl:pr-20">
           <HeroICO
             targetAmount={props.targetAmount}
             tokenDecimal={props.tokenDecimal}
@@ -87,6 +64,16 @@ export default function HeroSection(props: HeroSectionProps) {
             validUntil={props.validUntil}
           />
         </div>
+      </div>
+
+      <div className="absolute hidden md:block md:bottom-[-150px] xl:bottom-[-225px] 2xl:bottom-[-275px] left-1/2 transform -translate-x-1/2">
+        <Image 
+          className="animate-float w-full 2xl:w-[900px]"
+          alt="floating-castle"
+          width={50}
+          height={50}
+          src="/assets/floating/castle.svg"
+        />
       </div>
 
       <BgOverlayBottom />
