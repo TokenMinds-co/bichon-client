@@ -1,6 +1,7 @@
 import BgOverlayTop from "@/components/shared/BgOverlayTop";
 import Footer from "@/components/shared/Footer";
 import SkewButton from "@/components/shared/SkewButton";
+import Link from "next/link";
 import React from "react";
 
 export default function EarthSection() {
@@ -20,14 +21,18 @@ export default function EarthSection() {
             data-aos-delay="1000"
             variant="secondary"
           >
-            Twitter
+            <Link href="https://x.com/bichondefender" target="_blank">
+              Twitter
+            </Link>
           </SkewButton>
           <SkewButton
             data-aos="fade-left"
             data-aos-delay="1000"
             variant="secondary"
           >
-            Telegram
+            <Link href="https://t.me/bichondefenderOfficial" target="_blank">
+              Telegram
+            </Link>
           </SkewButton>
         </div>
         <Footer />
