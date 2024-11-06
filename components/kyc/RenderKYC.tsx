@@ -186,7 +186,7 @@ const RenderKYC = ({ users, address }: RenderKYCProps) => {
             variant="primary"
             customClasses="skew-buy-widgets"
           >
-            {isSubmitting ? "Submitting..." : "Start KYC"}
+            {isSubmitting ? "Submitting..." : "Start Registration"}
           </SkewButton>
         </form>
 
