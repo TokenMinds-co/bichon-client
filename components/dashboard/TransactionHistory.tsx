@@ -72,11 +72,13 @@ export default function TransactionHistory({
               </TableRow>
             </TableBody>
           ) : !tokenDetails ? (
-            <TableRow>
-              <td colSpan={7} className="text-center py-4 text-white">
-                <Loader size="20" />
-              </td>
-            </TableRow>
+            <TableBody>
+              <TableRow>
+                <td colSpan={7} className="text-center py-4 text-white">
+                  <Loader size="20" />
+                </td>
+              </TableRow>
+            </TableBody>
           ) : (
             <TableBody>
               {transactions?.map((tx) => (

@@ -1,13 +1,12 @@
 import BgOverlayTop from "@/components/shared/BgOverlayTop";
 import Footer from "@/components/shared/Footer";
-import { Button } from "@/components/ui/button";
+import SkewButton from "@/components/shared/SkewButton";
 import React from "react";
 
 export default function EarthSection() {
   return (
     <section className="relative overflow-x-hidden bg-bottom bg-cover bg-earth w-full min-h-screen px-5">
       <BgOverlayTop />
-
       <div className="z-30 flex flex-col items-center gap-10 pt-[50%] sm:pt-[30%] lg:pt-[12.5%]">
         <div
           data-aos="fade-down"
@@ -16,10 +15,21 @@ export default function EarthSection() {
           JOIN OTHER TO EXPERIENCE AN EXTRAORDINARY GALAXY
         </div>
         <div className="flex flex-row gap-3 text-white">
-          <Button variant="ghost">Twitter</Button>
-          <Button variant="ghost">Telegram</Button>
+          <SkewButton
+            data-aos="fade-right"
+            data-aos-delay="1000"
+            variant="secondary"
+          >
+            Twitter
+          </SkewButton>
+          <SkewButton
+            data-aos="fade-left"
+            data-aos-delay="1000"
+            variant="secondary"
+          >
+            Telegram
+          </SkewButton>
         </div>
-        
         <Footer />
       </div>
     </section>

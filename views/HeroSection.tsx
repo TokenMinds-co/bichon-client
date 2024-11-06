@@ -18,7 +18,7 @@ export default function HeroSection(props: HeroSectionProps) {
   return (
     <section
       id="home"
-      className="bg-hero overflow-x-hidden relative bg-cover w-full min-h-screen h-full pt-32 lg:pt-36 text-white"
+      className="bg-hero overflow-x-hidden relative bg-[center_left_-20rem] sm:bg-cover sm:bg-left w-full min-h-screen h-full pt-32 lg:pt-36 text-white bg-no-repeat"
     >
       <div className="z-30 w-full h-full flex flex-col xl:flex-row pr-0 pb-32 xl:pb-0">
         <div className="pt-4 flex w-full xl:w-[55%] flex-col justify-between xl:pl-24 2xl:pl-44 md:px-20 px-10 space-y-10">
@@ -50,7 +50,7 @@ export default function HeroSection(props: HeroSectionProps) {
             </div>
           </div>
 
-          <div
+          {/* <div
             className="w-full sm:w-fit pt-24 z-20 sm:pt-36"
             data-aos="fade-up"
             data-aos-delay="1250"
@@ -72,7 +72,7 @@ export default function HeroSection(props: HeroSectionProps) {
                 <div className="text-xl md:text-2xl">1000 USD</div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div className="flex w-full xl:w-[47%] h-full items-center justify-center pt-24 px-5 xl:px-0">
