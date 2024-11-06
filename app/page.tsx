@@ -50,7 +50,7 @@ export default async function Home() {
       <SaturnSection />
       <RoadmapSection />
       <FAQSection />
-      <EarthSection />  
+      <EarthSection />
     </div>
   );
 }

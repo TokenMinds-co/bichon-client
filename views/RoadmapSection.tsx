@@ -7,41 +7,10 @@ import { ArrowLeft } from "lucide-react";
 import RoadmapCard from "@/components/shared/RoadmapCard";
 import BgOverlayTop from "@/components/shared/BgOverlayTop";
 import ClientParallax from "@/components/shared/ClientParallax";
+import { title } from "process";
+import roadmapStep from "@/constant/roadmap";
 
 export default function RoadmapSection() {
-  const roadmapStep = [
-    {
-      step: 1,
-      time: "Phase 1",
-      title: "Foundation and Community Building",
-      desc: "Lorem ipsum dolor sit amet conceteur. codimentum arcu ut posuere in ut ec volutpat proin estiam.",
-    },
-    {
-      step: 2,
-      time: "Phase 2",
-      title: "AI and Security Enhancements",
-      desc: "Lorem ipsum dolor sit amet conceteur. codimentum arcu ut posuere in ut ec volutpat proin estiam.",
-    },
-    {
-      step: 3,
-      time: "Phase 3",
-      title: "Exchange Listing and Expansion",
-      desc: "Lorem ipsum dolor sit amet conceteur. codimentum arcu ut posuere in ut ec volutpat proin estiam.",
-    },
-    {
-      step: 4,
-      time: "Phase 4",
-      title: "Community Testing and DAO Development",
-      desc: "Lorem ipsum dolor sit amet conceteur. codimentum arcu ut posuere in ut ec volutpat proin estiam.",
-    },
-    {
-      step: 5,
-      time: "Phase 5",
-      title: "Metaverse Expansion and DAO Rollout",
-      desc: "Lorem ipsum dolor sit amet conceteur. codimentum arcu ut posuere in ut ec volutpat proin estiam.",
-    },
-  ];
-
   const [currentIndex, setCurrentIndex] = useState(0);
   const progress = (currentIndex / (roadmapStep.length - 1)) * 100;
 
@@ -91,6 +60,27 @@ export default function RoadmapSection() {
           </div>
         </div>
 
+        <div className="relative">
+          {roadmapStep.map((_, index) => (
+            <div
+              key={index}
+              className={`absolute left-0 top-[-6px] z-10 w-4 h-4 rounded-full border-2 border-white ${
+                index <= currentIndex ? "bg-blue-500" : "bg-gray-700"
+              }`}
+              style={{
+                left: `calc(${(index / (roadmapStep.length - 1)) * 100}%)`,
+              }}
+            />
+          ))}
+
+          <div className=" relative h-[6px] bg-gray-700 rounded-full overflow-hidden mb-16">
+            <div
+              className="absolute top-0 left-0 h-full bg-gradient-to-r from-blue-400 via-blue-600 to-blue-600 transition-all duration-300 ease-in-out"
+              style={{ width: `${progress}%` }}
+            ></div>
+          </div>
+        </div>
+
         {/* ROADMAP CONTENT */}
         <div data-aos="fade-up">
           {roadmapStep.map(
@@ -99,47 +89,27 @@ export default function RoadmapSection() {
                 <RoadmapCard
                   key={index}
                   time={step.time}
-                  desc={step.desc}
+                  // desc={step.desc}
+                  items={step.items}
                   title={step.title}
                 />
               )
           )}
-
-          <div className="relative">
-            {roadmapStep.map((_, index) => (
-              <div
-                key={index}
-                className={`absolute left-0 top-[-6px] z-10 w-4 h-4 rounded-full border-2 border-white ${
-                  index <= currentIndex ? "bg-blue-500" : "bg-gray-700"
-                }`}
-                style={{
-                  left: `calc(${(index / (roadmapStep.length - 1)) * 100}%)`,
-                }}
-              />
-            ))}
-
-            <div className="mt-16 sm:mt-28 relative h-[6px] bg-gray-700 rounded-full overflow-hidden">
-              <div
-                className="absolute top-0 left-0 h-full bg-gradient-to-r from-blue-400 via-blue-600 to-blue-600 transition-all duration-300 ease-in-out"
-                style={{ width: `${progress}%` }}
-              ></div>
-            </div>
-          </div>
         </div>
       </div>
 
-      <ClientParallax
+      {/* <ClientParallax
         translateY={[-60, 30]}
         className="absolute w-[500px] 2xl:w-[750px] left-[-200px] bottom-[-150px] 2xl:left-[-225px] 2xl:bottom-[-300px]"
-      >
-        <Image // FLOATING ROCK
-          className="w-[500px] 2xl:w-[750px] animate-fly"
-          alt="floating-rock"
-          width={50}
-          height={50}
-          src="/assets/floating/rock.svg"
-        />
-      </ClientParallax>
+      > */}
+      <Image // FLOATING ROCK
+        className="w-[500px] 2xl:w-[750px] animate-fly absolute right-0 z-10 bottom-40 hidden md:flex"
+        alt="floating-rock"
+        width={50}
+        height={50}
+        src="/assets/floating/rock.svg"
+      />
+      {/* </ClientParallax> */}
     </section>
   );
 }

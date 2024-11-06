@@ -51,8 +51,19 @@ declare global {
 
   interface RoadmapCardProps {
     title: string;
-    desc: string;
+    desc?: string;
     time: string;
+    items?: RoadmapItemProps[];
+  }
+
+  interface RoadmapItemProps {
+    title: string;
+    desc: string | ItemProp[];
+  }
+
+  interface ItemProp {
+    title: string;
+    desc: string;
   }
 
   interface Window {
