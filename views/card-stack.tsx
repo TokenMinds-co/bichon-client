@@ -116,23 +116,23 @@ const CardStack = () => {
   ];
 
   return (
-    <div className="flex h-[2200px] overflow-hidden container mx-auto">
+    <div className="flex h-[2600px] overflow-hidden container mx-auto">
       <div className="h-full w-full">
         <div className="w-full container flex flex-col absolute px-10 items-start justify-start my-10 z-20">
           <ul
-            className="list-none p-0 grid grid-cols-1 pb-[calc(6*1.5em)] mb-[4vw] w-full "
+            className="list-none p-0 grid gap-32 grid-cols-1 pb-[calc(6*1.5em)] mb-[4vw] w-full"
             style={{ gridTemplateRows: "repeat(6, 30vh)" }}
           >
             {list.map((item, index) => (
               <li
                 key={index}
-                className={`sticky top-0 pt-[${11.5 + index * 1}em]`}
+                className={`sticky top-0 pt-[${11.5 + index * 1}em] h-full`}
               >
                 <div
                   ref={(el) => {
                     observerRefs.current[index] = el;
                   }}
-                  className={`${item.tailwindBg} flex-col gap-5 p-12 skew-widgets shadow-lg h-fit flex transition-all duration-500`}
+                  className={`${item.tailwindBg} flex-col gap-5 p-10 skew-widgets shadow-lg h-[400px] sm:h-[325px] flex transition-all duration-500`}
                 >
                   <h2 className="text-lg xl:text-2xl text-left">
                     {item.title}

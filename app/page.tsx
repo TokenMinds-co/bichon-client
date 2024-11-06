@@ -14,7 +14,7 @@ export default async function Home() {
 
   if (!ico) {
     return (
-      <div className="bg-[#000A19] font-spaceMono overflow-x-hidden">
+      <div className="bg-[#000A19] font-spaceMono overflow-hidden">
         <HeroSection
           targetAmount={0}
           tokenDecimal={6}
@@ -35,7 +35,7 @@ export default async function Home() {
   }
 
   return (
-    <div className="font-spaceMono bg-[#000A19]">
+    <div className="font-spaceMono bg-[#000A19] overflow-hidden">
       <HeroSection
         targetAmount={ico.targetAmount}
         tokenDecimal={token.decimal}
