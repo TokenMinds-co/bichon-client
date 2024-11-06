@@ -6,8 +6,6 @@ import SkewButton from "@/components/shared/SkewButton";
 import { ArrowLeft } from "lucide-react";
 import RoadmapCard from "@/components/shared/RoadmapCard";
 import BgOverlayTop from "@/components/shared/BgOverlayTop";
-import ClientParallax from "@/components/shared/ClientParallax";
-import { title } from "process";
 import roadmapStep from "@/constant/roadmap";
 
 export default function RoadmapSection() {
