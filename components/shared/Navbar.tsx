@@ -26,7 +26,7 @@ const Navbar = () => {
     },
     {
       name: "WHITEPAPER",
-      href: "/#",
+      href: "https://bichondefender.gitbook.io/bichondefender-docs/basics/editor",
     },
     {
       name: "ICO",

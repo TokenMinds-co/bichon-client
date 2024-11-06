@@ -3,6 +3,7 @@ import React from "react";
 import HeroICO from "./HeroICO";
 import BgOverlayBottom from "@/components/shared/BgOverlayBottom";
 import Image from "next/image";
+import Link from "next/link";
 
 interface HeroSectionProps {
   tokenName: string;
@@ -38,14 +39,19 @@ export default function HeroSection(props: HeroSectionProps) {
               </h1>
               <div className="flex flex-col sm:flex-row gap-5">
                 <SkewButton data-aos="fade-left" data-aos-delay="750">
-                  Start Journey
+                  <Link href="/ico">Start Journey</Link>
                 </SkewButton>
                 <SkewButton
                   data-aos="fade-left"
                   data-aos-delay="1000"
                   variant="secondary"
                 >
-                  Discover More
+                  <Link
+                    href="https://bichondefender.gitbook.io/bichondefender-docs"
+                    target="_blank"
+                  >
+                    Discover More
+                  </Link>
                 </SkewButton>
               </div>
             </div>
@@ -67,7 +73,7 @@ export default function HeroSection(props: HeroSectionProps) {
       </div>
 
       <div className="absolute hidden md:block md:bottom-[-150px] xl:bottom-[-225px] 2xl:bottom-[-275px] left-1/2 transform -translate-x-1/2">
-        <Image 
+        <Image
           className="animate-float w-full 2xl:w-[900px]"
           alt="floating-castle"
           width={50}
