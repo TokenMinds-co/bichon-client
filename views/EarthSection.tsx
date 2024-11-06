@@ -1,10 +1,28 @@
 import BgOverlayTop from "@/components/shared/BgOverlayTop";
 import Footer from "@/components/shared/Footer";
-import SkewButton from "@/components/shared/SkewButton";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 export default function EarthSection() {
+  const socialMedia = [
+    {
+      name: "twitter",
+      icon: "/assets/icons/twitter.svg",
+      link: "https://x.com/bichondefender",
+    },
+    {
+      name: "telegram",
+      icon: "/assets/icons/telegram.svg",
+      link: "https://t.me/bichondefenderOfficial",
+    },
+    {
+      name: "instagram",
+      icon: "/assets/icons/instagram.svg",
+      link: "https://www.instagram.com/bichondefender",
+    },
+  ];
+
   return (
     <section className="relative overflow-x-hidden bg-bottom bg-cover bg-earth w-full min-h-screen px-5">
       <BgOverlayTop />
@@ -15,37 +33,21 @@ export default function EarthSection() {
         >
           JOIN OTHER TO EXPERIENCE AN EXTRAORDINARY GALAXY
         </div>
-        <div className="flex flex-row gap-3 text-white">
-          <SkewButton
-            data-aos="fade-right"
-            data-aos-delay="1000"
-            variant="secondary"
-          >
-            <Link href="https://x.com/bichondefender" target="_blank">
-              Twitter
-            </Link>
-          </SkewButton>
-          <SkewButton
-            data-aos="fade-left"
-            data-aos-delay="1000"
-            variant="secondary"
-          >
-            <Link href="https://t.me/bichondefenderOfficial" target="_blank">
-              Telegram
-            </Link>
-          </SkewButton>
-          <SkewButton
-            data-aos="fade-left"
-            data-aos-delay="1000"
-            variant="secondary"
-          >
+        <div data-aos="fade-up" className="flex flex-row gap-5 text-white">
+          {socialMedia.map((item, index) => (
             <Link
-              href="https://www.instagram.com/bichondefender_/"
-              target="_blank"
+              key={index}
+              href={item.link}
+              className="opacity-90 hover:opacity-100 ease-in-out duration-300"
             >
-              Instagram
+              <Image
+                src={item.icon}
+                alt="social-icon"
+                width={item.name === "twitter" ? 41 : 40}
+                height={item.name === "twitter" ? 41 : 40}
+              />
             </Link>
-          </SkewButton>
+          ))}
         </div>
         <Footer />
       </div>
