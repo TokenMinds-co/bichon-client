@@ -46,28 +46,27 @@ export default function Dashboard() {
   useEffect(() => {
     if (!isLoading) {
       if (
-        users?.length === 0
-        // || (users && users[0]?.kyc?.status !== "APPROVED")
+        users?.length === 0 ||
+        (users && users[0]?.kyc?.status !== "APPROVED")
       ) {
-        redirect("/register");
+        redirect("/kyc");
       }
     }
   }, [isLoading, users]);
 
   return !isConnected ? (
-    <div className="absoltue h-screen w-full flex items-center justify-center">
+    <div className="absolute h-screen w-full flex items-center justify-center">
       <Unauthenticated />
     </div>
   ) : isLoading ? (
-    <div className="absoltue h-screen w-full flex items-center justify-center">
+    <div className="absolute h-screen w-full flex items-center justify-center">
       <Loader size="50" />
     </div>
   ) : (
     users &&
-    users.length !== 0 && (
-      // &&
-      // users[0]?.kyc &&
-      // users[0].kyc.status === "APPROVED"
+    users.length !== 0 &&
+    users[0]?.kyc &&
+    users[0].kyc.status === "APPROVED" && (
       <div className="flex flex-col pb-8 pt-24 container mx-auto px-5 md:px-0">
         <div className="flex flex-row justify-between items-center mb-8">
           <h1 className="text-3xl font-bold text-white">User Dashboard</h1>

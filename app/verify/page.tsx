@@ -8,8 +8,6 @@ import OnfindoSDK from "@/components/kyc/OnfindoSDK";
 const VerifyPage = async ({ searchParams }: URLProps) => {
   const email = searchParams.email;
   const address = searchParams.address;
-  // console.log("Email: ", email);
-  // console.log("Address: ", address);
 
   if (!email || !address) {
     redirect("/dashboard");
@@ -69,7 +67,7 @@ const VerifyPage = async ({ searchParams }: URLProps) => {
   }
 
   return (
-    <main className="container mx-auto pt-32 h-full flex flex-col items-center justify-center bg-bgDark p-5">
+    <main className="container mx-auto pt-32 h-full flex flex-col items-center justify-center p-5">
       <OnfindoSDK token={tokenData?.token} workflowRundId={workflowData?.id} />
     </main>
   );

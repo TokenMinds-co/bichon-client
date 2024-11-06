@@ -55,19 +55,13 @@ const ICO = () => {
   useEffect(() => {
     if (!userLoading) {
       if (
-        users?.length === 0 
-        // || (users && users[0]?.kyc?.status !== "APPROVED")
+        users?.length === 0 ||
+        (users && users[0]?.kyc?.status !== "APPROVED")
       ) {
-        redirect("/register");
+        redirect("/kyc");
       }
     }
   }, [userLoading, users]);
-
-  // useEffect(() => {
-  //   console.log("SOL", solprice?.Price);
-  //   console.log("USDC", usdcprice?.Price);
-  //   console.log("USDT", usdtprice?.Price);
-  // }, [solprice, usdcprice, usdtprice]);
 
   return (
     <div className="flex flex-col items-center justify-center w-full h-full space-y-2">
@@ -106,9 +100,8 @@ const ICO = () => {
           tokenDetails &&
           users &&
           users.length !== 0 &&
-          // users[0]?.kyc &&
-          // users[0].kyc.status === "APPROVED" && 
-          (
+          users[0]?.kyc &&
+          users[0].kyc.status === "APPROVED" && (
             <IcoWidgets
               currentPrice={currentICO.currentPrice}
               solprice={solprice?.Price ?? 0}

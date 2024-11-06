@@ -25,9 +25,9 @@ const Support = () => {
   });
   if (
     users?.length === 0
-    // || (users && users[0]?.kyc?.status !== "APPROVED")
+    || (users && users[0]?.kyc?.status !== "APPROVED")
   ) {
-    redirect("/register");
+    redirect("/kyc");
   }
 
   return isConnected ? (
