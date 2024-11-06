@@ -4,8 +4,6 @@ import CardStack from "./card-stack";
 export default function CastleSection() {
   return (
     <section className="bg-sky overflow-x-hidden bg-center bg-cover w-full h-full text-white flex flex-col ">
-      {/* <BgOverlayTop /> */}
-
       <CardStack />
 
       {/* <ClientParallax
@@ -36,8 +34,6 @@ export default function CastleSection() {
           />
         </ClientParallax>
       </div> */}
-
-      {/* <BgOverlayBottom /> */}
     </section>
   );
 }
