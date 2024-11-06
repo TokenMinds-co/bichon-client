@@ -34,6 +34,18 @@ export default function EarthSection() {
               Telegram
             </Link>
           </SkewButton>
+          <SkewButton
+            data-aos="fade-left"
+            data-aos-delay="1000"
+            variant="secondary"
+          >
+            <Link
+              href="https://www.instagram.com/bichondefender_/"
+              target="_blank"
+            >
+              Instagram
+            </Link>
+          </SkewButton>
         </div>
         <Footer />
       </div>
