@@ -19,7 +19,7 @@ export default function EarthSection() {
     {
       name: "instagram",
       icon: "/assets/icons/instagram.svg",
-      link: "https://www.instagram.com/bichondefender",
+      link: "https://www.instagram.com/bichondefender_",
     },
   ];
 
