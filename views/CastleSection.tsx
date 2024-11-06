@@ -3,11 +3,11 @@ import CardStack from "./card-stack";
 
 export default function CastleSection() {
   return (
-    <section className="bg-sky overflow-x-hidden bg-center bg-cover w-full h-full text-white flex flex-col">
+    <section className="bg-sky overflow-x-hidden bg-center bg-cover w-full h-full text-white flex flex-col ">
       {/* <BgOverlayTop /> */}
 
       <CardStack />
-      
+
       {/* <ClientParallax
         translateY={[70, -5]}
         className="h-full hidden xl:flex absolute justify-self-center self-center w-[1000px] mt-[300px] z-0 pl-20 aspect-square right-0"
