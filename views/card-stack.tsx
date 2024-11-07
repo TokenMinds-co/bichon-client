@@ -31,7 +31,6 @@ const CardStack = () => {
       observers.forEach((observer) => observer.disconnect());
     };
   }, []);
-
   const list = [
     {
       title: "Bichon Defender AI wallet",
