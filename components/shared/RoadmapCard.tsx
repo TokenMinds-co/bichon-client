@@ -15,21 +15,18 @@ export default function RoadmapCard({ title, items, time }: RoadmapCardProps) {
               items.map((item, index) => (
                 <li key={index}>
                   <span className="font-bold"> {item.title}</span> <br />
-                  <p className="pl-5 text-sm">
+                  <div className="pl-5 text-sm">
                     {!Array.isArray(item.desc)
                       ? item.desc
                       : item.desc.map((childItem, index) => (
-                          <>
-                            <span key={index}>
-                              <span className="font-bold">
-                                -{childItem.title}:
-                              </span>
-                              <span> {childItem.desc}</span>
+                          <p key={index}>
+                            <span className="font-bold">
+                              -{childItem.title}:
                             </span>
-                            <br />
-                          </>
+                            <span> {childItem.desc}</span>
+                          </p>
                         ))}
-                  </p>
+                  </div>
                 </li>
               ))}
           </ul>
