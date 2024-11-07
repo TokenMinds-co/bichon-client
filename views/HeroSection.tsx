@@ -20,19 +20,19 @@ export default function HeroSection(props: HeroSectionProps) {
   return (
     <section
       id="home"
-      className="bg-hero overflow-hidden relative bg-[center_left_-20rem] sm:bg-cover sm:bg-left w-full min-h-screen h-full pt-32 lg:pt-36 text-white bg-no-repeat pb-24 md:pb-48 xl:pb-0"
+      className="bg-hero overflow-hidden relative bg-cover bg-[center_left_-35rem] sm:bg-cover sm:bg-left w-full min-h-screen h-full pt-32 lg:pt-36 text-white bg-no-repeat pb-24 md:pb-48 xl:pb-0"
     >
       <div className="z-30 w-full h-full flex flex-col xl:flex-row pr-0 pb-32 xl:pb-0">
         <div className="pt-4 flex w-full xl:w-[50%] flex-col justify-between space-y-10 pr-10 md:px-20 px-10">
           <div className="flex flex-col lg:flex-row items-start justify-between space-y-5 lg:space-y-0">
-            <div className="flex flex-col gap-y-16 md:gap-y-12">
+            <div className="flex flex-col gap-y-16 md:gap-y-12 items-center xl:items-start">
               <div data-aos="fade-down" className="text-md">
                 STEP INTO A NEW DIMENSION WHERE SECURITY MEETS INNOVATION
               </div>
               <h1
                 data-aos="fade-down"
                 data-aos-delay="500"
-                className="text-4xl xl:text-4xl xl:leading-[3rem]"
+                className="text-4xl xl:text-4xl xl:leading-[3rem] text-center xl:text-start"
               >
                 DISCOVER A UNIVERSE BUILT ON BLOCKCHAIN TECHNOLOGY AND PROTECTED
                 BY THE BICHON DEFENDER
@@ -72,9 +72,11 @@ export default function HeroSection(props: HeroSectionProps) {
         </div>
       </div>
 
-      <div className="absolute bottom-[0px] md:bottom-[-100px] xl:bottom-[-225px] 2xl:bottom-[-275px] left-1/2 transform -translate-x-1/2">
+      {/* <div className="absolute bottom-[0px] md:bottom-[-100px] xl:bottom-[-225px] 2xl:bottom-[-275px] left-1/2 transform -translate-x-1/2"> */}
+
+      <div className="w-screen flex justify-center h-[100px]">
         <Image
-          className="animate-float w-full 2xl:w-[900px]"
+          className="animate-float absolute bottom-0 xs:bottom-[-125px] md:bottom-[-100px] lg:bottom-[-225px] w-full max-w-3xl"
           alt="floating-castle"
           width={50}
           height={50}
