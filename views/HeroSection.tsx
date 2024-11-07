@@ -74,9 +74,9 @@ export default function HeroSection(props: HeroSectionProps) {
 
       {/* <div className="absolute bottom-[0px] md:bottom-[-100px] xl:bottom-[-225px] 2xl:bottom-[-275px] left-1/2 transform -translate-x-1/2"> */}
 
-      <div className="w-screen flex justify-center h-[100px]">
+      <div className="w-screen flex justify-center h-[200px] lg:h-[100px]">
         <Image
-          className="animate-float absolute bottom-0 xs:bottom-[-125px] md:bottom-[-100px] lg:bottom-[-225px] w-full max-w-3xl"
+          className="animate-float absolute bottom-0 xs:bottom-[-125px] md:bottom-[-100px] lg:bottom-[-225px] w-full xs:max-w-lg sm:max-w-xl md:max-w-xl lg:max-w-xl 2xl:max-w-2xl"
           alt="floating-castle"
           width={50}
           height={50}
