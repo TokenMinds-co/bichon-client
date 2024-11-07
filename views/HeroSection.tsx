@@ -20,7 +20,7 @@ export default function HeroSection(props: HeroSectionProps) {
   return (
     <section
       id="home"
-      className="bg-hero overflow-hidden relative bg-[center_left_-20rem] sm:bg-cover sm:bg-left w-full min-h-screen h-full  pt-32 lg:pt-36 text-white bg-no-repeat pb-0 md:pb-48 xl:pb-0"
+      className="bg-hero overflow-hidden relative bg-[center_left_-20rem] sm:bg-cover sm:bg-left w-full min-h-screen h-full pt-32 lg:pt-36 text-white bg-no-repeat pb-24 md:pb-48 xl:pb-0"
     >
       <div className="z-30 w-full h-full flex flex-col xl:flex-row pr-0 pb-32 xl:pb-0">
         <div className="pt-4 flex w-full xl:w-[50%] flex-col justify-between space-y-10 pr-10 md:px-20 px-10">
@@ -72,7 +72,7 @@ export default function HeroSection(props: HeroSectionProps) {
         </div>
       </div>
 
-      <div className="absolute hidden md:block md:bottom-[-150px] xl:bottom-[-225px] 2xl:bottom-[-275px] left-1/2 transform -translate-x-1/2">
+      <div className="absolute bottom-[0px] md:bottom-[-100px] xl:bottom-[-225px] 2xl:bottom-[-275px] left-1/2 transform -translate-x-1/2">
         <Image
           className="animate-float w-full 2xl:w-[900px]"
           alt="floating-castle"
