@@ -40,7 +40,7 @@ const HeroICO = ({
           <h1 className="text-3xl font-bold text-center">{tokenName}</h1>
           {isPresaleEnded ? (
             <p className="text-base font-bold text-center mb-8">
-              ICO is Ended!
+              ICO has not started!
             </p>
           ) : (
             <p className="text-base font-bold text-center mb-8">ICO is Live!</p>

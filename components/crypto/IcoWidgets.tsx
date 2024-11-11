@@ -349,7 +349,7 @@ export default function IcoWidgets({
           </h1>
           {isPresaleEnded ? (
             <p className="text-base font-spaceMono font-bold text-center mb-8">
-              ICO is Ended!
+              ICO has not started!
             </p>
           ) : (
             <p className="text-base font-spaceMono font-bold text-center mb-8">
