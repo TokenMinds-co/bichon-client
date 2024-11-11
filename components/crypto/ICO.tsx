@@ -55,7 +55,7 @@ const ICO = () => {
   useEffect(() => {
     if (!userLoading) {
       if (
-        users?.length === 0 
+        users?.length === 0
         // ||
         // (users && users[0]?.kyc?.status !== "APPROVED")
       ) {
@@ -63,6 +63,10 @@ const ICO = () => {
       }
     }
   }, [userLoading, users]);
+
+  console.log("SOL", solprice?.Price);
+  console.log("USDC", usdcprice?.Price);
+  console.log("USDT", usdtprice?.Price);
 
   return (
     <div className="flex flex-col items-center justify-center w-full h-full space-y-2">
@@ -100,9 +104,7 @@ const ICO = () => {
         ) : (
           tokenDetails &&
           users &&
-          users.length !== 0 &&
-          users[0]?.kyc &&
-          users[0].kyc.status === "APPROVED" && (
+          users.length !== 0 && (
             <IcoWidgets
               currentPrice={currentICO.currentPrice}
               solprice={solprice?.Price ?? 0}

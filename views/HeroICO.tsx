@@ -97,7 +97,10 @@ const HeroICO = ({
           <div className="flex flex-row space-x-2 items-center justify-center font-jakarta">
             <p className="text-sm">Available to purchase</p>
             <p className="text-sm font-bold">
-              {displayFormatter(tokenRemain, tokenDecimal)} ${tokenTicker}
+              {tokenRemain % 1 === 0
+                ? displayFormatter(tokenRemain, 0)
+                : displayFormatter(tokenRemain, tokenDecimal)}{" "}
+              ${tokenTicker}
             </p>
           </div>
         )}

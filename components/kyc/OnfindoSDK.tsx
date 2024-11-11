@@ -43,13 +43,13 @@ export default function OnfindoSDK({ token, workflowRundId }: OnfindoSdkProps) {
           },
         },
         crossDeviceClientIntroProductLogoSrc:
-          "https://client-staging.bichondefender.io/_next/image?url=%2Fassets%2Fbichon.png&w=64&q=75",
+          "https://bichondefender.com/_next/image?url=%2Fassets%2Fbichon.png&w=64&q=75",
         enterpriseFeatures: {
           logoCobrand: {
             darkLogoSrc:
-              "https://client-staging.bichondefender.io/_next/image?url=%2Fassets%2Fbichon.png&w=64&q=75",
+              "https://bichondefender.com/_next/image?url=%2Fassets%2Fbichon.png&w=64&q=75",
             lightLogoSrc:
-              "https://client-staging.bichondefender.io/_next/image?url=%2Fassets%2Fbichon.png&w=64&q=75",
+              "https://bichondefender.com/_next/image?url=%2Fassets%2Fbichon.png&w=64&q=75",
           },
         },
       });

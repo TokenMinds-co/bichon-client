@@ -15,11 +15,21 @@ import { SolanaChain, useWallets } from "@particle-network/connectkit";
 import { useMemo } from "react";
 import { solanaDevnet } from "@particle-network/connectkit/chains";
 
+const NODE_ENV = process.env.NEXT_PUBLIC_NODE_ENV as
+  | "development"
+  | "production";
+const SOLANA_RPC_URL = process.env.NEXT_PUBLIC_SOLANA_RPC_URL!;
+
 export const useSPL = () => {
   const solanaConnection = new Connection(
-    solanaDevnet.rpcUrls.default.http[0],
+    NODE_ENV === "production"
+      ? SOLANA_RPC_URL
+      : solanaDevnet.rpcUrls.default.http[0],
     {
-      wsEndpoint: solanaDevnet.rpcUrls.default.http[0].replace("http", "ws"),
+      wsEndpoint:
+        NODE_ENV === "production"
+          ? SOLANA_RPC_URL.replace("http", "ws")
+          : solanaDevnet.rpcUrls.default.http[0].replace("http", "ws"),
     }
   );
 

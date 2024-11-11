@@ -34,10 +34,11 @@ export const metadata: Metadata = {
   creator: "TokenMinds",
   publisher: "TokenMinds",
   keywords: ["Solana", "Presale", "Bichon", "Defender"],
+  metadataBase: new URL("https://bichondefender.com"),
   openGraph: {
     title: "Bichon Defender",
     description: "Solana Presale Bichon Defender",
-    url: "https://bichondefender.io",
+    url: "https://bichondefender.com",
     locale: "en_US",
     type: "website",
     siteName: "Bichon Defender",

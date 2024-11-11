@@ -64,8 +64,10 @@ const IcoInfo = ({
             <div className="flex flex-row space-x-2 items-center justify-center">
               <p className="text-sm">Available to purchase </p>
               <p className="text-sm font-bold">
-                {displayFormatter(bichon_available, bichon_decimal)} $
-                {bichon_symbol}
+                {bichon_available % 1 === 0
+                  ? displayFormatter(bichon_available, 0)
+                  : displayFormatter(bichon_available, bichon_decimal)}{" "}
+                ${bichon_symbol}
               </p>
             </div>
           )}

@@ -5,7 +5,6 @@ import React, { useState } from "react";
 import SkewButton from "../shared/SkewButton";
 import Image from "next/image";
 import { generateAxiosInstance } from "@/lib/axios-client";
-// import StatusKYC from "./StatusKYC";
 import { toast } from "sonner";
 
 interface UserData {
@@ -46,7 +45,8 @@ const RenderKYC = ({ users, address }: RenderKYCProps) => {
 
     if (data.success) {
       toast.success("Registration success!");
-      router.push("/");
+      window.location.href = "/";
+      window.location.reload();
 
       // router.push(
       //   `/verify?email=${encodeURIComponent(
