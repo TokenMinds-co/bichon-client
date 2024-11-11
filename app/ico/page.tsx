@@ -22,7 +22,6 @@ export const metadata: Metadata = {
   },
   creator: "Tokenminds",
   publisher: "Tokenminds",
-  metadataBase: new URL("https://bichondefender.com"),
   openGraph: {
     type: "website",
     locale: "en_US",

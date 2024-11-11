@@ -34,7 +34,6 @@ export const metadata: Metadata = {
   creator: "TokenMinds",
   publisher: "TokenMinds",
   keywords: ["Solana", "Presale", "Bichon", "Defender"],
-  metadataBase: new URL("https://bichondefender.com"),
   openGraph: {
     title: "Bichon Defender",
     description: "Solana Presale Bichon Defender",
