@@ -64,10 +64,6 @@ const ICO = () => {
     }
   }, [userLoading, users]);
 
-  console.log("SOL", solprice?.Price);
-  console.log("USDC", usdcprice?.Price);
-  console.log("USDT", usdtprice?.Price);
-
   return (
     <div className="flex flex-col items-center justify-center w-full h-full space-y-2">
       <div className="flex flex-col space-y-5 w-full h-full items-center justify-center">
