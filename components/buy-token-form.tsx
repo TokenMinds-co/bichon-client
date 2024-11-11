@@ -83,7 +83,7 @@ export default function BuyTokenForm() {
         Wallet address is not verified! <br />
         Verify your account first to start buying token.
       </div>
-      <Link href="/kyc">
+      <Link href="/register">
         <Button className="text-white text-sm underline">
           Go to Verify Page
         </Button>
