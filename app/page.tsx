@@ -13,9 +13,7 @@ export default async function Home() {
   const { data: tokenRes } = await axiosInstance.get("/token");
   const ico = icoRes.data as IcoResponse;
   const token = tokenRes.data as TokenDetailsResponse;
-
-  console.log(ico);
-  console.log(token);
+  console.log("ICO", ico?.currentPrice);
 
   if (!ico || !token) {
     return (

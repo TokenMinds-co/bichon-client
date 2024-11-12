@@ -11,9 +11,7 @@ export default async function KYCPage() {
   const { data: tokenRes } = await axiosInstance.get("/token");
   const ico = icoRes.data as IcoResponse;
   const token = tokenRes.data as TokenDetailsResponse;
-
-  console.log(ico);
-  console.log(token);
+  console.log("ICO", ico?.currentPrice);
 
   if (!ico || !token) {
     return (
@@ -22,7 +20,7 @@ export default async function KYCPage() {
           Presale is not available at the moment.
         </h3>
 
-        <Link href="/support">
+        <Link href="mailto:support@bichondefender.com">
           <SkewButton type="button" customClasses="skew-buy-widgets">
             Contact Support
           </SkewButton>
