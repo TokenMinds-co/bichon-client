@@ -4,6 +4,8 @@ import { axiosInstance } from "@/lib/axios";
 import Link from "next/link";
 import React from "react";
 
+export const dynamic = "force-dynamic";
+
 export default async function KYCPage() {
   const { data: icoRes } = await axiosInstance.get("/ico/current");
   const { data: tokenRes } = await axiosInstance.get("/token");
