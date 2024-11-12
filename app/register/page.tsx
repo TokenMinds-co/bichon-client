@@ -12,6 +12,9 @@ export default async function KYCPage() {
   const ico = icoRes.data as IcoResponse;
   const token = tokenRes.data as TokenDetailsResponse;
 
+  console.log(ico);
+  console.log(token);
+
   if (!ico || !token) {
     return (
       <main className="flex flex-col space-y-5 items-center justify-center bg-sky min-h-screen">
