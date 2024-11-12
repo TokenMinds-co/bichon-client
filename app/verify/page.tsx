@@ -5,6 +5,8 @@ import Link from "next/link";
 import SkewButton from "@/components/shared/SkewButton";
 import OnfindoSDK from "@/components/kyc/OnfindoSDK";
 
+export const dynamic = "force-dynamic";
+
 const VerifyPage = async ({ searchParams }: URLProps) => {
   const email = searchParams.email;
   const address = searchParams.address;

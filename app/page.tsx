@@ -6,11 +6,14 @@ import SaturnSection from "@/views/SaturnSection";
 import FAQSection from "@/views/FAQSection";
 import RoadmapSection from "@/views/RoadmapSection";
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const { data: icoRes } = await axiosInstance.get("/ico/current");
   const { data: tokenRes } = await axiosInstance.get("/token");
   const ico = icoRes.data as IcoResponse;
   const token = tokenRes.data as TokenDetailsResponse;
+  console.log("ICO", ico?.currentPrice);
 
   if (!ico || !token) {
     return (

@@ -30,6 +30,8 @@ export const metadata: Metadata = {
   },
 };
 
+export const dynamic = "force-dynamic";
+
 const TicketSupportPage = () => {
   return (
     <main className="flex flex-col space-y-5 w-full h-full items-center justify-center bg-sky min-h-screen">
