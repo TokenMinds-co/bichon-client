@@ -56,7 +56,6 @@ export default function Overview() {
               <div className="text-3xl font-extrabold text-white">
                 {balance || 0} SOL
               </div>
-              
               <p className="text-sm text-purple-200 mt-1">
                 Amount of available solana token
               </p>
