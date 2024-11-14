@@ -1,0 +1,8 @@
+User-Agent: *
+Allow: /
+Disallow: /ico
+Disallow: /kyc
+Disallow: /dashboard
+Disallow: /support
+
+Sitemap: https://bichondefender.com/sitemap.xml
