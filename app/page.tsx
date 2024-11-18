@@ -3,7 +3,7 @@ import CastleSection from "@/views/CastleSection";
 import EarthSection from "@/views/EarthSection";
 import HeroSection from "@/views/HeroSection";
 import SaturnSection from "@/views/SaturnSection";
-import FAQSection from "@/views/FAQSection";
+// import FAQSection from "@/views/FAQSection";
 import RoadmapSection from "@/views/RoadmapSection";
 
 export const dynamic = "force-dynamic";
