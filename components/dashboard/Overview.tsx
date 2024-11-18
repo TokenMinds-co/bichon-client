@@ -56,7 +56,7 @@ export default function Overview() {
               <div className="text-3xl font-extrabold text-white">
                 {balance || 0} SOL
               </div>
-              <p className="text-sm mt-2 text-purple-200 mt-1">
+              <p className="text-sm mt-2 text-purple-200">
                 Amount of available solana token
               </p>
             </div>
@@ -80,7 +80,7 @@ export default function Overview() {
                 {overview?.totalToken || 0} {tokenDetails?.ticker || "BDF"}{" "}
                 <span className="ml-4 text-base font-normal text-white/75">+2% bonus reward</span>
               </div>
-              <p className="text-sm mt-2 text-green-200 mt-1">
+              <p className="text-sm mt-2 text-green-200">
                 Amount of token bought on presale
               </p>
             </div>
@@ -103,7 +103,7 @@ export default function Overview() {
               <div className="text-3xl font-extrabold text-white">
                 ${overview?.tokenPrice || 0}
               </div>
-              <p className="text-sm mt-2 text-pink-200 mt-1">
+              <p className="text-sm mt-2 text-pink-200">
                 Token price on current batch
               </p>
             </div>
