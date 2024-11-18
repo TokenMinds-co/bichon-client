@@ -43,17 +43,17 @@ export default function Dashboard() {
     enabled: !!address,
   });
 
-  // useEffect(() => {
-  //   if (!isLoading) {
-  //     if (
-  //       users?.length === 0
-  //       // ||
-  //       // (users && users[0]?.kyc?.status !== "APPROVED")
-  //     ) {
-  //       redirect("/register");
-  //     }
-  //   }
-  // }, [isLoading, users]);
+  useEffect(() => {
+    if (!isLoading) {
+      if (
+        users?.length === 0
+        // ||
+        // (users && users[0]?.kyc?.status !== "APPROVED")
+      ) {
+        redirect("/register");
+      }
+    }
+  }, [isLoading, users]);
 
   return !isConnected ? (
     <div className="absolute h-screen w-full flex items-center justify-center">
@@ -64,8 +64,8 @@ export default function Dashboard() {
       <Loader size="50" />
     </div>
   ) : (
-    // users &&
-    // users.length !== 0 && (
+    users &&
+    users.length !== 0 && (
       <div className="flex flex-col pb-8 pt-24 container mx-auto px-5 md:px-0">
         <div className="flex flex-row justify-between items-center mb-8">
           <h1 className="text-3xl font-bold text-white">User Dashboard</h1>
@@ -84,6 +84,6 @@ export default function Dashboard() {
           totalPages={transactions?.metadata?.totalPage || 0}
         />
       </div>
-    // )
+    )
   );
 }
