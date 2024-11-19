@@ -11,7 +11,6 @@ export default async function KYCPage() {
   const { data: tokenRes } = await axiosInstance.get("/token");
   const ico = icoRes.data as IcoResponse;
   const token = tokenRes.data as TokenDetailsResponse;
-  console.log("ICO", ico?.currentPrice);
 
   if (!ico || !token) {
     return (

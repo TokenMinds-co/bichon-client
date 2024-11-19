@@ -92,7 +92,9 @@ const ICO = () => {
               ticker: tokenDetails?.ticker ?? "BDF",
               totalRaised: tokenDetails?.totalRaised ?? 0,
               totalSupply: tokenDetails?.totalSupply ?? 0,
-              treasury: tokenDetails?.treasury ?? "0",
+              solanaTreasury: tokenDetails?.solanaTreasury ?? "0x",
+              usdcTreasury: tokenDetails?.usdcTreasury ?? "0x",
+              usdtTreasury: tokenDetails?.usdtTreasury ?? "0x",
               updatedAt: tokenDetails?.updatedAt ?? new Date().toISOString(),
               validUntil: tokenDetails?.validUntil ?? new Date().toISOString(),
             }}
