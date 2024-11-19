@@ -193,7 +193,9 @@ declare global {
     id: string;
     name: string;
     ticker: string;
-    treasury: string;
+    solanaTreasury: string;
+    usdtTreasury: string;
+    usdcTreasury: string;
     decimal: number;
     totalSupply: number;
     createdAt: string;

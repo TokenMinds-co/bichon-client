@@ -235,18 +235,18 @@ export default function IcoWidgets({
 
       if (activeMethod === "CRYPTO_SOLANA") {
         hash = await buyViaSOL(
-          tokenDetails.treasury,
+          tokenDetails.solanaTreasury,
           Math.ceil(Number(buyDetails.amount) * LAMPORTS_PER_SOL)
         );
       } else if (activeMethod === "CRYPTO_USDC") {
         hash = await buyViaSPL(
-          tokenDetails.treasury,
+          tokenDetails.usdcTreasury,
           tokenState.address,
           Math.ceil(Number(buyDetails.amount) * 10 ** tokenState.decimals)
         );
       } else if (activeMethod === "CRYPTO_USDT") {
         hash = await buyViaSPL(
-          tokenDetails.treasury,
+          tokenDetails.usdtTreasury,
           tokenState.address,
           Math.ceil(Number(buyDetails.amount) * 10 ** tokenState.decimals)
         );

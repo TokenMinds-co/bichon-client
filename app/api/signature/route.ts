@@ -7,7 +7,7 @@ export async function POST(request: Request) {
     const signature = generateSignature({ method, url, timestamp, body });
     return Response.json(signature);
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return Response.json(null);
   }
 }
