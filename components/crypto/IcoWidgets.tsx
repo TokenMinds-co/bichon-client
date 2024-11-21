@@ -375,7 +375,7 @@ export default function IcoWidgets({
 
         {!isPresaleEnded && (
           <>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 font-spaceMono font-bold">
+            <div className="grid grid-cols-2 md:grid-cols-2 gap-2 font-spaceMono font-bold">
               <IcoMethod
                 src="/assets/icons/solana.svg"
                 label="SOL"
@@ -383,7 +383,7 @@ export default function IcoWidgets({
                 handleClick={handleMethod}
                 active={activeMethod}
               />
-
+              {/* 
               <IcoMethod
                 src="/assets/icons/usdt.svg"
                 label="USDT"
@@ -398,7 +398,7 @@ export default function IcoWidgets({
                 method="CRYPTO_USDC"
                 handleClick={handleMethod}
                 active={activeMethod}
-              />
+              /> */}
 
               <IcoMethod
                 src=""
