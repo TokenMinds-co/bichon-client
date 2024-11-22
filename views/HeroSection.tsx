@@ -4,8 +4,6 @@ import HeroICO from "./HeroICO";
 import BgOverlayBottom from "@/components/shared/BgOverlayBottom";
 import Image from "next/image";
 import Link from "next/link";
-import Reminder from "@/components/shared/Reminder";
-
 interface HeroSectionProps {
   tokenName: string;
   tokenDecimal: number;
@@ -23,7 +21,6 @@ export default function HeroSection(props: HeroSectionProps) {
       id="home"
       className="bg-hero overflow-hidden relative bg-cover bg-[center_left_-35rem] sm:bg-cover sm:bg-left w-full min-h-screen h-full pt-32 lg:pt-36 text-white bg-no-repeat pb-24 md:pb-48 xl:pb-0"
     >
-      <Reminder />
       <div className="z-30 w-full h-full flex flex-col xl:flex-row pr-0 pb-32 xl:pb-0">
         <div className="pt-4 flex w-full xl:w-[50%] flex-col justify-between space-y-10 pr-10 md:px-20 px-10">
           <div className="flex flex-col lg:flex-row items-start justify-between space-y-5 lg:space-y-0">

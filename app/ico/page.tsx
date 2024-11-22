@@ -1,4 +1,5 @@
 import ICO from "@/components/crypto/ICO";
+import Reminder from "@/components/shared/Reminder";
 import { Metadata } from "next";
 import React from "react";
 
@@ -35,6 +36,7 @@ export const metadata: Metadata = {
 const CryptoPaymentPage = async () => {
   return (
     <main className="flex flex-col space-y-5 w-full h-full items-center justify-center bg-sky min-h-screen">
+      <Reminder />
       <ICO />
     </main>
   );
