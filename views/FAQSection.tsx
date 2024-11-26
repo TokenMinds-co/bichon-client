@@ -11,17 +11,14 @@ import React from "react";
 export default function FAQSection() {
   const faqs = [
     {
-      title: "Lorem ipsum dolor sit amet consectetur. Sagittis id.",
-      desc: "Lorem ipsum dolor sit amet consectetur. In augue ipsum tellus ultrices. Ac pharetra ultrices consectetur consequat tellus massa. Nec aliquam cras sagittis duis sed euismod arcu hac. Ornare amet ligula ornare lacus aliquam aenean. Eu lacus imperdiet urna amet congue ",
+      title: "Staking APY & Compound Interest",
+      desc: "Bichon Defenders staking program offers a 289% APY, compounded semi-annually. This high yield encourages long-term holding, with rewards growing exponentially over the staking period",
     },
     {
-      title: "Lorem ipsum dolor sit amet consectetur. Sagittis id.",
-      desc: "Lorem ipsum dolor sit amet consectetur. In augue ipsum tellus ultrices. Ac pharetra ultrices consectetur consequat tellus massa. Nec aliquam cras sagittis duis sed euismod arcu hac. Ornare amet ligula ornare lacus aliquam aenean. Eu lacus imperdiet urna amet congue ",
+      title: "Estimated Example Scenario with 1000 Tokens",
+      desc: "If a community member purchases 1000 BDF tokens and stakes them, with an APY of 289% compounded semi-annually, they will earn approximately 5978.03 BDF tokens after 12 months",
     },
-    {
-      title: "Lorem ipsum dolor sit amet consectetur. Sagittis id.",
-      desc: "Lorem ipsum dolor sit amet consectetur. In augue ipsum tellus ultrices. Ac pharetra ultrices consectetur consequat tellus massa. Nec aliquam cras sagittis duis sed euismod arcu hac. Ornare amet ligula ornare lacus aliquam aenean. Eu lacus imperdiet urna amet congue ",
-    },
+   
   ];
 
   return (
@@ -36,7 +33,7 @@ export default function FAQSection() {
           data-aos="fade-down"
           className="text-4xl sm:text-5xl md:text-6xl xl:text-7xl text-center"
         >
-          FAQ
+           Staking
         </h1>
 
         <div className="flex  md:w-full flex-row gap-5 sm:gap-10 flex-wrap items-center justify-center">
