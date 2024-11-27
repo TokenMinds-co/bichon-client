@@ -28,10 +28,11 @@ export default async function Home() {
           totalRaised={token?.totalRaised ?? 0}
           validUntil={new Date().toISOString()}
         />
+        <FAQSection />
         <CastleSection />
         <SaturnSection />
         <RoadmapSection />
-        <FAQSection />
+
         <EarthSection />
       </div>
     );
@@ -49,10 +50,11 @@ export default async function Home() {
         totalRaised={ico.raisedAmount}
         validUntil={ico.validUntil}
       />
+      <FAQSection />
       <CastleSection />
       <SaturnSection />
       <RoadmapSection />
-      <FAQSection />
+
       <EarthSection />
     </div>
   );
