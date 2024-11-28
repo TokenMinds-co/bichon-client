@@ -6,6 +6,7 @@ import SaturnSection from "@/views/SaturnSection";
 // import FAQSection from "@/views/FAQSection";
 import RoadmapSection from "@/views/RoadmapSection";
 import FAQSection from "@/views/FAQSection";
+import TeamSection from "@/views/TeamSection";
 
 export const dynamic = "force-dynamic";
 
@@ -32,7 +33,7 @@ export default async function Home() {
         <CastleSection />
         <SaturnSection />
         <RoadmapSection />
-
+        <TeamSection />
         <EarthSection />
       </div>
     );
@@ -54,7 +55,7 @@ export default async function Home() {
       <CastleSection />
       <SaturnSection />
       <RoadmapSection />
-
+      <TeamSection />
       <EarthSection />
     </div>
   );

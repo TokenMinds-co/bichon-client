@@ -77,4 +77,23 @@ declare global {
       };
     };
   }
+
+  interface TeamMemberCardProps {
+    index: number;
+    selected: string;
+    setSelected: React.Dispatch<React.SetStateAction<string>>;
+    member: Member;
+  }
+
+  interface SeeMoreDetailProps {
+    member: Member;
+  }
+
+  interface Member {
+    name: string;
+    position: string;
+    imageUrl: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    description: any;
+  }
 }

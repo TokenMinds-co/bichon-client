@@ -99,6 +99,10 @@
   clip-path: polygon(0 0, 92.5% 0, 100% 7.5%, 100% 100%, 7.5% 100%, 0 92.5%);
 }
 
+.skew-profile {
+  clip-path: polygon(15% 0, 100% 0, 100% 100%, 0 100%, 0 10%);
+}
+
 .skew-buy-widgets {
   clip-path: polygon(0 0, 97.5% 0, 100% 20%, 100% 100%, 2.5% 100%, 0 80%);
 }
