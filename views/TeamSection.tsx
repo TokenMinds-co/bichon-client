@@ -11,7 +11,7 @@ export default function TeamSection() {
 
   return (
     <section
-      id="roadmap"
+      id="team"
       className="relative w-full bg-right-top min-h-screen flex flex-col scroll-mt-28"
     >
       <BgOverlayTop />

@@ -23,7 +23,7 @@ export default function FAQSection() {
 
   return (
     <section
-      id="faq"
+      id="staking"
       className="relative bg-faq bg-top bg-cover w-full min-h-screen text-white flex justify-center items-center"
     >
       <BgOverlayTop />

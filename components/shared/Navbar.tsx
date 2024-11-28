@@ -16,14 +16,19 @@ const Navbar = () => {
       name: "HOME",
       href: "/#home",
     },
+    // {
+    //   name: "STAKING",
+    //   href: "/#staking",
+    // },
     {
       name: "ROADMAP",
       href: "/#roadmap ",
     },
-    // {
-    //   name: "FAQ",
-    //   href: "/#faq",
-    // },
+
+    {
+      name: "TEAM",
+      href: "/#team ",
+    },
     {
       name: "WHITEPAPER",
       href: "https://bichondefender.gitbook.io/bichondefender-docs",

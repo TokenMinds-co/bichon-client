@@ -2,7 +2,7 @@ export const teamMembers = [
   {
     name: "Bobby Lee",
     position: "CEO of Bichon Defender",
-    imageUrl: "/assets/teams/member.png",
+    imageUrl: "/assets/teams/Bobby.jpg",
     description: (
       <div className="flex flex-col gap-3 text-sm">
         <p>
@@ -41,7 +41,7 @@ export const teamMembers = [
   {
     name: "Showtime",
     position: "Creative Artist",
-    imageUrl: "/assets/teams/member.png",
+    imageUrl: "/assets/teams/Showtime.jpg",
     description: (
       <div className="flex flex-col gap-3 text-sm">
         <p>
@@ -59,7 +59,7 @@ export const teamMembers = [
   {
     name: "Tawny",
     position: "Project Executive Staff Groomer",
-    imageUrl: "/assets/teams/member.png",
+    imageUrl: "/assets/teams/Tawny.jpg",
     description: (
       <div className="flex flex-col gap-3 text-sm">
         <p>
@@ -74,7 +74,7 @@ export const teamMembers = [
   {
     name: "Shaunie J",
     position: "Multifaceted Creative & Humanitarian",
-    imageUrl: "/assets/teams/member.png",
+    imageUrl: "/assets/teams/Shaunie.jpg",
     description: (
       <div className="flex flex-col gap-3 text-sm">
         <p>
@@ -94,42 +94,9 @@ export const teamMembers = [
     ),
   },
   {
-    name: "Gary",
-    position: "Start-up Specialist",
-    imageUrl: "/assets/teams/member.png",
-    description: (
-      <div className="flex flex-col gap-3 text-sm">
-        <p>
-          Gary is a start-up specialist with over six years of experience
-          working closely with founders to transform innovative ideas into
-          market-ready products. With a strong focus on AI-driven solutions, he
-          pushes the boundaries of what technology can achieve, delivering
-          products that create tangible value rather than just superficial
-          features. His expertise lies in developing robust, secure, and
-          scalable solutions at an accelerated pace by leveraging automated QA
-          processes and lean start-up methodologies.
-        </p>
-
-        <p>
-          Gary brings extensive technical expertise in the MERN stack (MongoDB,
-          Express, React, Node.js) and serverless architectures, alongside
-          proficiency in Static Site Generation (SSG) and Server-Side Rendering
-          (SSR) using tools like Gatsby and NextJS.
-        </p>
-
-        <p>
-          Gary&apos;s ability to rapidly deliver secure, scalable, and
-          maintainable solutions makes him an invaluable asset to any start-up
-          team, especially those looking to innovate and disrupt their
-          industries with cutting-edge products.
-        </p>
-      </div>
-    ),
-  },
-  {
     name: "Hayk ",
     position: "Full-stack Software Developer",
-    imageUrl: "/assets/teams/member.png",
+    imageUrl: "/assets/teams/Hayk.jpg",
     description: (
       <div className="flex flex-col gap-3 text-sm">
         <p>
@@ -171,4 +138,38 @@ export const teamMembers = [
       </div>
     ),
   },
+  {
+    name: "Gary",
+    position: "Start-up Specialist",
+    imageUrl: "/assets/teams/Gary.jpg",
+    description: (
+      <div className="flex flex-col gap-3 text-sm">
+        <p>
+          Gary is a start-up specialist with over six years of experience
+          working closely with founders to transform innovative ideas into
+          market-ready products. With a strong focus on AI-driven solutions, he
+          pushes the boundaries of what technology can achieve, delivering
+          products that create tangible value rather than just superficial
+          features. His expertise lies in developing robust, secure, and
+          scalable solutions at an accelerated pace by leveraging automated QA
+          processes and lean start-up methodologies.
+        </p>
+
+        <p>
+          Gary brings extensive technical expertise in the MERN stack (MongoDB,
+          Express, React, Node.js) and serverless architectures, alongside
+          proficiency in Static Site Generation (SSG) and Server-Side Rendering
+          (SSR) using tools like Gatsby and NextJS.
+        </p>
+
+        <p>
+          Gary&apos;s ability to rapidly deliver secure, scalable, and
+          maintainable solutions makes him an invaluable asset to any start-up
+          team, especially those looking to innovate and disrupt their
+          industries with cutting-edge products.
+        </p>
+      </div>
+    ),
+  },
+  
 ];
