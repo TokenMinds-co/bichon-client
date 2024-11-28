@@ -32,7 +32,7 @@ export const teamMembers = [
 
         <p>
           Beyond his professional endeavors, Bobby is an avid traveler and a
-          lifetime Gold member of the American Airlines AAdvantage program,
+          lifetime Gold member of the American Airlines Advantage program,
           reflecting his appreciation for global perspectives and experiences
         </p>
       </div>

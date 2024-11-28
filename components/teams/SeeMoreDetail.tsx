@@ -21,7 +21,7 @@ const SeeMoreDetail = ({ member }: SeeMoreDetailProps) => {
         <MoreHorizontal className="h-4 w-4" />
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-[40%] bg-[#000A19] border-gray-400/50 text-white">
+      <DialogContent className="bg-[#000A19] max-w-[90%] xl:max-w-[50%] 2xl:max-w-[40%] border-gray-400/50 text-white">
         <DialogHeader className="flex flex-row gap-4 items-center">
           <Image
             src={member.imageUrl}
