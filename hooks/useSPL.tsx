@@ -145,16 +145,28 @@ export const useSPL = () => {
       tx.recentBlockhash = blockhash;
       tx.lastValidBlockHeight = lastValidBlockHeight;
       tx.feePayer = solanaWallet.publicKey;
-
       const transactionResponse = await solanaWallet.signTransaction(tx);
-      // console.log("Transaction sent:", transactionResponse);
-      console.log("Broadcasting transaction...");
-      const hash = await solanaConnection.sendRawTransaction(
-        transactionResponse.serialize()
-      );
-      // await solanaConnection.confirmTransaction(hash, "finalized");
-      console.log("Transaction hash:", hash);
-      return hash;
+
+      flag = true;
+      count = 0;
+
+      while (flag) {
+        try {
+          console.log("Broadcasting transaction...", count);
+          const hash = await solanaConnection.sendRawTransaction(
+            transactionResponse.serialize(),
+            {
+              skipPreflight: true,
+            }
+          );
+          flag = false;
+          console.log("Transaction hash:", hash);
+          return hash;
+        } catch (e) {
+          console.log("fail,", ++count);
+        }
+        await delay(200);
+      }
     } catch (error) {
       console.error("Transaction failed:", error);
       return null;
@@ -189,7 +201,7 @@ export const useSPL = () => {
       while (flag) {
         try {
           const latestBlockhash = await solanaConnection.getLatestBlockhash({
-            commitment: "finalized",
+            commitment: "confirmed",
           });
           blockhash = latestBlockhash.blockhash;
           lastValidBlockHeight = latestBlockhash.lastValidBlockHeight - 150;
@@ -204,14 +216,27 @@ export const useSPL = () => {
       tx.lastValidBlockHeight = lastValidBlockHeight;
       tx.feePayer = solanaWallet.publicKey;
       const transactionResponse = await solanaWallet.signTransaction(tx);
-      console.log("Broadcasting transaction...");
-      const hash = await solanaConnection.sendRawTransaction(
-        transactionResponse.serialize()
-      );
 
-      // await solanaConnection.confirmTransaction(hash, "finalized");
-      console.log("Transaction hash:", hash);
-      return hash;
+      flag = true;
+      count = 0;
+
+      while (flag) {
+        try {
+          console.log("Broadcasting transaction...", count);
+          const hash = await solanaConnection.sendRawTransaction(
+            transactionResponse.serialize(),
+            {
+              skipPreflight: true,
+            }
+          );
+          flag = false;
+          console.log("Transaction hash:", hash);
+          return hash;
+        } catch (e) {
+          console.log("fail,", ++count);
+        }
+        await delay(200);
+      }
     } catch (error) {
       console.error("Transaction failed:", error);
       return null;
