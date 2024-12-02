@@ -34,25 +34,32 @@ const RenderKYC = ({ users, address }: RenderKYCProps) => {
     e.preventDefault();
     const currentAddress = address;
 
-    // GENERATE USER
-    const axiosInstance = await generateAxiosInstance(undefined);
-    const { data } = await axiosInstance.post(`/users`, {
-      firstName: userData.firstName,
-      lastName: userData.lastName,
-      email: userData.email,
-      address: currentAddress,
-    });
+    try {
+      // GENERATE USER
+      const axiosInstance = await generateAxiosInstance(undefined);
+      const { data } = await axiosInstance.post(`/users`, {
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        email: userData.email,
+        address: currentAddress,
+      });
 
-    if (data.success) {
-      toast.success("Registration success!");
-      window.location.href = "/";
-      window.location.reload();
+      if (data.success) {
+        toast.success("Registration success!");
+        window.location.href = "/";
+        window.location.reload();
 
-      // router.push(
-      //   `/verify?email=${encodeURIComponent(
-      //     userData.email
-      //   )}&address=${currentAddress}`
-      // );
+        // router.push(
+        //   `/verify?email=${encodeURIComponent(
+        //     userData.email
+        //   )}&address=${currentAddress}`
+        // );
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to register user");
+    } finally {
+      setSubmitting(false);
     }
   };
 
