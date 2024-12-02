@@ -140,7 +140,7 @@ export default function IcoWidgets({
     let balance = 0;
     setIsFetchingBalance(true);
     if (method === "CRYPTO_SOLANA") {
-      balance = await getSOLBalance();
+      balance = (await getSOLBalance()) as number;
       pricePer1BCH = Number(
         displayFormatter(
           currentPrice / solprice,
