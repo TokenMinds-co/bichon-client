@@ -63,7 +63,8 @@ export const useSPL = () => {
         flag = false;
         return balance / LAMPORTS_PER_SOL;
       } catch (e) {
-        console.log("fail,", ++count);
+        ++count;
+        console.log("fail,", count);
       }
       await delay(200);
     }
@@ -137,7 +138,8 @@ export const useSPL = () => {
           lastValidBlockHeight = latestBlockhash.lastValidBlockHeight - 150;
           flag = false;
         } catch (e) {
-          console.log("fail,", ++count);
+          ++count;
+          console.log("fail,", count);
         }
         await delay(200);
       }
@@ -152,7 +154,7 @@ export const useSPL = () => {
 
       while (flag) {
         try {
-          console.log("Broadcasting transaction...", count);
+          // console.log("Broadcasting transaction...", count);
           const hash = await solanaConnection.sendRawTransaction(
             transactionResponse.serialize(),
             {
@@ -161,9 +163,11 @@ export const useSPL = () => {
           );
           flag = false;
           console.log("Transaction hash:", hash);
+          // await solanaConnection.confirmTransaction(hash, "finalized");
           return hash;
         } catch (e) {
-          console.log("fail,", ++count);
+          ++count;
+          console.log("fail,", count);
         }
         await delay(200);
       }
@@ -207,7 +211,8 @@ export const useSPL = () => {
           lastValidBlockHeight = latestBlockhash.lastValidBlockHeight - 150;
           flag = false;
         } catch (e) {
-          console.log("fail,", ++count);
+          ++count;
+          console.log("fail,", count);
         }
         await delay(200);
       }
@@ -222,7 +227,7 @@ export const useSPL = () => {
 
       while (flag) {
         try {
-          console.log("Broadcasting transaction...", count);
+          // console.log("Broadcasting transaction...", count);
           const hash = await solanaConnection.sendRawTransaction(
             transactionResponse.serialize(),
             {
@@ -233,7 +238,8 @@ export const useSPL = () => {
           console.log("Transaction hash:", hash);
           return hash;
         } catch (e) {
-          console.log("fail,", ++count);
+          ++count;
+          console.log("fail,", count);
         }
         await delay(200);
       }
