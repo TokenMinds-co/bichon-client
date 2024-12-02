@@ -171,5 +171,35 @@ export const teamMembers = [
       </div>
     ),
   },
-  
+  {
+    name: "Lissette",
+    position: "Chief Financial Officer",
+    imageUrl: "/assets/teams/Liss.jpg",
+    description: (
+      <div className="flex flex-col gap-3 text-sm">
+        <p>
+          Lissette is an accomplished Chief Financial Officer with over nine
+          years of experience in financial management and strategic planning,
+          specializing in the cryptocurrency and blockchain sectors. She has a
+          proven track record of leading financial operations, securing
+          substantial funding, and ensuring regulatory compliance for innovative
+          tech startups. Her expertise includes developing and launching
+          proprietary cryptocurrencies, implementing robust financial controls,
+          and fostering cross-functional collaboration to drive financial growth
+          and operational efficiency in rapidly evolving markets.
+        </p>
+
+        <p>
+          With an MBA in Finance and a Bachelor&apos;s degree in Accounting,
+          Lissette is also a Certified Public Accountant (CPA) and Chartered
+          Financial Analyst (CFA). Her leadership and strategic vision have been
+          instrumental in achieving significant revenue growth and operational
+          scalability for the organizations she has served. By combining
+          technical expertise with a forward-thinking approach, Lissette has
+          consistently delivered impactful results, helping businesses thrive in
+          competitive and dynamic environments.
+        </p>
+      </div>
+    ),
+  },
 ];

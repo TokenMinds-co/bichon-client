@@ -31,7 +31,7 @@ export default function TeamSection() {
           OUR TEAM
         </h1>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-20 place-items-center justify-between mt-24 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-20 place-items-center justify-items-center justify-between mt-24 max-w-7xl mx-auto">
           {teamMembers.map((member, index) => {
             return (
               <TeamMemberCard

@@ -12,7 +12,7 @@ export default function TeamMemberCard({
     <div
       data-aos="fade-left"
       data-aos-delay={`${index * 200}`}
-      className="w-[325px] cursor-pointer"
+      className={`w-[325px] cursor-pointer ${index == 6 && "col-span-1 lg:col-span-2 xl:col-span-3"}`}
       onClick={() => {
         setSelected(member.name);
       }}
