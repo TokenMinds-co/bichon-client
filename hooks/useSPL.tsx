@@ -15,13 +15,13 @@ import {
 import { SolanaChain, useWallets } from "@particle-network/connectkit";
 import { useMemo } from "react";
 import { solanaDevnet } from "@particle-network/connectkit/chains";
+import { delay } from "@/lib/utils";
 
 const NODE_ENV = process.env.NEXT_PUBLIC_NODE_ENV as
   | "development"
   | "production";
 const SOLANA_RPC_URL = process.env.NEXT_PUBLIC_SOLANA_RPC_URL!;
 
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 export const useSPL = () => {
   const solanaConnection = new Connection(
     NODE_ENV === "production"
@@ -64,9 +64,9 @@ export const useSPL = () => {
         return balance / LAMPORTS_PER_SOL;
       } catch (e) {
         ++count;
-        console.log("fail,", count);
+        console.log("getBalance,", count);
+        await delay(200);
       }
-      await delay(200);
     }
   };
 
@@ -139,7 +139,7 @@ export const useSPL = () => {
           flag = false;
         } catch (e) {
           ++count;
-          console.log("fail,", count);
+          console.log("getLatestBlockhash,", count);
         }
         await delay(200);
       }
@@ -147,30 +147,30 @@ export const useSPL = () => {
       tx.recentBlockhash = blockhash;
       tx.lastValidBlockHeight = lastValidBlockHeight;
       tx.feePayer = solanaWallet.publicKey;
-      const transactionResponse = await solanaWallet.signTransaction(tx);
+      const transactionResponse = await solanaWallet.sendTransaction(tx, {
+        maxRetries: 10,
+        skipPreflight: true,
+      });
+      const hash = transactionResponse.signature;
+      console.log("Transaction hash:", hash);
 
       flag = true;
       count = 0;
-
       while (flag) {
         try {
-          // console.log("Broadcasting transaction...", count);
-          const hash = await solanaConnection.sendRawTransaction(
-            transactionResponse.serialize(),
-            {
-              skipPreflight: true,
-            }
-          );
-          flag = false;
-          console.log("Transaction hash:", hash);
-          // await solanaConnection.confirmTransaction(hash, "finalized");
-          return hash;
-        } catch (e) {
+          const txResult = await solanaConnection.getTransaction(hash, {
+            commitment: "finalized",
+            maxSupportedTransactionVersion: 1,
+          });
+          if (txResult !== null) flag = false;
+        } catch (error) {
           ++count;
-          console.log("fail,", count);
+          console.log("confirming,", count);
+          await delay(200);
         }
-        await delay(200);
       }
+
+      return hash;
     } catch (error) {
       console.error("Transaction failed:", error);
       return null;
@@ -193,7 +193,12 @@ export const useSPL = () => {
       )
       .add(
         ComputeBudgetProgram.setComputeUnitPrice({
-          microLamports: 1000000,
+          microLamports: 9000,
+        })
+      )
+      .add(
+        ComputeBudgetProgram.setComputeUnitLimit({
+          units: 2000000,
         })
       );
 
@@ -205,14 +210,14 @@ export const useSPL = () => {
       while (flag) {
         try {
           const latestBlockhash = await solanaConnection.getLatestBlockhash({
-            commitment: "confirmed",
+            commitment: "finalized",
           });
           blockhash = latestBlockhash.blockhash;
           lastValidBlockHeight = latestBlockhash.lastValidBlockHeight - 150;
           flag = false;
         } catch (e) {
           ++count;
-          console.log("fail,", count);
+          console.log("getLatestBlockhash,", count);
         }
         await delay(200);
       }
@@ -220,29 +225,30 @@ export const useSPL = () => {
       tx.recentBlockhash = blockhash;
       tx.lastValidBlockHeight = lastValidBlockHeight;
       tx.feePayer = solanaWallet.publicKey;
-      const transactionResponse = await solanaWallet.signTransaction(tx);
+      const transactionResponse = await solanaWallet.sendTransaction(tx, {
+        maxRetries: 10,
+        skipPreflight: true,
+      });
+      const hash = transactionResponse.signature;
+      console.log("Transaction hash:", hash);
 
       flag = true;
       count = 0;
-
       while (flag) {
         try {
-          // console.log("Broadcasting transaction...", count);
-          const hash = await solanaConnection.sendRawTransaction(
-            transactionResponse.serialize(),
-            {
-              skipPreflight: true,
-            }
-          );
-          flag = false;
-          console.log("Transaction hash:", hash);
-          return hash;
-        } catch (e) {
+          const txResult = await solanaConnection.getTransaction(hash, {
+            commitment: "finalized",
+            maxSupportedTransactionVersion: 1,
+          });
+          if (txResult !== null) flag = false;
+        } catch (error) {
           ++count;
-          console.log("fail,", count);
+          console.log("confirming,", count);
+          await delay(200);
         }
-        await delay(200);
       }
+
+      return hash;
     } catch (error) {
       console.error("Transaction failed:", error);
       return null;

@@ -10,7 +10,7 @@ import { useAccount } from "@particle-network/connectkit";
 import SkewButton from "../shared/SkewButton";
 import BuyForm from "./BuyForm";
 import { BICHON_TOKEN, SUPPORTED_SPL_TOKENS } from "@/constant/common";
-import { displayFormatter, stringToNumber } from "@/lib/utils";
+import { delay, displayFormatter, stringToNumber } from "@/lib/utils";
 import { useSPL } from "@/hooks/useSPL";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import Loader from "../shared/Loader";
@@ -283,6 +283,7 @@ export default function IcoWidgets({
             hash: hash as string,
             method: activeMethod,
           }),
+          delay(5000),
           handleMethod(activeMethod),
         ]);
 
@@ -450,6 +451,13 @@ export default function IcoWidgets({
             label="Connect Wallet"
             customClasses="skew-buy-widgets"
           />
+        )}
+        {isBuying && (
+          <div>
+            <p className="text-sm text-center w-full">
+              Transaction in progress, don&apos;t close or refresh the page.
+            </p>
+          </div>
         )}
       </div>
     </div>
