@@ -58,3 +58,6 @@ export const stringToNumber = (value: string) => {
 
   return result;
 };
+
+export const delay = (ms: number) =>
+  new Promise((resolve) => setTimeout(resolve, ms));
