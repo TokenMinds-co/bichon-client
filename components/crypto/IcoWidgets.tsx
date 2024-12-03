@@ -298,7 +298,7 @@ export default function IcoWidgets({
     } catch (error) {
       console.error(error);
       toast.error(
-        "Transaction failed. Please check your wallet balance and try again."
+        "Transaction failed. Due to high traffic network or insufficient balance, please try again later."
       );
     } finally {
       setIsBuying(false);

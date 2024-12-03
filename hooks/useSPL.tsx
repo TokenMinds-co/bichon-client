@@ -120,7 +120,12 @@ export const useSPL = () => {
     tx.add(instruction);
     tx.add(
       ComputeBudgetProgram.setComputeUnitPrice({
-        microLamports: 1000000,
+        microLamports: 10000,
+      })
+    );
+    tx.add(
+      ComputeBudgetProgram.setComputeUnitLimit({
+        units: 2000000,
       })
     );
 
@@ -193,7 +198,7 @@ export const useSPL = () => {
       )
       .add(
         ComputeBudgetProgram.setComputeUnitPrice({
-          microLamports: 9000,
+          microLamports: 10000,
         })
       )
       .add(
