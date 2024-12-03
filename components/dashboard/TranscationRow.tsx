@@ -14,13 +14,13 @@ interface TransactionRowProps {
 }
 
 export default function TranscationRow({ tx, ticker }: TransactionRowProps) {
-  const { env, explorer } = getExplorer();
+  const { env } = getExplorer();
   const copyToClipboard = async (text: string) => {
     await navigator.clipboard.writeText(text);
     alert("Copied to clipboard!");
   };
 
-  let link = `${explorer}/tx/${tx.reference}`;
+  let link = `https://explorer.solana.com/tx/${tx.reference}`;
   if (tx.method !== "FIAT" && env === "development") {
     link += "?cluster=devnet";
   }

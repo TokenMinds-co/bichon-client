@@ -132,7 +132,7 @@ export const useSPL = () => {
       while (flag) {
         try {
           const latestBlockhash = await solanaConnection.getLatestBlockhash({
-            commitment: "finalized",
+            commitment: "confirmed",
           });
           blockhash = latestBlockhash.blockhash;
           lastValidBlockHeight = latestBlockhash.lastValidBlockHeight - 150;
@@ -159,7 +159,7 @@ export const useSPL = () => {
       while (flag) {
         try {
           const txResult = await solanaConnection.getTransaction(hash, {
-            commitment: "finalized",
+            commitment: "confirmed",
             maxSupportedTransactionVersion: 1,
           });
           if (txResult !== null) flag = false;
@@ -210,7 +210,7 @@ export const useSPL = () => {
       while (flag) {
         try {
           const latestBlockhash = await solanaConnection.getLatestBlockhash({
-            commitment: "finalized",
+            commitment: "confirmed",
           });
           blockhash = latestBlockhash.blockhash;
           lastValidBlockHeight = latestBlockhash.lastValidBlockHeight - 150;
@@ -231,14 +231,12 @@ export const useSPL = () => {
       });
       const hash = transactionResponse.signature;
       console.log("Transaction hash:", hash);
-
       flag = true;
       count = 0;
       while (flag) {
         try {
           const txResult = await solanaConnection.getTransaction(hash, {
-            commitment: "finalized",
-            maxSupportedTransactionVersion: 1,
+            commitment: "confirmed",
           });
           if (txResult !== null) flag = false;
         } catch (error) {
@@ -251,7 +249,7 @@ export const useSPL = () => {
       return hash;
     } catch (error) {
       console.error("Transaction failed:", error);
-      return null;
+      throw error;
     }
   };
 
