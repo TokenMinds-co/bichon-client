@@ -70,21 +70,29 @@ export default function Overview() {
       <Card className="bg-gradient-to-br from-green-500 to-emerald-700 border-0 shadow-xl overflow-hidden transition-all cursor-pointer duration-300 ease-in-out hover:shadow-2xl hover:scale-105 hover:from-green-400 hover:to-emerald-600">
         <CardHeader className="border-b border-white/20 pb-3">
           <CardTitle className="text-lg font-medium text-green-100">
-            Token Bought
+            Total Token Staked
           </CardTitle>
         </CardHeader>
         <CardContent className="py-6">
           <div className="flex items-center justify-between">
             <div>
-              <div className="text-3xl font-extrabold text-white items-center flex">
-                {overview?.totalToken || 0} {tokenDetails?.ticker || "BDF"}{" "}
-                <span className="ml-4 text-base font-normal text-white/75">
-                  +20% bonus reward
-                </span>
+              <div className="flex-col text-white">
+                <div className="font-extrabold text-3xl">
+                  {(Number(overview?.totalToken) || 0) +
+                    0.4 * Number(overview?.totalToken)}{" "}
+                  {tokenDetails?.ticker || "BDF"}{" "}
+                </div>
+
+                <p className="text-sm text-green-200 mt-2">
+                  {overview?.totalToken || 0} {tokenDetails?.ticker || "BDF"}{" "}
+                  bought
+                </p>
+
+                <p className="text-sm text-green-200">
+                  {(Number(overview?.totalToken) || 0) * 0.4}{" "}
+                  {tokenDetails?.ticker || "BDF"} bonus reward
+                </p>
               </div>
-              <p className="text-sm mt-2 text-green-200">
-                Amount of token bought on presale
-              </p>
             </div>
             <div className="bg-green-500/30 p-3 rounded-full">
               <HandCoins className="h-6 w-6 text-green-100" />
