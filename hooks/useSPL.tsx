@@ -234,8 +234,9 @@ export const useSPL = () => {
         maxRetries: 10,
         skipPreflight: true,
       });
+
       const hash = transactionResponse.signature;
-      console.log("Transaction hash:", hash);
+      // console.log("Transaction hash:", hash);
       flag = true;
       count = 0;
       while (flag) {
@@ -243,6 +244,11 @@ export const useSPL = () => {
           const txResult = await solanaConnection.getTransaction(hash, {
             commitment: "confirmed",
           });
+
+          if (txResult?.meta?.err) {
+            return false;
+          }
+
           if (txResult !== null) flag = false;
         } catch (error) {
           ++count;

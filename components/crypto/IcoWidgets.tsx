@@ -233,6 +233,14 @@ export default function IcoWidgets({
         return;
       }
 
+      // Validate check for balance for gas fee
+      const solBalance = (await getSOLBalance()) as number;
+      const amountWithGas = Number(buyDetails.amount) + 0.000019;
+      if (solBalance < amountWithGas) {
+        toast.error("Insufficient SOL for transaction fee");
+        return;
+      }
+
       if (activeMethod === "CRYPTO_SOLANA") {
         hash = await buyViaSOL(
           tokenDetails.solanaTreasury,
@@ -296,9 +304,8 @@ export default function IcoWidgets({
         usdAmount: "",
       });
     } catch (error) {
-      console.error(error);
       toast.error(
-        "Transaction failed. Due to high traffic network or insufficient balance, please try again later."
+        "Transaction failed due to high traffic network or insufficient balance, please try again later."
       );
     } finally {
       setIsBuying(false);
