@@ -55,7 +55,7 @@ export default function IcoWidgets({
   const queryClient = useQueryClient();
   const { isConnected, address } = useAccount();
   const { getATAandBalance, getSOLBalance, buyViaSOL, buyViaSPL } = useSPL();
-  const [activeMethod, setActiveMethod] = useState<TransactionMethod>("FIAT");
+  const [activeMethod, setActiveMethod] = useState<TransactionMethod>("CRYPTO_SOLANA");
   const [isFetchingBalance, setIsFetchingBalance] = useState(false);
   const [isBuying, setIsBuying] = useState(false);
   const [tokenState, setTokenState] = useState({
@@ -383,7 +383,7 @@ export default function IcoWidgets({
 
         {!isPresaleEnded && (
           <>
-            <div className="grid grid-cols-2 md:grid-cols-2 gap-2 font-spaceMono font-bold">
+            <div className="grid grid-cols-1 md:grid-cols-1 gap-2 font-spaceMono font-bold">
               <IcoMethod
                 src="/assets/icons/solana.svg"
                 label="SOL"
@@ -391,16 +391,16 @@ export default function IcoWidgets({
                 handleClick={handleMethod}
                 active={activeMethod}
               />
-              {/* 
-              <IcoMethod
+              
+              {/* <IcoMethod
                 src="/assets/icons/usdt.svg"
                 label="USDT"
                 method="CRYPTO_USDT"
                 handleClick={handleMethod}
                 active={activeMethod}
-              />
+              /> */}
 
-              <IcoMethod
+              {/* <IcoMethod
                 src="/assets/icons/usdc.svg"
                 label="USDC"
                 method="CRYPTO_USDC"
@@ -408,14 +408,14 @@ export default function IcoWidgets({
                 active={activeMethod}
               /> */}
 
-              <IcoMethod
+              {/* <IcoMethod
                 src=""
                 label="CARD"
                 method="FIAT"
                 handleClick={handleMethod}
                 active={activeMethod}
                 isFiat
-              />
+              /> */}
             </div>
 
             <BuyForm
