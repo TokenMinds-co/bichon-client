@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Link from "next/link";
 import React from "react";
@@ -36,11 +36,17 @@ export default function Footer() {
         <Link className="hover:underline" href={"#"}>
           Privacy Policy
         </Link>
-        <Link className="hover:underline" href={"#"}>
+        <Link
+          className="hover:underline"
+          href={"https://bichondefender.com/sitemap.xml"}
+        >
           Sitemap
         </Link>
-        <Link className="hover:underline" href={"#"}>
-          Terms of Use
+        <Link
+          className="hover:underline"
+          href={"https://bichondefender.gitbook.io/bichondefender-docs#"}
+        >
+          Whitepaper
         </Link>
       </div>
       {/* <div className="text-white" id="google_translate_element" /> */}

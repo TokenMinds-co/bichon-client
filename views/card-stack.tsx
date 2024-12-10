@@ -46,7 +46,7 @@ const CardStack = () => {
           </li>
         </ul>
       ),
-      tailwindBg: "bg-gray-400",
+      tailwindBg: "bg-gradient-to-br from-gray-400 via-gray-500 to-gray-600",
       pt: "pt-[11.5em]",
     },
     {
@@ -58,7 +58,7 @@ const CardStack = () => {
           <li>Ngrave Graphene Backup</li>
         </ul>
       ),
-      tailwindBg: "bg-gray-500",
+      tailwindBg: "bg-gradient-to-br from-gray-500 via-gray-600 to-gray-700",
       pt: "pt-[12.5em]",
     },
     {
@@ -71,7 +71,7 @@ const CardStack = () => {
           <li>24/7 Operation and Risk Management</li>
         </ul>
       ),
-      tailwindBg: "bg-gray-600",
+      tailwindBg: "bg-gradient-to-br from-gray-600 via-gray-700 to-gray-800",
       pt: "pt-[13.5em]",
     },
     {
@@ -87,7 +87,7 @@ const CardStack = () => {
           <li>First Order of Business for the Defenders DAO</li>
         </ul>
       ),
-      tailwindBg: "bg-gray-700",
+      tailwindBg: "bg-gradient-to-br from-gray-700 via-gray-800 to-gray-900",
       pt: "pt-[14.5em]",
     },
     {
@@ -100,7 +100,7 @@ const CardStack = () => {
           <li>Regular Gaming NFTs (Total 1,500 NFTs)</li>
         </ul>
       ),
-      tailwindBg: "bg-gray-800",
+      tailwindBg: "bg-gradient-to-br from-gray-800 to-gray-900",
       pt: "pt-[15.5em]",
     },
     {
@@ -151,7 +151,7 @@ const CardStack = () => {
                     ref={(el) => {
                       observerRefs.current[index] = el;
                     }}
-                    className={`${item.tailwindBg} flex-col gap-5 p-10 skew-widgets shadow-lg h-[400px] sm:h-[325px] flex transition-all duration-500`}
+                    className={`${item.tailwindBg} flex-col gap-5 py-10 px-12 skew-widgets shadow-lg h-[400px] sm:h-[325px] flex transition-all duration-500`}
                   >
                     <h2 className="text-base sm:text-lg xl:text-2xl text-left">
                       {item.title}

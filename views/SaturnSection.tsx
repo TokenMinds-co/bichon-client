@@ -1,7 +1,7 @@
 import BgOverlayBottom from "@/components/shared/BgOverlayBottom";
 import BgOverlayTop from "@/components/shared/BgOverlayTop";
 import ClientParallax from "@/components/shared/ClientParallax";
-import SkewButton from "@/components/shared/SkewButton";
+// import SkewButton from "@/components/shared/SkewButton";
 import Image from "next/image";
 import React from "react";
 
@@ -30,12 +30,12 @@ export default function SaturnSection() {
         >
           EXPLORE MORE UNIVERSES WITH EXTRAORDINARY NUANCES
         </div>
-        <div className="flex flex-col sm:flex-row gap-5">
+        {/* <div className="flex flex-col sm:flex-row gap-5">
           <SkewButton data-aos="fade-right">Enter Multiverse</SkewButton>
           <SkewButton data-aos="fade-left" variant="secondary">
             Explore Details
           </SkewButton>
-        </div>
+        </div> */}
       </div>
 
       <ClientParallax
