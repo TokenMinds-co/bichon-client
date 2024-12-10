@@ -55,19 +55,20 @@ export default function IcoWidgets({
   const queryClient = useQueryClient();
   const { isConnected, address } = useAccount();
   const { getATAandBalance, getSOLBalance, buyViaSOL, buyViaSPL } = useSPL();
-  const [activeMethod, setActiveMethod] = useState<TransactionMethod>("CRYPTO_SOLANA");
+  const [activeMethod, setActiveMethod] =
+    useState<TransactionMethod>("CRYPTO_SOLANA");
   const [isFetchingBalance, setIsFetchingBalance] = useState(false);
   const [isBuying, setIsBuying] = useState(false);
   const [tokenState, setTokenState] = useState({
-    address: "",
+    address: SUPPORTED_SPL_TOKENS[0].address,
     balance: 0,
-    decimals: 0,
-    symbol: "USD",
+    decimals: SUPPORTED_SPL_TOKENS[0].decimals,
+    symbol: SUPPORTED_SPL_TOKENS[0].symbol,
     price: currentPrice,
-    rawPrice: currentPrice,
+    rawPrice: solprice,
     boughtAmount: 0,
     usdAmount: 0,
-    logo: "",
+    logo: "/assets/icons/solana.svg",
   });
   const [buyDetails, setBuyDetails] = useState({
     isDirty: false,
@@ -314,9 +315,11 @@ export default function IcoWidgets({
 
   // Monitor priceFeed changes
   useEffect(() => {
-    if (activeMethod === "CRYPTO_SOLANA") {
+    const getBalance = async () => {
+      const balance = (await getSOLBalance()) as number;
       setTokenState({
         ...tokenState,
+        balance,
         price: Number(
           displayFormatter(
             currentPrice / solprice,
@@ -324,6 +327,10 @@ export default function IcoWidgets({
           )
         ),
       });
+    };
+
+    if (activeMethod === "CRYPTO_SOLANA") {
+      getBalance();
     } else if (activeMethod === "CRYPTO_USDT") {
       setTokenState({
         ...tokenState,
@@ -391,7 +398,7 @@ export default function IcoWidgets({
                 handleClick={handleMethod}
                 active={activeMethod}
               />
-              
+
               {/* <IcoMethod
                 src="/assets/icons/usdt.svg"
                 label="USDT"
