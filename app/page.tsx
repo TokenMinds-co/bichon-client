@@ -34,7 +34,7 @@ export default async function Home() {
         <CastleSection />
         <SaturnSection />
         <RoadmapSection />
-        <TeamSection />
+        {/* <TeamSection /> */}
         <CollabSection />
         <EarthSection />
       </div>
@@ -57,7 +57,7 @@ export default async function Home() {
       <CastleSection />
       <SaturnSection />
       <RoadmapSection />
-      <TeamSection />
+      {/* <TeamSection /> */}
       <CollabSection />
       <EarthSection />
     </div>
