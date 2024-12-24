@@ -25,10 +25,10 @@ const Navbar = () => {
       href: "/#roadmap ",
     },
 
-    {
-      name: "TEAM",
-      href: "/#team ",
-    },
+    // {
+    //   name: "TEAM",
+    //   href: "/#team ",
+    // },
     {
       name: "WHITEPAPER",
       href: "https://bichondefender.gitbook.io/bichondefender-docs",

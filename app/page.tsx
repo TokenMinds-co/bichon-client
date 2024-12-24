@@ -6,7 +6,7 @@ import SaturnSection from "@/views/SaturnSection";
 // import FAQSection from "@/views/FAQSection";
 import RoadmapSection from "@/views/RoadmapSection";
 import FAQSection from "@/views/FAQSection";
-import TeamSection from "@/views/TeamSection";
+// import TeamSection from "@/views/TeamSection";
 import CollabSection from "@/views/CollabSection";
 
 export const dynamic = "force-dynamic";
